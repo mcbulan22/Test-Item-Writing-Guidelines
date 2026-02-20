@@ -3,693 +3,1334 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Test Time Writing Guidelines - MAAP-CCA</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Test Item Writing Guidelines — MAAP-CCA</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink:#0C1E1E; --white:#FFFFFF; --mist:#F0F7F7; --border:#C5DEDE; --gold:#E8A020;
-    --mcq-900:#0A3040; --mcq-700:#0D4A60; --mcq-500:#1A6E8A; --mcq-300:#C2E4EE; --mcq-100:#E8F5F9;
-    --lse-900:#0D4455; --lse-700:#137088; --lse-500:#1A96B0; --lse-300:#B8E5EE; --lse-100:#E5F6FA;
-    --ess-900:#0A5550; --ess-700:#0E7A72; --ess-500:#16A89E; --ess-300:#AAEAE6; --ess-100:#E0F7F6;
-    --fib-900:#0C4A3A; --fib-700:#116650; --fib-500:#188A6A; --fib-300:#A8DECE; --fib-100:#E0F5EF;
-    --tf-900:#1A3850;  --tf-700:#265878;  --tf-500:#3578A0;  --tf-300:#B8D8EE;  --tf-100:#E5F1F8;
-    --mt-900:#1E2E44;  --mt-700:#2C4568;  --mt-500:#3D6090;  --mt-300:#BCCDE6;  --mt-100:#E8EFF8;
-    --teal-950:#071820; --teal-800:#0B3040; --teal-600:#0F5068; --teal-400:#1A7A96; --teal-50:#EAF6FA;
+:root {
+  --ink: #0C1E1E;
+  --white: #FFFFFF;
+  --mist: #F2F7F7;
+  --border: #D0E4E4;
+  --gold: #E8A020;
+  --gold-lt: #FFF3DC;
+  --teal-950: #071820;
+  --teal-800: #0B3040;
+  --teal-600: #0F5068;
+  --teal-400: #1A7A96;
+  --teal-100: #E0F3FA;
+  --teal-50: #EAF6FA;
+
+  --c1: #0A3040; --c1m: #1A6E8A; --c1l: #E8F5F9;
+  --c2: #0D4455; --c2m: #1A96B0; --c2l: #E5F6FA;
+  --c3: #0A5550; --c3m: #16A89E; --c3l: #E0F7F6;
+  --c4: #0C4A3A; --c4m: #188A6A; --c4l: #E0F5EF;
+  --c5: #1A3850; --c5m: #3578A0; --c5l: #E5F1F8;
+  --c6: #1E2E44; --c6m: #3D6090; --c6l: #E8EFF8;
+
+  --sidebar-w: 270px;
+  --header-h: 60px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--mist);
+  line-height: 1.65;
+}
+
+/* ── TOP BAR ── */
+#topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-h);
+  background: var(--teal-950);
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.35);
+}
+#topbar-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: .3px;
+  white-space: nowrap;
+}
+#topbar-logo span { color: var(--gold); }
+#topbar-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,.45);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#menu-toggle {
+  display: none;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 6px;
+  color: #fff;
+  width: 36px; height: 36px;
+  cursor: pointer;
+  font-size: 18px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .2s;
+}
+#menu-toggle:hover { background: rgba(255,255,255,.18); }
+.progress-bar {
+  position: fixed; top: var(--header-h); left: 0; right: 0; height: 3px;
+  background: rgba(255,255,255,.1); z-index: 99;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), #F5C46A);
+  width: 0%;
+  transition: width .1s linear;
+}
+
+/* ── LAYOUT ── */
+#layout {
+  display: flex;
+  margin-top: var(--header-h);
+  min-height: calc(100vh - var(--header-h));
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  position: sticky;
+  top: var(--header-h);
+  height: calc(100vh - var(--header-h));
+  overflow-y: auto;
+  background: var(--teal-800);
+  display: flex;
+  flex-direction: column;
+  transition: transform .3s ease;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.2) transparent;
+}
+#sidebar::-webkit-scrollbar { width: 5px; }
+#sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 3px; }
+
+.sidebar-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 20px 20px 8px;
+}
+.sidebar-section-label + .sidebar-section-label { padding-top: 8px; }
+
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background .15s, border-left-color .15s;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  color: rgba(255,255,255,.65);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+.nav-item:hover { background: rgba(255,255,255,.07); color: rgba(255,255,255,.9); }
+.nav-item.active { background: rgba(255,255,255,.1); border-left-color: var(--gold); color: #fff; font-weight: 500; }
+.nav-dot {
+  width: 24px; height: 24px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.sidebar-divider {
+  height: 1px;
+  background: rgba(255,255,255,.1);
+  margin: 8px 20px;
+}
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px 20px;
+  font-size: 11px;
+  color: rgba(255,255,255,.3);
+  line-height: 1.5;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+/* ── MAIN ── */
+#main {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 40px 64px;
+  max-width: 900px;
+}
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(140deg, var(--teal-950) 0%, var(--teal-800) 55%, var(--teal-600) 100%);
+  border-radius: 16px;
+  padding: 48px 44px 40px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -80px; right: -60px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.03);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: -60px; left: 30px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: rgba(232,160,32,.07);
+  pointer-events: none;
+}
+.hero-rule { width: 52px; height: 4px; background: var(--gold); border-radius: 2px; margin-bottom: 18px; }
+.hero-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 10px;
+}
+.hero h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 14px;
+}
+.hero-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,.62);
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.hero-tag {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.18);
+  color: rgba(255,255,255,.8);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+/* ── PART HEADER ── */
+.part-header {
+  background: linear-gradient(135deg, var(--teal-950), var(--teal-800));
+  border-radius: 12px;
+  padding: 18px 28px;
+  margin-bottom: 24px;
+  border-left: 5px solid var(--gold);
+  display: flex; align-items: center; gap: 14px;
+}
+.part-header-num {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--gold);
+  opacity: .7;
+  flex-shrink: 0;
+}
+.part-header h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+.part-header p {
+  font-size: 12px;
+  color: rgba(255,255,255,.55);
+  margin-top: 3px;
+}
+
+/* ── SECTION CARDS ── */
+.section-card {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  margin-bottom: 28px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,.05);
+  transition: box-shadow .2s;
+}
+.section-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,.09); }
+
+.card-header {
+  padding: 20px 28px;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s;
+  position: relative;
+}
+.card-header.open { border-bottom-color: var(--border); }
+.card-num {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  flex-shrink: 0;
+}
+.card-title-group { flex: 1; }
+.card-title {
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.card-subtitle {
+  font-size: 12px;
+  color: #6A8888;
+  margin-top: 3px;
+}
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
+.card-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  padding: 3px 9px;
+  border-radius: 10px;
+  font-weight: 500;
+  border: 1px solid;
+  opacity: .75;
+}
+.chevron {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--mist);
+  flex-shrink: 0;
+  transition: transform .25s, background .2s;
+  font-size: 12px;
+  color: #6A8888;
+}
+.card-header.open .chevron { transform: rotate(180deg); background: var(--border); }
+
+.card-body {
+  display: none;
+  padding: 0;
+}
+.card-body.open { display: block; }
+
+/* ── CARD CONTENT ── */
+.card-inner { padding: 28px; }
+.card-inner + .card-inner { border-top: 1px solid var(--border); }
+
+.overview {
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  line-height: 1.75;
+  margin-bottom: 26px;
+  border-left: 4px solid;
+}
+
+/* ── SUB HEADERS ── */
+.sub-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  border-left: 4px solid var(--gold);
+}
+.sub-header h3 {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  color: #fff;
+}
+
+/* ── STEPS ── */
+.steps { display: flex; flex-direction: column; gap: 3px; margin-bottom: 26px; }
+.step-row { display: flex; border-radius: 0; }
+.step-row:first-child { border-radius: 8px 8px 0 0; }
+.step-row:last-child { border-radius: 0 0 8px 8px; }
+.step-row:only-child { border-radius: 8px; }
+.step-num {
+  min-width: 38px; width: 38px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  border-radius: inherit;
+  border-radius: 0;
+}
+.step-row:first-child .step-num { border-radius: 8px 0 0 0; }
+.step-row:last-child .step-num { border-radius: 0 0 0 8px; }
+.step-content {
+  flex: 1;
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+.step-row:first-child .step-content { border-top: 1px solid var(--border); border-radius: 0 8px 0 0; }
+.step-row:last-child .step-content { border-radius: 0 0 8px 0; }
+.step-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+.step-desc { font-size: 12.5px; color: #2A4040; line-height: 1.6; }
+.step-tip {
+  font-size: 11.5px;
+  color: #5A6A50;
+  font-style: italic;
+  margin-top: 7px;
+  padding-left: 10px;
+  border-left: 2px solid var(--gold);
+}
+.step-tip::before { content: '✎ Tip: '; font-weight: 600; font-style: normal; color: #8A6000; }
+
+/* ── EXAMPLES ── */
+.example-grid { display: grid; grid-template-columns: 1fr 1fr; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 26px; }
+.ex-label { padding: 8px 14px; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; color: #fff; }
+.ex-body { padding: 14px 16px; font-size: 12.5px; line-height: 1.65; }
+.ex-stem { font-weight: 600; margin-bottom: 8px; color: var(--ink); }
+.ex-opts { font-family: 'DM Mono', monospace; font-size: 11px; color: #333; margin-bottom: 10px; line-height: 1.8; }
+.ex-note { font-style: italic; font-size: 11px; color: #555; border-top: 1px solid rgba(0,0,0,.08); padding-top: 8px; }
+
+/* ── CHECKLIST TABLE ── */
+.checklist {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  margin-bottom: 26px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--border);
+}
+.checklist thead td { padding: 10px 14px; font-weight: 600; color: #fff; font-size: 12px; }
+.checklist thead td:first-child { width: 18%; }
+.checklist tbody td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.55; }
+.checklist tbody tr:last-child td { border-bottom: none; }
+.checklist tbody tr:nth-child(odd) td { background: var(--teal-50); }
+.checklist tbody tr:nth-child(even) td { background: #fff; }
+.checklist tbody td:first-child { font-weight: 600; font-size: 12px; }
+
+/* ── DO/DON'T ── */
+.dd-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.dd-head { padding: 10px 16px; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; color: #fff; text-align: center; letter-spacing: .5px; }
+.dd-item { padding: 8px 14px; font-size: 12px; line-height: 1.55; border-bottom: 1px solid var(--border); }
+.dd-item:last-child { border-bottom: none; }
+
+/* ── PART 2 FACTORS ── */
+.factor-block { margin-bottom: 14px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 0 1px var(--border); }
+.factor-header { display: flex; align-items: center; gap: 0; }
+.factor-num {
+  min-width: 42px;
+  height: 46px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  flex-shrink: 0;
+}
+.factor-label {
+  flex: 1;
+  padding: 12px 18px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #fff;
+}
+.factor-body {
+  padding: 14px 18px 14px 60px;
+  background: var(--teal-50);
+  font-size: 12.5px;
+  line-height: 1.7;
+}
+.factor-li { margin-bottom: 4px; }
+.factor-li::before { content: '• '; color: var(--teal-400); font-weight: 700; }
+
+/* ── BLUEPRINT TABLE ── */
+.blueprint {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  margin-bottom: 26px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--border);
+}
+.blueprint thead td { background: var(--teal-800); color: #fff; padding: 11px 14px; font-weight: 600; font-size: 12px; text-align: center; }
+.blueprint thead td:first-child { text-align: left; width: 26%; }
+.blueprint tbody tr:nth-child(odd) td { background: var(--teal-50); }
+.blueprint tbody tr:nth-child(even) td { background: #fff; }
+.blueprint tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); text-align: center; vertical-align: middle; }
+.blueprint tbody tr:last-child td { border-bottom: none; }
+.blueprint tbody td:first-child { text-align: left; font-weight: 600; color: var(--teal-800); }
+.blueprint tbody td:last-child { text-align: left; font-size: 12px; }
+
+/* ── QUICK REFERENCE CARDS ── */
+.qr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 26px; }
+.qr-card { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); transition: transform .15s, box-shadow .15s; }
+.qr-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+.qr-label { padding: 9px 12px; color: #fff; font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500; text-align: center; letter-spacing: .3px; }
+.qr-body { padding: 10px 12px; font-size: 11.5px; color: var(--ink); background: var(--teal-50); line-height: 1.55; }
+
+/* ── FOOTER NOTE ── */
+.footer-note {
+  background: linear-gradient(135deg, var(--teal-950), var(--teal-800));
+  border-radius: 12px;
+  padding: 20px 28px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255,255,255,.75);
+  margin-top: 16px;
+}
+.footer-note strong { color: var(--gold); }
+
+/* ── BACK TO TOP ── */
+#back-top {
+  position: fixed;
+  bottom: 32px; right: 32px;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--teal-800);
+  color: #fff;
+  border: 2px solid var(--gold);
+  cursor: pointer;
+  font-size: 18px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  transition: transform .2s, background .2s;
+  z-index: 50;
+}
+#back-top:hover { background: var(--teal-600); transform: translateY(-2px); }
+#back-top.show { display: flex; }
+
+/* ── COLOR THEMES per section ── */
+.c1 { --hue: var(--c1); --mid: var(--c1m); --lt: var(--c1l); }
+.c2 { --hue: var(--c2); --mid: var(--c2m); --lt: var(--c2l); }
+.c3 { --hue: var(--c3); --mid: var(--c3m); --lt: var(--c3l); }
+.c4 { --hue: var(--c4); --mid: var(--c4m); --lt: var(--c4l); }
+.c5 { --hue: var(--c5); --mid: var(--c5m); --lt: var(--c5l); }
+.c6 { --hue: var(--c6); --mid: var(--c6m); --lt: var(--c6l); }
+
+.c1 .card-num, .c1 .step-num { background: var(--c1); }
+.c2 .card-num, .c2 .step-num { background: var(--c2); }
+.c3 .card-num, .c3 .step-num { background: var(--c3); }
+.c4 .card-num, .c4 .step-num { background: var(--c4); }
+.c5 .card-num, .c5 .step-num { background: var(--c5); }
+.c6 .card-num, .c6 .step-num { background: var(--c6); }
+
+.c1 .card-header { border-top: 4px solid var(--c1m); }
+.c2 .card-header { border-top: 4px solid var(--c2m); }
+.c3 .card-header { border-top: 4px solid var(--c3m); }
+.c4 .card-header { border-top: 4px solid var(--c4m); }
+.c5 .card-header { border-top: 4px solid var(--c5m); }
+.c6 .card-header { border-top: 4px solid var(--c6m); }
+
+.c1 .card-tag { color: var(--c1m); border-color: var(--c1m); background: var(--c1l); }
+.c2 .card-tag { color: var(--c2m); border-color: var(--c2m); background: var(--c2l); }
+.c3 .card-tag { color: var(--c3m); border-color: var(--c3m); background: var(--c3l); }
+.c4 .card-tag { color: var(--c4m); border-color: var(--c4m); background: var(--c4l); }
+.c5 .card-tag { color: var(--c5m); border-color: var(--c5m); background: var(--c5l); }
+.c6 .card-tag { color: var(--c6m); border-color: var(--c6m); background: var(--c6l); }
+
+.c1 .overview { background: var(--c1l); border-color: var(--c1m); }
+.c2 .overview { background: var(--c2l); border-color: var(--c2m); }
+.c3 .overview { background: var(--c3l); border-color: var(--c3m); }
+.c4 .overview { background: var(--c4l); border-color: var(--c4m); }
+.c5 .overview { background: var(--c5l); border-color: var(--c5m); }
+.c6 .overview { background: var(--c6l); border-color: var(--c6m); }
+
+.c1 .sub-header { background: var(--c1); }
+.c2 .sub-header { background: var(--c2); }
+.c3 .sub-header { background: var(--c3); }
+.c4 .sub-header { background: var(--c4); }
+.c5 .sub-header { background: var(--c5); }
+.c6 .sub-header { background: var(--c6); }
+
+.c1 .checklist thead { background: var(--c1); }
+.c2 .checklist thead { background: var(--c2); }
+.c3 .checklist thead { background: var(--c3); }
+.c4 .checklist thead { background: var(--c4); }
+.c5 .checklist thead { background: var(--c5); }
+.c6 .checklist thead { background: var(--c6); }
+
+.c1 .checklist tbody td:first-child { color: var(--c1m); }
+.c2 .checklist tbody td:first-child { color: var(--c2m); }
+.c3 .checklist tbody td:first-child { color: var(--c3m); }
+.c4 .checklist tbody td:first-child { color: var(--c4m); }
+.c5 .checklist tbody td:first-child { color: var(--c5m); }
+.c6 .checklist tbody td:first-child { color: var(--c6m); }
+
+.c1 .ex-label-b { background: var(--c1); } .c1 .ex-label-g { background: var(--c1m); }
+.c2 .ex-label-b { background: var(--c2); } .c2 .ex-label-g { background: var(--c2m); }
+.c3 .ex-label-b { background: var(--c3); } .c3 .ex-label-g { background: var(--c3m); }
+.c4 .ex-label-b { background: var(--c4); } .c4 .ex-label-g { background: var(--c4m); }
+.c5 .ex-label-b { background: var(--c5); } .c5 .ex-label-g { background: var(--c5m); }
+.c6 .ex-label-b { background: var(--c6); } .c6 .ex-label-g { background: var(--c6m); }
+
+.c1 .ex-b { background: var(--c1l); border-right: 1px solid var(--border); }
+.c2 .ex-b { background: var(--c2l); border-right: 1px solid var(--border); }
+.c3 .ex-b { background: var(--c3l); border-right: 1px solid var(--border); }
+.c4 .ex-b { background: var(--c4l); border-right: 1px solid var(--border); }
+.c5 .ex-b { background: var(--c5l); border-right: 1px solid var(--border); }
+.c6 .ex-b { background: var(--c6l); border-right: 1px solid var(--border); }
+
+.ex-g { background: var(--teal-50); }
+
+.c1 .dd-head-do { background: var(--c1m); } .c1 .dd-head-dn { background: var(--c1); }
+.c2 .dd-head-do { background: var(--c2m); } .c2 .dd-head-dn { background: var(--c2); }
+.c3 .dd-head-do { background: var(--c3m); } .c3 .dd-head-dn { background: var(--c3); }
+.c4 .dd-head-do { background: var(--c4m); } .c4 .dd-head-dn { background: var(--c4); }
+.c5 .dd-head-do { background: var(--c5m); } .c5 .dd-head-dn { background: var(--c5); }
+.c6 .dd-head-do { background: var(--c6m); } .c6 .dd-head-dn { background: var(--c6); }
+
+.dd-item-do { background: var(--teal-50); }
+.dd-item-dn { background: #F2F5F8; }
+
+.nav-dot-1 { background: var(--c1); }
+.nav-dot-2 { background: var(--c2); }
+.nav-dot-3 { background: var(--c3); }
+.nav-dot-4 { background: var(--c4); }
+.nav-dot-5 { background: var(--c5); }
+.nav-dot-6 { background: var(--c6); }
+.nav-dot-p2 { background: var(--teal-600); }
+
+/* ── ANIMATIONS ── */
+.section-card { animation: fadeUp .4s ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  #sidebar {
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    z-index: 90;
+    transform: translateX(-100%);
+    height: calc(100vh - var(--header-h));
   }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Source Serif 4',Georgia,serif;font-size:10.5pt;color:var(--ink);background:#fff;line-height:1.6;}
-  @media print{body{font-size:9.5pt;}.page-break{page-break-before:always;}.no-break{page-break-inside:avoid;}@page{margin:14mm 16mm 16mm;size:A4;}}
-
-  /* COVER */
-  .cover{background:linear-gradient(150deg,var(--teal-950) 0%,var(--teal-800) 45%,var(--teal-600) 100%);color:#fff;padding:50px 44px 38px;position:relative;overflow:hidden;}
-  .cover::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.03);}
-  .cover::after{content:'';position:absolute;bottom:-50px;left:20px;width:200px;height:200px;border-radius:50%;background:rgba(232,160,32,.08);}
-  .cover-rule{width:56px;height:4px;background:var(--gold);border-radius:2px;margin-bottom:20px;}
-  .cover h1{font-family:'Playfair Display',serif;font-size:26pt;font-weight:900;line-height:1.15;letter-spacing:-.3px;margin-bottom:10px;}
-  .cover-sub{font-size:10pt;color:rgba(255,255,255,.72);font-style:italic;margin-bottom:6px;}
-  .cover-desc{font-size:9.5pt;color:rgba(255,255,255,.62);max-width:500px;line-height:1.6;margin-bottom:26px;}
-  .cover-tags{display:flex;gap:7px;flex-wrap:wrap;}
-  .cover-tag{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);color:rgba(255,255,255,.85);font-family:'DM Mono',monospace;font-size:7pt;padding:4px 10px;border-radius:20px;}
-  .cover-stripe{height:5px;background:linear-gradient(90deg,var(--gold),#F5C46A,var(--gold));}
-
-  /* TOC */
-  .toc{padding:28px 44px;background:var(--teal-50);border-bottom:2px solid var(--border);}
-  .toc-h{font-family:'Playfair Display',serif;font-size:13pt;color:var(--teal-800);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
-  .toc-h::after{content:'';flex:1;height:1px;background:var(--border);}
-  .toc-part{background:var(--teal-800);color:#fff;padding:6px 14px;font-size:8.5pt;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px;}
-  .toc-row{display:flex;align-items:baseline;gap:6px;padding:5px 14px 5px 28px;font-size:9.5pt;border-bottom:1px dashed var(--border);}
-  .toc-row:nth-child(even){background:#fff;}
-  .toc-dot{flex:1;border-bottom:1px dotted #b0c8c8;margin:0 6px 3px;}
-  .toc-num{font-family:'DM Mono',monospace;font-size:8pt;color:var(--teal-600);min-width:18px;}
-
-  /* PART DIVIDER */
-  .part-div{background:linear-gradient(135deg,var(--teal-950),var(--teal-800));color:#fff;padding:20px 44px;font-family:'Playfair Display',serif;font-size:14pt;font-weight:700;border-bottom:4px solid var(--gold);}
-
-  /* TYPE BANNER */
-  .t-banner{padding:24px 44px 18px;color:#fff;position:relative;overflow:hidden;}
-  .t-banner::after{content:'';position:absolute;top:0;right:0;bottom:0;width:100px;background:rgba(255,255,255,.04);clip-path:polygon(50% 0%,100% 0%,100% 100%,0% 100%);}
-  .bn-mcq{background:linear-gradient(135deg,var(--mcq-900),var(--mcq-700));}
-  .bn-lse{background:linear-gradient(135deg,var(--lse-900),var(--lse-700));}
-  .bn-ess{background:linear-gradient(135deg,var(--ess-900),var(--ess-700));}
-  .bn-fib{background:linear-gradient(135deg,var(--fib-900),var(--fib-700));}
-  .bn-tf {background:linear-gradient(135deg,var(--tf-900), var(--tf-700)); }
-  .bn-mt {background:linear-gradient(135deg,var(--mt-900), var(--mt-700)); }
-  .t-banner h2{font-family:'Playfair Display',serif;font-size:16pt;font-weight:700;margin-bottom:5px;}
-  .t-banner .bsub{font-size:9pt;opacity:.78;font-style:italic;margin-bottom:12px;}
-  .ttags{display:flex;gap:6px;flex-wrap:wrap;}
-  .ttag{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.88);font-family:'DM Mono',monospace;font-size:7pt;padding:3px 9px;border-radius:12px;}
-
-  /* SECTION BODY */
-  .sb{padding:22px 44px;background:#fff;}
-  .sb.alt{background:var(--mist);}
-  .ov{font-size:9.8pt;line-height:1.72;color:#1A2E2E;padding:14px 18px;border-radius:0 6px 6px 0;margin-bottom:20px;}
-  .ov-mcq{background:var(--mcq-100);border-left:4px solid var(--mcq-500);}
-  .ov-lse{background:var(--lse-100);border-left:4px solid var(--lse-500);}
-  .ov-ess{background:var(--ess-100);border-left:4px solid var(--ess-500);}
-  .ov-fib{background:var(--fib-100);border-left:4px solid var(--fib-500);}
-  .ov-tf {background:var(--tf-100); border-left:4px solid var(--tf-500);}
-  .ov-mt {background:var(--mt-100); border-left:4px solid var(--mt-500);}
-
-  /* SUB-HEADERS */
-  .sh{display:flex;align-items:center;gap:10px;color:#fff;padding:8px 14px;margin-bottom:0;border-radius:3px;border-left:5px solid var(--gold);}
-  .sh h3{font-size:9.5pt;font-weight:600;}
-  .sh-mcq-d{background:var(--mcq-700);} .sh-mcq-m{background:var(--mcq-500);}
-  .sh-lse-d{background:var(--lse-700);} .sh-lse-m{background:var(--lse-500);}
-  .sh-ess-d{background:var(--ess-700);} .sh-ess-m{background:var(--ess-500);}
-  .sh-fib-d{background:var(--fib-700);} .sh-fib-m{background:var(--fib-500);}
-  .sh-tf-d {background:var(--tf-700);}  .sh-tf-m {background:var(--tf-500);}
-  .sh-mt-d {background:var(--mt-700);}  .sh-mt-m {background:var(--mt-500);}
-  .sh-p2   {background:var(--teal-800);border-left:5px solid var(--gold);}
-  .sh-p2b  {background:var(--teal-700);border-left:5px solid var(--gold);}
-  .sh-p2c  {background:var(--teal-600);border-left:5px solid var(--gold);}
-
-  /* STEPS */
-  .steps{margin-bottom:20px;}
-  .sr{display:flex;margin-bottom:2px;}
-  .sn{min-width:32px;width:32px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:12pt;font-weight:700;color:#fff;flex-shrink:0;}
-  .sn-mcq-1,.sn-mcq-5{background:var(--mcq-900);} .sn-mcq-2,.sn-mcq-4,.sn-mcq-6{background:var(--mcq-700);} .sn-mcq-3{background:var(--mcq-500);}
-  .sn-lse-1,.sn-lse-5{background:var(--lse-900);} .sn-lse-2,.sn-lse-4,.sn-lse-6{background:var(--lse-700);} .sn-lse-3{background:var(--lse-500);}
-  .sn-ess-1,.sn-ess-5{background:var(--ess-900);} .sn-ess-2,.sn-ess-4,.sn-ess-6{background:var(--ess-700);} .sn-ess-3{background:var(--ess-500);}
-  .sn-fib-1,.sn-fib-5{background:var(--fib-900);} .sn-fib-2,.sn-fib-4,.sn-fib-6{background:var(--fib-700);} .sn-fib-3{background:var(--fib-500);}
-  .sn-tf-1,.sn-tf-5  {background:var(--tf-900);}  .sn-tf-2,.sn-tf-4,.sn-tf-6  {background:var(--tf-700);} .sn-tf-3{background:var(--tf-500);}
-  .sn-mt-1,.sn-mt-5  {background:var(--mt-900);}  .sn-mt-2,.sn-mt-4,.sn-mt-6  {background:var(--mt-700);} .sn-mt-3{background:var(--mt-500);}
-  .sc{flex:1;padding:9px 13px;border-bottom:1px solid var(--border);}
-  .sr:nth-child(odd) .sc{background:var(--teal-50);} .sr:nth-child(even) .sc{background:var(--mist);}
-  .st{font-weight:600;font-size:9.5pt;margin-bottom:3px;}
-  .sd{font-size:9pt;color:#222;line-height:1.55;}
-  .tip{font-size:8.5pt;color:#3A5555;font-style:italic;margin-top:5px;padding-left:10px;border-left:2px solid var(--gold);}
-  .tip::before{content:'✎ Tip: ';font-weight:600;font-style:normal;color:#8A6000;}
-
-  /* EXAMPLES */
-  .exp{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:20px;border-radius:6px;overflow:hidden;border:1px solid var(--border);}
-  .el{padding:7px 14px;font-family:'DM Mono',monospace;font-size:8pt;font-weight:500;color:#fff;letter-spacing:.3px;}
-  .eb{padding:12px 14px;font-size:9pt;line-height:1.6;}
-  .estem{font-weight:600;margin-bottom:6px;color:var(--ink);}
-  .eopts{font-family:'DM Mono',monospace;font-size:8pt;color:#333;margin-bottom:8px;line-height:1.7;}
-  .enote{font-style:italic;font-size:8pt;color:#555;border-top:1px solid rgba(0,0,0,.08);padding-top:6px;}
-  .el-mcq-b{background:var(--mcq-700);} .el-mcq-g{background:var(--mcq-500);}
-  .el-lse-b{background:var(--lse-700);} .el-lse-g{background:var(--lse-500);}
-  .el-ess-b{background:var(--ess-700);} .el-ess-g{background:var(--ess-500);}
-  .el-fib-b{background:var(--fib-700);} .el-fib-g{background:var(--fib-500);}
-  .el-tf-b {background:var(--tf-700);}  .el-tf-g {background:var(--tf-500);}
-  .el-mt-b {background:var(--mt-700);}  .el-mt-g {background:var(--mt-500);}
-  .eb-mcq-b{background:var(--mcq-100);border-right:1px solid var(--border);} .eb-mcq-g{background:#EAF6FA;}
-  .eb-lse-b{background:var(--lse-100);border-right:1px solid var(--border);} .eb-lse-g{background:#E0F8FC;}
-  .eb-ess-b{background:var(--ess-100);border-right:1px solid var(--border);} .eb-ess-g{background:#D8F8F6;}
-  .eb-fib-b{background:var(--fib-100);border-right:1px solid var(--border);} .eb-fib-g{background:#D8F5EC;}
-  .eb-tf-b {background:var(--tf-100); border-right:1px solid var(--border);} .eb-tf-g {background:#DFF0FA;}
-  .eb-mt-b {background:var(--mt-100); border-right:1px solid var(--border);} .eb-mt-g {background:#E0E8F5;}
-
-  /* CHECKLIST TABLE */
-  .ct{width:100%;border-collapse:collapse;font-size:9pt;margin-bottom:20px;}
-  .ct thead td{padding:8px 12px;font-weight:600;color:#fff;font-size:9pt;}
-  .ct thead td:first-child{width:19%;} .ct thead td:nth-child(2){width:42%;} .ct thead td:last-child{width:39%;}
-  .ct.mcq thead{background:var(--mcq-700);} .ct.lse thead{background:var(--lse-700);}
-  .ct.ess thead{background:var(--ess-700);} .ct.fib thead{background:var(--fib-700);}
-  .ct.tf  thead{background:var(--tf-700);}  .ct.mt  thead{background:var(--mt-700);}
-  .ct tbody tr:nth-child(odd)  td{background:var(--teal-50);}
-  .ct tbody tr:nth-child(even) td{background:var(--mist);}
-  .ct tbody td{padding:7px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
-  .ct tbody td:first-child{font-weight:600;}
-  .ct.mcq tbody td:first-child{color:var(--mcq-700);} .ct.lse tbody td:first-child{color:var(--lse-700);}
-  .ct.ess tbody td:first-child{color:var(--ess-700);} .ct.fib tbody td:first-child{color:var(--fib-700);}
-  .ct.tf  tbody td:first-child{color:var(--tf-700);}  .ct.mt  tbody td:first-child{color:var(--mt-700);}
-
-  /* DOS DONTS */
-  .dd{display:grid;grid-template-columns:1fr 1fr;border-radius:6px;overflow:hidden;border:1px solid var(--border);margin-bottom:0;}
-  .ddh{padding:7px 14px;font-family:'DM Mono',monospace;font-size:9pt;font-weight:500;color:#fff;text-align:center;}
-  .ddi{padding:6px 12px;font-size:8.8pt;line-height:1.5;border-bottom:1px solid var(--border);}
-  .do-mcq .ddh{background:var(--mcq-500);} .do-mcq .ddi:nth-child(odd){background:var(--mcq-100);} .do-mcq .ddi:nth-child(even){background:#F4FAFE;}
-  .do-lse .ddh{background:var(--lse-500);} .do-lse .ddi:nth-child(odd){background:var(--lse-100);} .do-lse .ddi:nth-child(even){background:#EBF9FC;}
-  .do-ess .ddh{background:var(--ess-500);} .do-ess .ddi:nth-child(odd){background:var(--ess-100);} .do-ess .ddi:nth-child(even){background:#E6F9F8;}
-  .do-fib .ddh{background:var(--fib-500);} .do-fib .ddi:nth-child(odd){background:var(--fib-100);} .do-fib .ddi:nth-child(even){background:#E6F5EF;}
-  .do-tf  .ddh{background:var(--tf-500);}  .do-tf  .ddi:nth-child(odd){background:var(--tf-100);}  .do-tf  .ddi:nth-child(even){background:#EBF3FA;}
-  .do-mt  .ddh{background:var(--mt-500);}  .do-mt  .ddi:nth-child(odd){background:var(--mt-100);}  .do-mt  .ddi:nth-child(even){background:#E8EFF8;}
-  .dn-mcq .ddh{background:var(--mcq-900);} .dn-mcq .ddi:nth-child(odd){background:#EFF5F8;}  .dn-mcq .ddi:nth-child(even){background:#E4EEF3;}
-  .dn-lse .ddh{background:var(--lse-900);} .dn-lse .ddi:nth-child(odd){background:#EDF6F8;}  .dn-lse .ddi:nth-child(even){background:#E2F0F4;}
-  .dn-ess .ddh{background:var(--ess-900);} .dn-ess .ddi:nth-child(odd){background:#ECF6F6;}  .dn-ess .ddi:nth-child(even){background:#E0F0F0;}
-  .dn-fib .ddh{background:var(--fib-900);} .dn-fib .ddi:nth-child(odd){background:#EBF4F0;}  .dn-fib .ddi:nth-child(even){background:#E0EEE9;}
-  .dn-tf  .ddh{background:var(--tf-900);}  .dn-tf  .ddi:nth-child(odd){background:#EEF4F8;}  .dn-tf  .ddi:nth-child(even){background:#E3EDF4;}
-  .dn-mt  .ddh{background:var(--mt-900);}  .dn-mt  .ddi:nth-child(odd){background:#ECEEF4;}  .dn-mt  .ddi:nth-child(even){background:#E2E6F2;}
-
-  /* PART 2 */
-  .fr{display:flex;margin-bottom:2px;}
-  .fn{min-width:36px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13pt;font-weight:700;color:#fff;}
-  .fb{flex:1;padding:8px 14px;display:flex;align-items:center;font-weight:600;font-size:9.5pt;color:#fff;}
-  .fc{padding:10px 14px 10px 52px;font-size:9pt;line-height:1.6;border-bottom:1px solid var(--border);}
-  .fc:nth-child(odd){background:var(--teal-50);} .fc:nth-child(even){background:var(--mist);}
-  .fi{padding:2px 0;} .fi::before{content:'• ';font-weight:700;color:var(--teal-600);}
-  .f1{background:var(--teal-950);} .f2{background:var(--teal-800);} .f3{background:var(--teal-600);}
-  .f4{background:var(--mcq-700);} .f5{background:var(--lse-700);} .f6{background:var(--ess-700);} .f7{background:var(--fib-700);}
-
-  /* BLUEPRINT */
-  .bp{width:100%;border-collapse:collapse;font-size:9pt;margin-bottom:24px;}
-  .bp thead td{background:var(--teal-800);color:#fff;padding:9px 12px;font-weight:600;text-align:center;}
-  .bp thead td:first-child{text-align:left;width:28%;}
-  .bp tbody tr:nth-child(odd) td{background:var(--teal-50);}
-  .bp tbody tr:nth-child(even) td{background:var(--mist);}
-  .bp tbody td{padding:8px 12px;border-bottom:1px solid var(--border);text-align:center;vertical-align:middle;}
-  .bp tbody td:first-child{text-align:left;font-weight:600;color:var(--teal-800);}
-  .bp tbody td:last-child{text-align:left;}
-
-  /* QR CARDS */
-  .qrg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:24px;}
-  .qrc{border-radius:6px;overflow:hidden;border:1px solid var(--border);}
-  .qrl{padding:8px 10px;color:#fff;font-family:'DM Mono',monospace;font-size:8.5pt;font-weight:500;text-align:center;}
-  .qrb{padding:8px 10px;font-size:8.5pt;color:var(--ink);background:var(--teal-50);line-height:1.5;}
-
-  /* FOOTER */
-  .foot{background:linear-gradient(135deg,var(--teal-950),var(--teal-800));color:#fff;padding:18px 44px;font-size:9pt;line-height:1.65;}
-  .foot strong{color:var(--gold);}
-
-  .gmd{height:20px;} .glg{height:30px;}
-  strong{font-weight:600;}
+  #sidebar.open { transform: translateX(0); }
+  #main { padding: 20px 20px 48px; }
+  #menu-toggle { display: flex; }
+  .qr-grid { grid-template-columns: 1fr 1fr; }
+  .example-grid { grid-template-columns: 1fr; }
+  .dd-grid { grid-template-columns: 1fr; }
+  .part-header-num { display: none; }
+}
+@media (max-width: 560px) {
+  #main { padding: 16px 14px 48px; }
+  .hero { padding: 28px 20px 24px; }
+  .hero h1 { font-size: 26px; }
+  .qr-grid { grid-template-columns: 1fr; }
+  .card-inner { padding: 18px; }
+}
 </style>
 </head>
 <body>
 
-<!-- COVER -->
-<div class="cover">
-  <div class="cover-rule"></div>
-  <div class="cover-sub">Maritime Academy of Asia and the Pacific - Center for Competency Assessment</div>
-  <h1>Test Item Writing<br>Guidelines</h1>
-  <p class="cover-desc">A comprehensive reference for writing effective assessment items, selecting the right question types, and building balanced, valid examinations — with examples from Marine Engineering and Marine Transportation.</p>
-  <div class="cover-tags">
-    <span class="cover-tag">Part 1: Writing Guidelines</span>
-    <span class="cover-tag">Part 2: Item Selection</span>
-    <span class="cover-tag">6 Question Types</span>
-    <span class="cover-tag">Marine Engineering</span>
-    <span class="cover-tag">Marine Transportation</span>
-    <span class="cover-tag">Checklists &amp; Examples</span>
-  </div>
-</div>
-<div class="cover-stripe"></div>
+<!-- TOP BAR -->
+<header id="topbar">
+  <button id="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">☰</button>
+  <div id="topbar-logo">MAAP<span>-CCA</span></div>
+  <div id="topbar-sub">Test Item Writing Guidelines</div>
+</header>
 
-<!-- TOC -->
-<div class="toc">
-  <div class="toc-h">Table of Contents</div>
-  <div class="toc-part">Part 1 — Guidelines in Writing Different Types of Questions</div>
-  <div class="toc-row"><span class="toc-num">1</span><span>Multiple Choice Questions (MCQ)</span><span class="toc-dot"></span></div>
-  <div class="toc-row"><span class="toc-num">2</span><span>Long Structured Essay</span><span class="toc-dot"></span></div>
-  <div class="toc-row"><span class="toc-num">3</span><span>Essay — Short Answer (One Paragraph)</span><span class="toc-dot"></span></div>
-  <div class="toc-row"><span class="toc-num">4</span><span>Fill-in-the-Blank / Identification / Completion</span><span class="toc-dot"></span></div>
-  <div class="toc-row"><span class="toc-num">5</span><span>True or False</span><span class="toc-dot"></span></div>
-  <div class="toc-row"><span class="toc-num">6</span><span>Matching</span><span class="toc-dot"></span></div>
-  <div class="toc-part" style="margin-top:8px;">Part 2 — Guidelines for Selecting Assessment Item Types</div>
-  <div class="toc-row"><span class="toc-num">·</span><span>Key Factors in Selecting Item Types</span><span class="toc-dot"></span></div>
-  <div class="toc-row"><span class="toc-num">·</span><span>Sample Test Blueprint (Maritime Programs)</span><span class="toc-dot"></span></div>
-  <div class="toc-row"><span class="toc-num">·</span><span>Quick Reference Card</span><span class="toc-dot"></span></div>
-</div>
+<!-- PROGRESS BAR -->
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
 
-<!-- PART 1 DIVIDER -->
-<div class="part-div page-break">Part 1 &nbsp;·&nbsp; Guidelines in Writing Different Types of Questions</div>
-<div class="sb alt" style="padding:12px 44px;">
-  <p style="font-size:9.5pt;color:#1A3535;line-height:1.7;">Each section includes a step-by-step process, design principles, worked examples from Marine Engineering and Marine Transportation, a design checklist, and a Do's and Don'ts summary. Each question type uses its own monochromatic color family for easy navigation.</p>
-</div>
+<!-- LAYOUT -->
+<div id="layout">
 
+  <!-- SIDEBAR -->
+  <nav id="sidebar">
+    <div class="sidebar-section-label">Part 1 — Question Types</div>
+    <a class="nav-item active" href="#hero" onclick="closeSidebar()"><span class="nav-dot nav-dot-1">1</span>Multiple Choice (MCQ)</a>
+    <a class="nav-item" href="#s2" onclick="closeSidebar()"><span class="nav-dot nav-dot-2">2</span>Long Structured Essay</a>
+    <a class="nav-item" href="#s3" onclick="closeSidebar()"><span class="nav-dot nav-dot-3">3</span>Essay — Short Answer</a>
+    <a class="nav-item" href="#s4" onclick="closeSidebar()"><span class="nav-dot nav-dot-4">4</span>Fill-in / Identification</a>
+    <a class="nav-item" href="#s5" onclick="closeSidebar()"><span class="nav-dot nav-dot-5">5</span>True or False</a>
+    <a class="nav-item" href="#s6" onclick="closeSidebar()"><span class="nav-dot nav-dot-6">6</span>Matching</a>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Part 2 — Item Selection</div>
+    <a class="nav-item" href="#s7" onclick="closeSidebar()"><span class="nav-dot nav-dot-p2">7</span>Selecting Item Types</a>
+    <a class="nav-item" href="#s8" onclick="closeSidebar()"><span class="nav-dot nav-dot-p2">8</span>Test Blueprint</a>
+    <a class="nav-item" href="#s9" onclick="closeSidebar()"><span class="nav-dot nav-dot-p2">9</span>Quick Reference</a>
+    <div class="sidebar-footer">Maritime Academy of Asia &amp; the Pacific — Center for Competency Assessment</div>
+  </nav>
 
-<!-- ═══════════════ 1. MCQ ═══════════════ -->
-<div class="page-break">
-<div class="t-banner bn-mcq">
-  <h2>1. Multiple Choice Questions (MCQ)</h2>
-  <div class="bsub">Assess recall, comprehension, application, analysis, and evaluation</div>
-  <div class="ttags"><span class="ttag">General Strategy</span><span class="ttag">Stem Design</span><span class="ttag">Distractor Design</span><span class="ttag">Marine Examples</span><span class="ttag">Do's &amp; Don'ts</span></div>
-</div>
-<div class="sb">
-  <div class="ov ov-mcq">Multiple choice questions are among the most versatile assessment tools in maritime education. When well-constructed, they assess a broad range of cognitive skills — from recall of SOLAS regulations and engine components, through comprehension of watch-keeping duties, up to application of ColRegs in navigational scenarios. Poorly written items reward guessing and measure test-taking skill rather than genuine maritime competence.</div>
+  <!-- MAIN CONTENT -->
+  <main id="main">
 
-  <div class="sh sh-mcq-d" style="margin-bottom:4px;"><h3>Step-by-Step Process</h3></div>
-  <div class="steps no-break">
-    <div class="sr"><div class="sn sn-mcq-1">1</div><div class="sc"><div class="st">Define Objective</div><div class="sd">Identify the specific maritime knowledge or competency the question aims to assess — e.g., STCW watch-keeping standards, ColRegs light configurations, engine room procedures, or MARPOL discharge restrictions. Anchor every item to a stated learning outcome.</div><div class="tip">If you cannot name the specific maritime competency the item measures, revise or discard it before writing options.</div></div></div>
-    <div class="sr"><div class="sn sn-mcq-2">2</div><div class="sc"><div class="st">Draft the Stem</div><div class="sd">Write a clear, complete, direct question presenting one defined problem. A student who knows the material should be able to answer without reading the options. For scenario-based items (e.g., an emergency situation on board), include only the context essential to the problem. Avoid negative stems; if used, capitalize NOT or EXCEPT.</div><div class="tip">Cover the options and read only the stem. If the question is unclear without the choices, rewrite it.</div></div></div>
-    <div class="sr"><div class="sn sn-mcq-3">3</div><div class="sc"><div class="st">Construct Options</div><div class="sd">Provide 4 options: one correct answer and 3 plausible distractors. Build distractors from common student errors with maritime regulations, procedures, or calculations. Ensure grammatical and structural consistency across all options. Arrange in logical order.</div><div class="tip">After drafting, scan for repeated opening words across options — consolidate them into the stem to reduce reading load.</div></div></div>
-    <div class="sr"><div class="sn sn-mcq-4">4</div><div class="sc"><div class="st">Review Content Validity</div><div class="sd">Confirm the correct answer is the single, clearly defensible best response under current maritime regulations (SOLAS, STCW, MARPOL, ColRegs). Distractors should reflect partial truths or common procedural misconceptions. Avoid "all/none of the above" and absolute terms.</div><div class="tip">Ask a colleague to identify the correct answer without context. If they hesitate between two options, revise.</div></div></div>
-    <div class="sr"><div class="sn sn-mcq-5">5</div><div class="sc"><div class="st">Peer Review</div><div class="sd">Have another maritime instructor review for ambiguity, fairness, regulatory accuracy, and alignment with the learning outcome. Verify that no surface feature (option length, grammar, absolute words) unintentionally signals the answer.</div></div></div>
-    <div class="sr"><div class="sn sn-mcq-6">6</div><div class="sc"><div class="st">Record and Validate</div><div class="sd">Record in the Test Item Bank with: learning outcome, answer key, Bloom's level, applicable maritime regulation or standard (e.g., STCW Reg. II/1), and distractor rationale for post-test analysis.</div></div></div>
-  </div>
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero">
+        <div class="hero-rule"></div>
+        <div class="hero-label">Maritime Academy of Asia and the Pacific · CCA</div>
+        <h1>Test Item Writing<br>Guidelines</h1>
+        <p class="hero-desc">A comprehensive reference for writing effective assessment items, selecting the right question types, and building balanced, valid examinations — with examples from Marine Engineering and Marine Transportation.</p>
+        <div class="hero-tags">
+          <span class="hero-tag">Part 1: Writing Guidelines</span>
+          <span class="hero-tag">Part 2: Item Selection</span>
+          <span class="hero-tag">6 Question Types</span>
+          <span class="hero-tag">Marine Engineering</span>
+          <span class="hero-tag">Marine Transportation</span>
+        </div>
+      </div>
 
-  <div class="gmd"></div>
-  <div class="sh sh-mcq-m" style="margin-bottom:6px;"><h3>Stem Design — Poor vs. Improved Example</h3></div>
-  <div class="exp no-break">
-    <div><div class="el el-mcq-b">✗ POOR STEM</div><div class="eb eb-mcq-b"><div class="estem">Which of these does NOT indicate that a vessel does not need to sound a fog signal?</div><div class="eopts">a) Vessel is underway with engines<br>b) Visibility exceeds 5 nautical miles<br>c) Vessel is at anchor with a bell<br>d) Vessel is constrained by draft</div><div class="enote">Issues: Double negative ("NOT… does not"), unclear intent, options needed to understand the question, filler phrasing.</div></div></div>
-    <div><div class="el el-mcq-g">✓ IMPROVED STEM</div><div class="eb eb-mcq-g"><div class="estem">Under ColRegs Rule 35, a power-driven vessel underway in restricted visibility must sound a prolonged blast at intervals of not more than:</div><div class="eopts">a) 1 minute<br>b) 2 minutes<br>c) 3 minutes<br>d) 5 minutes</div><div class="enote">Improved: Positive framing, full context in stem, regulation cited, direct question, one clear answer (b).</div></div></div>
-  </div>
+      <!-- PART 1 HEADER -->
+      <div class="part-header">
+        <div class="part-header-num">I</div>
+        <div>
+          <h2>Guidelines in Writing Different Types of Questions</h2>
+          <p>Each section includes a step-by-step process, design principles, worked examples, a checklist, and Do's &amp; Don'ts</p>
+        </div>
+      </div>
+    </section>
 
-  <div class="sh sh-mcq-d" style="margin-bottom:6px;"><h3>Distractor Design — Poor vs. Improved Example</h3></div>
-  <div class="exp no-break">
-    <div><div class="el el-mcq-b">✗ POOR DISTRACTORS</div><div class="eb eb-mcq-b"><div class="estem">What governs the minimum safe manning of a vessel?</div><div class="eopts">a) The captain's personal decision<br>b) Any international agreement<br>c) Some kind of maritime law<br>d) A document from international bodies</div><div class="enote">Issues: Vague, overlapping distractors (b, c, d describe the same thing broadly), far-fetched option (a), not mutually exclusive.</div></div></div>
-    <div><div class="el el-mcq-g">✓ IMPROVED DISTRACTORS</div><div class="eb eb-mcq-g"><div class="estem">The minimum safe manning of a vessel is primarily determined by:</div><div class="eopts">a) The shipowner's discretion<br>b) The port state control authority<br>c) The Safe Manning Certificate issued by the flag state<br>d) The crew's collective bargaining agreement</div><div class="enote">Improved: Each option distinct, plausible, reflects a real misconception. One clear answer (c). Mutually exclusive.</div></div></div>
-  </div>
+    <!-- ═══ 1. MCQ ═══ -->
+    <div class="section-card c1" id="s1">
+      <div class="card-header open" onclick="toggleCard(this)">
+        <div class="card-num">1</div>
+        <div class="card-title-group">
+          <div class="card-title">Multiple Choice Questions (MCQ)</div>
+          <div class="card-subtitle">Assess recall, comprehension, application, analysis, and evaluation</div>
+          <div class="card-tags">
+            <span class="card-tag">General Strategy</span><span class="card-tag">Stem Design</span><span class="card-tag">Distractor Design</span><span class="card-tag">Marine Examples</span>
+          </div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="card-body open">
+        <div class="card-inner">
+          <div class="overview">Multiple choice questions are among the most versatile assessment tools in maritime education. When well-constructed, they assess a broad range of cognitive skills — from recall of SOLAS regulations and engine components, through comprehension of watch-keeping duties, up to application of ColRegs in navigational scenarios. Poorly written items reward guessing and measure test-taking skill rather than genuine maritime competence.</div>
 
-  <div class="sh sh-mcq-d" style="margin-bottom:6px;"><h3>MCQ Design Checklist</h3></div>
-  <table class="ct mcq no-break"><thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead><tbody>
-    <tr><td>Stem</td><td>One complete, direct problem with full maritime context</td><td>Vague, wordy, or double-negative stems</td></tr>
-    <tr><td>Correct Answer</td><td>Single defensible best answer per current regulations</td><td>Two arguably correct options</td></tr>
-    <tr><td>Distractors</td><td>Plausible; reflect real procedural or regulatory misconceptions</td><td>Far-fetched or obviously wrong options</td></tr>
-    <tr><td>Language</td><td>Correct maritime terminology; grammatically consistent</td><td>"Always/never/all/none" absolute terms</td></tr>
-    <tr><td>Format</td><td>Options in logical order; no "all/none of the above"</td><td>"All of the above" / "None of the above"</td></tr>
-    <tr><td>Alignment</td><td>Linked to a specific maritime competency and regulation</td><td>Using test bank items without checking regulatory currency</td></tr>
-  </tbody></table>
+          <div class="sub-header"><h3>Step-by-Step Process</h3></div>
+          <div class="steps">
+            <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Define Objective</div><div class="step-desc">Identify the specific maritime knowledge or competency the question aims to assess — e.g., STCW watch-keeping standards, ColRegs light configurations, engine room procedures, or MARPOL discharge restrictions. Anchor every item to a stated learning outcome.</div><div class="step-tip">If you cannot name the specific maritime competency the item measures, revise or discard it before writing options.</div></div></div>
+            <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Draft the Stem</div><div class="step-desc">Write a clear, complete, direct question presenting one defined problem. A student who knows the material should be able to answer without reading the options. For scenario-based items, include only the context essential to the problem. Avoid negative stems; if used, capitalize NOT or EXCEPT.</div><div class="step-tip">Cover the options and read only the stem. If the question is unclear without the choices, rewrite it.</div></div></div>
+            <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Construct Options</div><div class="step-desc">Provide 4 options: one correct answer and 3 plausible distractors. Build distractors from common student errors with maritime regulations, procedures, or calculations. Ensure grammatical and structural consistency across all options. Arrange in logical order.</div><div class="step-tip">After drafting, scan for repeated opening words across options — consolidate them into the stem to reduce reading load.</div></div></div>
+            <div class="step-row"><div class="step-num">4</div><div class="step-content"><div class="step-title">Review Content Validity</div><div class="step-desc">Confirm the correct answer is the single, clearly defensible best response under current maritime regulations (SOLAS, STCW, MARPOL, ColRegs). Distractors should reflect partial truths or common procedural misconceptions. Avoid "all/none of the above" and absolute terms.</div><div class="step-tip">Ask a colleague to identify the correct answer without context. If they hesitate between two options, revise.</div></div></div>
+            <div class="step-row"><div class="step-num">5</div><div class="step-content"><div class="step-title">Peer Review</div><div class="step-desc">Have another maritime instructor review for ambiguity, fairness, regulatory accuracy, and alignment with the learning outcome. Verify that no surface feature unintentionally signals the answer.</div></div></div>
+            <div class="step-row"><div class="step-num">6</div><div class="step-content"><div class="step-title">Record and Validate</div><div class="step-desc">Record in the Test Item Bank with: learning outcome, answer key, Bloom's level, applicable maritime regulation or standard (e.g., STCW Reg. II/1), and distractor rationale for post-test analysis.</div></div></div>
+          </div>
 
-  <div class="sh sh-mcq-m" style="margin-bottom:6px;"><h3>Do's and Don'ts</h3></div>
-  <div class="dd no-break">
-    <div class="do-mcq"><div class="ddh">✓ DO</div>
-      <div class="ddi">✓ Align every item to a specific maritime learning outcome</div>
-      <div class="ddi">✓ State the full scenario or problem in the stem</div>
-      <div class="ddi">✓ Use direct questions, not incomplete sentences</div>
-      <div class="ddi">✓ Build distractors from real student misconceptions about regulations</div>
-      <div class="ddi">✓ Verify regulatory accuracy (SOLAS, STCW, ColRegs, MARPOL) before finalizing</div>
-      <div class="ddi">✓ Keep all options grammatically consistent with the stem</div>
-      <div class="ddi">✓ Aim for 4 options: 1 correct + 3 plausible distractors</div>
-      <div class="ddi">✓ Randomly distribute the correct answer across positions</div>
-      <div class="ddi">✓ Store in Item Bank with outcome, regulation cited, and answer key</div>
+          <div class="sub-header"><h3>Stem Design — Poor vs. Improved</h3></div>
+          <div class="example-grid">
+            <div><div class="ex-label ex-label-b">✗ POOR STEM</div><div class="ex-body ex-b"><div class="ex-stem">Which of these does NOT indicate that a vessel does not need to sound a fog signal?</div><div class="ex-opts">a) Vessel is underway with engines<br>b) Visibility exceeds 5 nautical miles<br>c) Vessel is at anchor with a bell<br>d) Vessel is constrained by draft</div><div class="ex-note">Issues: Double negative, unclear intent, options needed to understand the question, filler phrasing.</div></div></div>
+            <div><div class="ex-label ex-label-g">✓ IMPROVED STEM</div><div class="ex-body ex-g"><div class="ex-stem">Under ColRegs Rule 35, a power-driven vessel underway in restricted visibility must sound a prolonged blast at intervals of not more than:</div><div class="ex-opts">a) 1 minute<br>b) 2 minutes<br>c) 3 minutes<br>d) 5 minutes</div><div class="ex-note">Positive framing, full context in stem, regulation cited, direct question, one clear answer (b).</div></div></div>
+          </div>
+
+          <div class="sub-header"><h3>Distractor Design — Poor vs. Improved</h3></div>
+          <div class="example-grid">
+            <div><div class="ex-label ex-label-b">✗ POOR DISTRACTORS</div><div class="ex-body ex-b"><div class="ex-stem">What governs the minimum safe manning of a vessel?</div><div class="ex-opts">a) The captain's personal decision<br>b) Any international agreement<br>c) Some kind of maritime law<br>d) A document from international bodies</div><div class="ex-note">Issues: Vague, overlapping distractors (b, c, d describe the same thing broadly), far-fetched option (a).</div></div></div>
+            <div><div class="ex-label ex-label-g">✓ IMPROVED DISTRACTORS</div><div class="ex-body ex-g"><div class="ex-stem">The minimum safe manning of a vessel is primarily determined by:</div><div class="ex-opts">a) The shipowner's discretion<br>b) The port state control authority<br>c) The Safe Manning Certificate issued by the flag state<br>d) The crew's collective bargaining agreement</div><div class="ex-note">Each option is distinct, plausible, and reflects a real misconception. One clear answer (c). Mutually exclusive.</div></div></div>
+          </div>
+
+          <div class="sub-header"><h3>Design Checklist</h3></div>
+          <table class="checklist">
+            <thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead>
+            <tbody>
+              <tr><td>Stem</td><td>One complete, direct problem with full maritime context</td><td>Vague, wordy, or double-negative stems</td></tr>
+              <tr><td>Correct Answer</td><td>Single defensible best answer per current regulations</td><td>Two arguably correct options</td></tr>
+              <tr><td>Distractors</td><td>Plausible; reflect real procedural or regulatory misconceptions</td><td>Far-fetched or obviously wrong options</td></tr>
+              <tr><td>Language</td><td>Correct maritime terminology; grammatically consistent</td><td>"Always/never/all/none" absolute terms</td></tr>
+              <tr><td>Format</td><td>Options in logical order; no "all/none of the above"</td><td>"All of the above" / "None of the above"</td></tr>
+              <tr><td>Alignment</td><td>Linked to a specific maritime competency and regulation</td><td>Using test bank items without checking regulatory currency</td></tr>
+            </tbody>
+          </table>
+
+          <div class="sub-header"><h3>Do's and Don'ts</h3></div>
+          <div class="dd-grid">
+            <div><div class="dd-head dd-head-do">✓ DO</div>
+              <div class="dd-item dd-item-do">✓ Align every item to a specific maritime learning outcome</div>
+              <div class="dd-item dd-item-do">✓ State the full scenario or problem in the stem</div>
+              <div class="dd-item dd-item-do">✓ Use direct questions, not incomplete sentences</div>
+              <div class="dd-item dd-item-do">✓ Build distractors from real student misconceptions about regulations</div>
+              <div class="dd-item dd-item-do">✓ Verify regulatory accuracy (SOLAS, STCW, ColRegs, MARPOL) before finalizing</div>
+              <div class="dd-item dd-item-do">✓ Keep all options grammatically consistent with the stem</div>
+              <div class="dd-item dd-item-do">✓ Aim for 4 options: 1 correct + 3 plausible distractors</div>
+              <div class="dd-item dd-item-do">✓ Randomly distribute the correct answer across positions</div>
+            </div>
+            <div><div class="dd-head dd-head-dn">✗ DON'T</div>
+              <div class="dd-item dd-item-dn">✗ Use negative or double-negative stems</div>
+              <div class="dd-item dd-item-dn">✗ Include "All of the above" or "None of the above"</div>
+              <div class="dd-item dd-item-dn">✗ Open stems with "Which of the following…" filler</div>
+              <div class="dd-item dd-item-dn">✗ Allow two options that are arguably both correct</div>
+              <div class="dd-item dd-item-dn">✗ Include absolute terms: always, never, all, none, only</div>
+              <div class="dd-item dd-item-dn">✗ Make the correct answer noticeably longer than distractors</div>
+              <div class="dd-item dd-item-dn">✗ Use outdated regulation references without reviewing current standards</div>
+              <div class="dd-item dd-item-dn">✗ Take test bank items without checking alignment and regulatory accuracy</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="dn-mcq"><div class="ddh">✗ DON'T</div>
-      <div class="ddi">✗ Use negative or double-negative stems</div>
-      <div class="ddi">✗ Include "All of the above" or "None of the above"</div>
-      <div class="ddi">✗ Open stems with "Which of the following…" filler</div>
-      <div class="ddi">✗ Allow two options that are arguably both correct</div>
-      <div class="ddi">✗ Use overlapping or non-mutually-exclusive distractors</div>
-      <div class="ddi">✗ Include absolute terms: always, never, all, none, only</div>
-      <div class="ddi">✗ Make the correct answer noticeably longer than distractors</div>
-      <div class="ddi">✗ Use outdated regulation references without reviewing current standards</div>
-      <div class="ddi">✗ Take test bank items without checking alignment and regulatory accuracy</div>
+
+    <!-- ═══ 2. LONG ESSAY ═══ -->
+    <div class="section-card c2" id="s2">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-num">2</div>
+        <div class="card-title-group">
+          <div class="card-title">Long Structured Essay</div>
+          <div class="card-subtitle">Assess extended analysis, synthesis, evaluation, and multi-part argumentation</div>
+          <div class="card-tags"><span class="card-tag">Higher-Order Thinking</span><span class="card-tag">Multi-Part Prompts</span><span class="card-tag">Rubric Design</span></div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="card-inner">
+          <div class="overview">A Long Structured Essay requires students to produce an extended, organized, multi-paragraph response to a complex maritime prompt. It is the primary tool for assessing whether students can integrate knowledge across a topic — analyzing the causes and consequences of a maritime incident, evaluating crew emergency response, or proposing a complete safety management plan. The "structured" element means the prompt provides clear numbered sub-questions, making responses more targeted and scoring more consistent.</div>
+
+          <div class="sub-header"><h3>Step-by-Step Process</h3></div>
+          <div class="steps">
+            <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Define Purpose and Cognitive Level</div><div class="step-desc">Identify which higher-order competence the question will measure: analysis, synthesis, or evaluation. A Long Structured Essay should always target at least Analysis level on Bloom's Taxonomy.</div><div class="step-tip">Ask: "Do I want students to describe a procedure, or to analyze why it succeeded/failed, or to design a better one?" The answer determines the directive verb.</div></div></div>
+            <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Write a Structured Prompt with Sub-Questions</div><div class="step-desc">Open with a maritime scenario (e.g., a machinery breakdown, grounding incident, or MARPOL violation). Follow with 2–4 numbered sub-questions using specific directive verbs: Analyze, Evaluate, Compare, Justify, Recommend, Propose.</div><div class="step-tip">Each sub-question should be answerable in 1–3 focused paragraphs. If one requires more, split it further.</div></div></div>
+            <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Clarify Parameters for Each Part</div><div class="step-desc">State the expected total length (e.g., 500–700 words), time allocation (e.g., 45 minutes), and mark breakdown per sub-question. Showing the mark allocation guides students on the expected depth of each part.</div><div class="step-tip">Allocate marks per sub-question and show the breakdown in the prompt itself — e.g., "Question 1 (10 pts)."</div></div></div>
+            <div class="step-row"><div class="step-num">4</div><div class="step-content"><div class="step-title">Develop a Structured Scoring Rubric</div><div class="step-desc">Create a rubric with separate criteria for each sub-question covering: technical accuracy, depth of analysis, quality of reasoning and evidence, logical organization, and clarity of expression.</div><div class="step-tip">Write a model answer before finalizing the rubric. If you struggle to describe excellent performance, the sub-question is too vague.</div></div></div>
+            <div class="step-row"><div class="step-num">5</div><div class="step-content"><div class="step-title">Review for Clarity, Fairness, and Technical Accuracy</div><div class="step-desc">Verify all scenario details against current maritime regulations and standard procedures (SOLAS, STCW, ISM Code). Have a subject matter expert attempt the prompt before issuing it.</div></div></div>
+            <div class="step-row"><div class="step-num">6</div><div class="step-content"><div class="step-title">Validate and Record</div><div class="step-desc">Include the approved version in the Assessment Instrument Register with: the full rubric, mark allocation per sub-question, learning outcome mapped, cognitive level tagged, applicable maritime standard, and estimated completion time.</div></div></div>
+          </div>
+
+          <div class="sub-header"><h3>Prompt — Poor vs. Improved</h3></div>
+          <div class="example-grid">
+            <div><div class="ex-label ex-label-b">✗ POOR PROMPT</div><div class="ex-body ex-b"><div class="ex-stem">Discuss the MV Sewol disaster.</div><div class="ex-opts">(No sub-questions, no directive verbs, no scope, no parameters)</div><div class="ex-note">Issues: "Discuss" is undefined. No cognitive task specified. Students may write a narrative summary rather than analysis.</div></div></div>
+            <div><div class="ex-label ex-label-g">✓ IMPROVED PROMPT</div><div class="ex-body ex-g"><div class="ex-stem">A passenger ro-ro ferry overloads cargo beyond its stability limits and capsizes in poor weather with significant loss of life.</div><div class="ex-opts">1. (10 pts) Analyze three seamanship and stability factors that contributed to the capsizing.<br>2. (10 pts) Evaluate the adequacy of the crew's emergency response.<br>3. (10 pts) Recommend amendments to loading procedures to prevent recurrence.<br>(500–700 words · 45 minutes)</div><div class="ex-note">Structured sub-questions, specific directive verbs, mark allocation shown, length and time stated.</div></div></div>
+          </div>
+
+          <div class="sub-header"><h3>Design Checklist</h3></div>
+          <table class="checklist">
+            <thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead>
+            <tbody>
+              <tr><td>Scenario</td><td>Realistic maritime context with sufficient technical detail</td><td>Vague scenario that allows any interpretation</td></tr>
+              <tr><td>Sub-Questions</td><td>2–4 parts, each with a distinct directive verb and cognitive task</td><td>One broad question mixing multiple tasks</td></tr>
+              <tr><td>Directive Verbs</td><td>Analyze, Evaluate, Justify, Recommend, Compare, Propose</td><td>Vague verbs: "discuss," "explain," "describe"</td></tr>
+              <tr><td>Parameters</td><td>Length, time, and mark allocation stated explicitly per sub-question</td><td>No guidance on expected depth, length, or marks</td></tr>
+              <tr><td>Rubric</td><td>Separate criteria per sub-question; written before finalizing prompt</td><td>Single holistic rubric for the entire response</td></tr>
+              <tr><td>Technical Accuracy</td><td>All scenario details verified against current maritime conventions</td><td>Outdated or inaccurate technical details in the scenario</td></tr>
+            </tbody>
+          </table>
+
+          <div class="sub-header"><h3>Do's and Don'ts</h3></div>
+          <div class="dd-grid">
+            <div><div class="dd-head dd-head-do">✓ DO</div>
+              <div class="dd-item dd-item-do">✓ Use a realistic maritime scenario as the prompt context</div>
+              <div class="dd-item dd-item-do">✓ Include 2–4 numbered sub-questions with distinct directive verbs</div>
+              <div class="dd-item dd-item-do">✓ Show the mark allocation per sub-question in the prompt</div>
+              <div class="dd-item dd-item-do">✓ State expected total length and time allocation</div>
+              <div class="dd-item dd-item-do">✓ Develop a separate rubric for each sub-question</div>
+              <div class="dd-item dd-item-do">✓ Verify all technical details against SOLAS, STCW, MARPOL, ISM Code</div>
+              <div class="dd-item dd-item-do">✓ Have a maritime expert attempt the prompt before issuing it</div>
+            </div>
+            <div><div class="dd-head dd-head-dn">✗ DON'T</div>
+              <div class="dd-item dd-item-dn">✗ Use a single open question like "Discuss X" without structure</div>
+              <div class="dd-item dd-item-dn">✗ Omit sub-questions, leaving students to determine scope</div>
+              <div class="dd-item dd-item-dn">✗ Leave length, time, or mark allocation unspecified</div>
+              <div class="dd-item dd-item-dn">✗ Use vague verbs like "discuss," "write about," or "explain"</div>
+              <div class="dd-item dd-item-dn">✗ Finalize the prompt before writing the rubric</div>
+              <div class="dd-item dd-item-dn">✗ Score responses without a rubric (impressionistic marking)</div>
+              <div class="dd-item dd-item-dn">✗ Omit the rubric from the Assessment Instrument Register</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div></div>
 
+    <!-- ═══ 3. SHORT ESSAY ═══ -->
+    <div class="section-card c3" id="s3">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-num">3</div>
+        <div class="card-title-group">
+          <div class="card-title">Essay — Short Answer (One Paragraph)</div>
+          <div class="card-subtitle">Assess focused understanding, explanation, or application in a single coherent paragraph</div>
+          <div class="card-tags"><span class="card-tag">Focused Response</span><span class="card-tag">Single Paragraph</span><span class="card-tag">Directive Verbs</span></div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="card-inner">
+          <div class="overview">An Essay question at this level requires a single, focused paragraph — typically 5–10 sentences — in response to a specific prompt. It sits between a fill-in-the-blank item and a full long structured essay: more cognitively demanding than recall-based items, but more constrained than multi-part argumentation. In maritime education, these questions are ideal for testing whether a student can explain the purpose of a regulation, describe a standard procedure, or briefly apply a principle to a given on-board situation.</div>
 
-<!-- ═══════════════ 2. LONG STRUCTURED ESSAY ═══════════════ -->
-<div class="page-break">
-<div class="t-banner bn-lse">
-  <h2>2. Long Structured Essay</h2>
-  <div class="bsub">Assess extended analysis, synthesis, evaluation, and multi-part argumentation</div>
-  <div class="ttags"><span class="ttag">Higher-Order Thinking</span><span class="ttag">Multi-Part Prompts</span><span class="ttag">Rubric Design</span><span class="ttag">Marine Examples</span><span class="ttag">Do's &amp; Don'ts</span></div>
+          <div class="sub-header"><h3>Step-by-Step Process</h3></div>
+          <div class="steps">
+            <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Define the Cognitive Demand</div><div class="step-desc">Identify whether the item targets comprehension (explain, describe) or application (apply a regulation to a situation). Essay questions at this level should go beyond pure recall — the student should construct a response in their own words, not reproduce memorized text.</div><div class="step-tip">Ask: "Would a student who truly understands this topic be able to write this paragraph without memorizing it word-for-word?" If yes, it's a good essay question.</div></div></div>
+            <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Write the Prompt with a Precise Directive Verb</div><div class="step-desc">Use a single, specific directive verb: Explain, Describe, State and explain, Briefly discuss, Outline. The prompt should specify exactly what to address.</div><div class="step-tip">Avoid "Write a paragraph about X." Instead: "Explain the purpose of the ISM Code and identify one specific obligation it places on the Master."</div></div></div>
+            <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Specify the Expected Format</div><div class="step-desc">State clearly: one paragraph, 5–8 sentences, or approximately 80–120 words. Without a format constraint, students either write a single sentence (too brief) or begin writing an essay (too long).</div></div></div>
+            <div class="step-row"><div class="step-num">4</div><div class="step-content"><div class="step-title">Develop an Answer Key with Key Points</div><div class="step-desc">Write a model paragraph before finalizing. From this, extract 3–5 key content points that a complete response should include. Assign 1–2 marks per key point.</div><div class="step-tip">If your model answer requires more than one paragraph, either reduce the scope or reclassify as a Long Structured Essay.</div></div></div>
+            <div class="step-row"><div class="step-num">5</div><div class="step-content"><div class="step-title">Review for Clarity and Scope</div><div class="step-desc">Ensure the prompt cannot be answered in one sentence and would not naturally require multiple paragraphs. A well-calibrated essay prompt has a clearly bounded scope answerable in one focused paragraph.</div></div></div>
+            <div class="step-row"><div class="step-num">6</div><div class="step-content"><div class="step-title">Record and Archive</div><div class="step-desc">Store in the Item Bank with: the model answer, key content points and marks per point, learning outcome, cognitive level tagged, and applicable maritime standard.</div></div></div>
+          </div>
+
+          <div class="sub-header"><h3>Prompt — Poor vs. Improved</h3></div>
+          <div class="example-grid">
+            <div><div class="ex-label ex-label-b">✗ POOR PROMPT</div><div class="ex-body ex-b"><div class="ex-stem">Write about MARPOL.</div><div class="ex-opts">(No directive verb, no scope, no format guidance)</div><div class="ex-note">Issues: Scope is the entire MARPOL convention. Students cannot know whether to describe, analyze, or evaluate, or which Annex to focus on.</div></div></div>
+            <div><div class="ex-label ex-label-g">✓ IMPROVED PROMPT</div><div class="ex-body ex-g"><div class="ex-stem">Explain the purpose of MARPOL Annex I and briefly describe two specific discharge restrictions it places on oil tankers operating in Special Areas.</div><div class="ex-opts">(One paragraph · 5–8 sentences · 10 minutes)</div><div class="ex-note">Specific directive verbs (Explain, describe), bounded scope (Annex I, Special Areas, two restrictions), format and time stated.</div></div></div>
+          </div>
+
+          <div class="sub-header"><h3>Design Checklist</h3></div>
+          <table class="checklist">
+            <thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead>
+            <tbody>
+              <tr><td>Directive Verb</td><td>Explain, Describe, Outline, State and explain</td><td>Vague: "write about," "discuss," "talk about"</td></tr>
+              <tr><td>Scope</td><td>Clearly bounded — answerable in one focused paragraph</td><td>Too broad (needs multiple paragraphs) or too narrow (one sentence)</td></tr>
+              <tr><td>Format</td><td>State "one paragraph" and approximate length or sentence count</td><td>No format guidance given to students</td></tr>
+              <tr><td>Answer Key</td><td>3–5 key content points; model paragraph written before finalizing</td><td>Vague key applied differently by different markers</td></tr>
+              <tr><td>Depth</td><td>Targets comprehension or application — not pure recall</td><td>Question answerable by reproducing a memorized definition</td></tr>
+              <tr><td>Alignment</td><td>Maps to a specific maritime learning outcome or standard</td><td>Items testing content not meaningfully taught</td></tr>
+            </tbody>
+          </table>
+
+          <div class="sub-header"><h3>Do's and Don'ts</h3></div>
+          <div class="dd-grid">
+            <div><div class="dd-head dd-head-do">✓ DO</div>
+              <div class="dd-item dd-item-do">✓ Use specific directive verbs (Explain, Describe, Outline)</div>
+              <div class="dd-item dd-item-do">✓ Bound the scope so a one-paragraph answer is sufficient</div>
+              <div class="dd-item dd-item-do">✓ State "one paragraph" and expected sentence count or word limit</div>
+              <div class="dd-item dd-item-do">✓ Write the model paragraph before finalizing the question</div>
+              <div class="dd-item dd-item-do">✓ Extract 3–5 key content points as scoring criteria</div>
+              <div class="dd-item dd-item-do">✓ Target comprehension or application, not rote memorization</div>
+            </div>
+            <div><div class="dd-head dd-head-dn">✗ DON'T</div>
+              <div class="dd-item dd-item-dn">✗ Use "Write about X" or "Discuss X" without specifying the task</div>
+              <div class="dd-item dd-item-dn">✗ Set scope so broad it naturally requires multiple paragraphs</div>
+              <div class="dd-item dd-item-dn">✗ Set scope so narrow it can be answered in one or two sentences</div>
+              <div class="dd-item dd-item-dn">✗ Leave format (length, paragraph count) unspecified</div>
+              <div class="dd-item dd-item-dn">✗ Finalize without writing the model answer first</div>
+              <div class="dd-item dd-item-dn">✗ Score impressionistically without a key-point scoring guide</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ 4. FILL-IN ═══ -->
+    <div class="section-card c4" id="s4">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-num">4</div>
+        <div class="card-title-group">
+          <div class="card-title">Fill-in-the-Blank / Identification / Completion</div>
+          <div class="card-subtitle">Assess precise recall of specific terms, names, regulation references, and component identifications</div>
+          <div class="card-tags"><span class="card-tag">Exact Recall</span><span class="card-tag">Terminology</span><span class="card-tag">Identification</span></div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="card-inner">
+          <div class="overview">This item type family covers three closely related formats. <strong>Fill-in-the-Blank</strong> presents a statement with a gap to complete. <strong>Identification</strong> prompts for a specific term, name, component, or regulation. <strong>Completion</strong> presents an incomplete definition, formula, or procedural statement to finish. In maritime education, this format is ideal for testing equipment names, regulation numbers, code provisions, signal meanings, and component functions.</div>
+
+          <div class="sub-header"><h3>Step-by-Step Process</h3></div>
+          <div class="steps">
+            <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Identify Target Knowledge</div><div class="step-desc">Select facts, terms, equipment names, regulation titles, or values that are central to the learning outcome and worth recalling precisely.</div><div class="step-tip">Ask: "Is precise recall of this exact term or value a meaningful indicator of maritime competence?" If not, choose a different item type.</div></div></div>
+            <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Choose the Appropriate Sub-Format</div><div class="step-desc"><strong>Fill-in-the-Blank:</strong> Complete sentence with one blank at or near the end. Best for terms within a context.<br><strong>Identification:</strong> Direct prompt using "Identify…" or "Name…". Best for specific names, regulation references, or component IDs.<br><strong>Completion:</strong> Incomplete definition, formula, or procedural statement. Best for precise technical definitions or sequences.</div><div class="step-tip">For regulation numbers and proper nouns, the "Identify…" format is often clearer than a blank in a sentence.</div></div></div>
+            <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Avoid Grammatical Giveaways</div><div class="step-desc">Articles (a vs. an), verb agreement, and plural forms can unintentionally signal the correct answer. Replace "a/an" immediately before a blank with "a/an (as appropriate)" or restructure the sentence.</div></div></div>
+            <div class="step-row"><div class="step-num">4</div><div class="step-content"><div class="step-title">Define the Expected Answer Precisely</div><div class="step-desc">Before finalizing, write every acceptable correct answer — including official abbreviations, alternate names (e.g., "GMDSS" and "Global Maritime Distress and Safety System"). If the list becomes too long, the item is too ambiguous.</div><div class="step-tip">For regulation references, decide in advance whether you accept short form (e.g., "SOLAS II-1") or require full titles, and state this in the instructions.</div></div></div>
+            <div class="step-row"><div class="step-num">5</div><div class="step-content"><div class="step-title">Review Readability and Add Cues</div><div class="step-desc">Ensure the remaining context clearly indicates what type of answer is expected. Add a brief cue in parentheses if needed: "(equipment name)," "(SOLAS regulation number)," "(in nautical miles)."</div></div></div>
+            <div class="step-row"><div class="step-num">6</div><div class="step-content"><div class="step-title">Record in Item Bank</div><div class="step-desc">Store with: the full answer key (all acceptable forms and abbreviations), learning outcome, competence type tagged as "Knowledge-based," and the applicable maritime standard being tested.</div></div></div>
+          </div>
+
+          <div class="sub-header"><h3>Examples — Poor vs. Improved</h3></div>
+          <div class="example-grid">
+            <div><div class="ex-label ex-label-b">✗ POOR ITEMS</div><div class="ex-body ex-b"><div class="ex-stem">Fill-in: "The __________ is used when a ship is in distress."</div><div class="ex-opts">Identification: "What is the equipment for emergencies?"<br>Completion: "MARPOL is a convention that..."</div><div class="ex-note">Issues: Blank at start; too vague for one answer; open-ended with many possible completions.</div></div></div>
+            <div><div class="ex-label ex-label-g">✓ IMPROVED ITEMS</div><div class="ex-body ex-g"><div class="ex-stem">Fill-in: "When a vessel is in distress, the OOW should activate the __________ (equipment name) to alert rescue coordination centers automatically."</div><div class="ex-opts">Identification: "Identify the SOLAS regulation requiring muster drills within 24 hours of departure from port. (Regulation number)"<br>Completion: "MARPOL Annex VI sets limits on __________ (two words) emissions from ship exhausts."</div><div class="ex-note">Answers: EPIRB; Reg. III/19; air pollution.</div></div></div>
+          </div>
+
+          <div class="sub-header"><h3>Design Checklist</h3></div>
+          <table class="checklist">
+            <thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead>
+            <tbody>
+              <tr><td>Position</td><td>Blank at or near end; identification uses "Identify/Name" verb</td><td>Blank at the beginning of the sentence</td></tr>
+              <tr><td>Answer Cue</td><td>Add parenthetical cue when answer type is not obvious</td><td>No indication of whether answer is a name, number, or regulation</td></tr>
+              <tr><td>Grammar</td><td>Neutral articles; no grammatical clues to singular/plural</td><td>a/an or verb form revealing the answer type</td></tr>
+              <tr><td>Answer Key</td><td>All acceptable forms listed before finalizing</td><td>Accepting too many variant answers (item too vague)</td></tr>
+              <tr><td>Context</td><td>Remaining text clearly points to the specific missing information</td><td>Statement that works for multiple different correct answers</td></tr>
+              <tr><td>Specificity</td><td>Tests central, precisely-defined maritime knowledge</td><td>Testing trivial details or information not taught in class</td></tr>
+            </tbody>
+          </table>
+
+          <div class="sub-header"><h3>Do's and Don'ts</h3></div>
+          <div class="dd-grid">
+            <div><div class="dd-head dd-head-do">✓ DO</div>
+              <div class="dd-item dd-item-do">✓ Place blanks at or near the end of sentences</div>
+              <div class="dd-item dd-item-do">✓ Use "Identify…" or "Name…" for proper nouns and regulation references</div>
+              <div class="dd-item dd-item-do">✓ Add a parenthetical cue when the answer type is not obvious</div>
+              <div class="dd-item dd-item-do">✓ List all acceptable answer forms (abbreviations, full titles, alternate names)</div>
+              <div class="dd-item dd-item-do">✓ Test central maritime knowledge worth knowing precisely</div>
+              <div class="dd-item dd-item-do">✓ Review grammar to remove unintentional answer clues</div>
+            </div>
+            <div><div class="dd-head dd-head-dn">✗ DON'T</div>
+              <div class="dd-item dd-item-dn">✗ Place blanks at the beginning of sentences</div>
+              <div class="dd-item dd-item-dn">✗ Include two or more blanks in a single sentence</div>
+              <div class="dd-item dd-item-dn">✗ Use a/an immediately before a blank</div>
+              <div class="dd-item dd-item-dn">✗ Write items where three or more substantially different answers are all acceptable</div>
+              <div class="dd-item dd-item-dn">✗ Test obscure details barely mentioned in instruction</div>
+              <div class="dd-item dd-item-dn">✗ Allow grammar or structure to narrow the answer type</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ 5. TRUE/FALSE ═══ -->
+    <div class="section-card c5" id="s5">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-num">5</div>
+        <div class="card-title-group">
+          <div class="card-title">True or False</div>
+          <div class="card-subtitle">Assess essential factual knowledge of maritime regulations, standards, and procedures</div>
+          <div class="card-tags"><span class="card-tag">Single-Idea Focus</span><span class="card-tag">Absolute Accuracy</span><span class="card-tag">Regulatory Currency</span></div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="card-inner">
+          <div class="overview">True/False items are the most efficient format for assessing large volumes of factual maritime content quickly — ideal for checking knowledge of specific regulation requirements, signal meanings, equipment specifications, and procedural facts. Their primary weakness is a 50% guessing probability, so they must be used in clusters of 10 or more. In maritime education, where regulations have precise technical thresholds, the requirement for a statement to be 100% true or 100% false is especially critical.</div>
+
+          <div class="sub-header"><h3>Step-by-Step Process</h3></div>
+          <div class="steps">
+            <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Identify the Learning Point</div><div class="step-desc">Focus on a single, important fact, regulation requirement, or technical specification. Reserve True/False items for clear-cut, well-defined maritime knowledge. Avoid nuanced topics where context or vessel type changes the answer.</div><div class="step-tip">Ask: "Is this statement unambiguously true or false under current regulations, regardless of context?" If the answer depends on vessel type or area, choose MCQ instead.</div></div></div>
+            <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Construct the Statement</div><div class="step-desc">Write a single, concise, factual sentence in plain language. Each statement must contain exactly one idea — never combine two separate regulatory requirements.</div><div class="step-tip">Read the statement to a colleague. If they say "it depends" or ask a clarifying question, revise the statement.</div></div></div>
+            <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Ensure the Statement Is 100% True or 100% False</div><div class="step-desc">A statement that is "true for most vessels" is not acceptable. If exceptions exist, either specify the scope precisely in the statement or choose a different item type.</div><div class="step-tip">Have a maritime expert review. If they add "yes, but only for vessels over 500 GT…" — the statement is not universally true and must be revised.</div></div></div>
+            <div class="step-row"><div class="step-num">4</div><div class="step-content"><div class="step-title">Avoid Negatives and Absolute Qualifiers</div><div class="step-desc">Words like always, never, all, none, and only allow students to guess False regardless of content knowledge. Write direct, affirmative factual statements.</div></div></div>
+            <div class="step-row"><div class="step-num">5</div><div class="step-content"><div class="step-title">Verify Regulatory Accuracy and Currency</div><div class="step-desc">Verify all statements against current versions of applicable maritime instruments (SOLAS, STCW, MARPOL, ColRegs, ISM Code, MLC). Record the specific regulation reference and amendment year in item metadata.</div></div></div>
+            <div class="step-row"><div class="step-num">6</div><div class="step-content"><div class="step-title">Validate, Balance, and Record</div><div class="step-desc">Peer review for factual accuracy. Use true and false items in roughly equal proportions. Record in the Item Bank with answer key, regulation reference, and applicable maritime instrument and amendment year.</div><div class="step-tip">After drafting a full set, count True and False answers. If the split exceeds 60/40 in either direction, revise for better balance.</div></div></div>
+          </div>
+
+          <div class="sub-header"><h3>Statement — Poor vs. Improved</h3></div>
+          <div class="example-grid">
+            <div><div class="ex-label ex-label-b">✗ POOR STATEMENT</div><div class="ex-body ex-b"><div class="ex-stem">All ships must always carry a copy of the ISM Code on board and never operate without one.</div><div class="ex-opts">True &nbsp;/&nbsp; False</div><div class="ex-note">Issues: Combines two claims, uses absolute qualifiers ("all," "always," "never"), and the ISM Code applies only to vessels above a certain size.</div></div></div>
+            <div><div class="ex-label ex-label-g">✓ IMPROVED STATEMENT</div><div class="ex-body ex-g"><div class="ex-stem">Under the ISM Code, vessels of 500 GT and above engaged on international voyages are required to hold a valid Safety Management Certificate (SMC).</div><div class="ex-opts">True &nbsp;/&nbsp; False &nbsp; (Answer: True)</div><div class="ex-note">Single idea, precise scope specified (500 GT, international voyages), factually accurate, no absolute qualifiers.</div></div></div>
+          </div>
+
+          <div class="sub-header"><h3>Design Checklist</h3></div>
+          <table class="checklist">
+            <thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead>
+            <tbody>
+              <tr><td>Single Idea</td><td>One regulation, fact, or specification per statement</td><td>Combining two separate regulatory requirements</td></tr>
+              <tr><td>Accuracy</td><td>100% true or false; no exceptions within stated scope</td><td>Statements true for some vessel types but not others without scope</td></tr>
+              <tr><td>Language</td><td>Plain, direct, affirmative; no negatives</td><td>Double negatives or "not" constructions</td></tr>
+              <tr><td>Qualifiers</td><td>Avoid always/never/all/none/only</td><td>Absolute terms that signal False regardless of content</td></tr>
+              <tr><td>Currency</td><td>Verified against current convention/amendment year</td><td>Using outdated or superseded regulation references</td></tr>
+              <tr><td>Balance</td><td>Roughly equal true and false items across the set</td><td>Heavy imbalance enabling pattern-guessing</td></tr>
+            </tbody>
+          </table>
+
+          <div class="sub-header"><h3>Do's and Don'ts</h3></div>
+          <div class="dd-grid">
+            <div><div class="dd-head dd-head-do">✓ DO</div>
+              <div class="dd-item dd-item-do">✓ Focus each statement on one single regulatory fact or specification</div>
+              <div class="dd-item dd-item-do">✓ Specify scope (vessel type, tonnage, voyage type) when necessary</div>
+              <div class="dd-item dd-item-do">✓ Verify accuracy against the current version of the applicable convention</div>
+              <div class="dd-item dd-item-do">✓ Use plain, direct, affirmative language</div>
+              <div class="dd-item dd-item-do">✓ Balance true and false items roughly equally across the set</div>
+              <div class="dd-item dd-item-do">✓ Use in clusters of 10+ for adequate reliability</div>
+            </div>
+            <div><div class="dd-head dd-head-dn">✗ DON'T</div>
+              <div class="dd-item dd-item-dn">✗ Combine two separate regulatory requirements in one statement</div>
+              <div class="dd-item dd-item-dn">✗ Write statements true for some vessels but not others without specifying scope</div>
+              <div class="dd-item dd-item-dn">✗ Use absolute terms: always, never, all, none, only</div>
+              <div class="dd-item dd-item-dn">✗ Use outdated regulation references</div>
+              <div class="dd-item dd-item-dn">✗ Allow heavy imbalance of true vs. false items</div>
+              <div class="dd-item dd-item-dn">✗ Rely on True/False alone for high-stakes summative assessments</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ 6. MATCHING ═══ -->
+    <div class="section-card c6" id="s6">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-num">6</div>
+        <div class="card-title-group">
+          <div class="card-title">Matching</div>
+          <div class="card-subtitle">Assess ability to link maritime terms, regulations, components, and definitions</div>
+          <div class="card-tags"><span class="card-tag">Relationship Testing</span><span class="card-tag">Homogeneous Lists</span><span class="card-tag">Layout Design</span></div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="card-inner">
+          <div class="overview">Matching items efficiently test whether students can identify correct relationships between two sets of related maritime content — such as SOLAS chapters and their scope, types of fire and appropriate extinguishing agents, navigation lights and their arc of visibility, or MARPOL Annexes and the type of pollution they regulate. They reduce guessing compared to True/False and cover multiple related concepts efficiently. Key challenges: keeping both columns homogeneous, ensuring correct matches are unambiguous, and adding dummy responses to prevent elimination guessing.</div>
+
+          <div class="sub-header"><h3>Step-by-Step Process</h3></div>
+          <div class="steps">
+            <div class="step-row"><div class="step-num">1</div><div class="step-content"><div class="step-title">Define the Relationship Type</div><div class="step-desc">Clearly identify what type of relationship students will match: regulation ↔ scope, equipment ↔ function, signal ↔ meaning, MARPOL Annex ↔ pollutant type, fire class ↔ extinguishing agent. The relationship type must be consistent across all pairs.</div><div class="step-tip">State the relationship explicitly in the instructions: "Match each MARPOL Annex in Column A with the type of pollution it addresses in Column B."</div></div></div>
+            <div class="step-row"><div class="step-num">2</div><div class="step-content"><div class="step-title">Prepare Homogeneous, Parallel Lists</div><div class="step-desc">Develop 6–10 pairs. All items in Column A must belong to the same category, and all items in Column B must belong to the same category. Mixing categories makes correct matches obvious without content knowledge.</div><div class="step-tip">Read all Column A items together — they should feel like members of the same set. Do the same for Column B.</div></div></div>
+            <div class="step-row"><div class="step-num">3</div><div class="step-content"><div class="step-title">Add Dummy Responses</div><div class="step-desc">Include 1–2 extra responses in Column B that have no correct match in Column A. This prevents process-of-elimination guessing for the last answer. Dummy responses must be as plausible as the correct responses.</div></div></div>
+            <div class="step-row"><div class="step-num">4</div><div class="step-content"><div class="step-title">Write Clear, Unambiguous Instructions</div><div class="step-desc">State explicitly: (a) the relationship being matched, (b) whether each response can be used more than once or only once, and (c) how to record the answer.</div></div></div>
+            <div class="step-row"><div class="step-num">5</div><div class="step-content"><div class="step-title">Organize the Layout Thoughtfully</div><div class="step-desc">Place longer text (definitions, descriptions) in Column A (left) and shorter text (terms, codes, Annex numbers) in Column B (right). Arrange Column B responses in logical order — alphabetical, numerical, or by Annex/chapter number.</div></div></div>
+            <div class="step-row"><div class="step-num">6</div><div class="step-content"><div class="step-title">Review for Plausibility and Validate</div><div class="step-desc">Ensure no unintended surface clues give away any match. All responses should be plausible for at least some stems.</div><div class="step-tip">Cover Column A and look only at Column B. If any response is clearly unrelated to the others, it's not a plausible dummy — revise it.</div></div></div>
+          </div>
+
+          <div class="sub-header"><h3>Example — Poor vs. Improved</h3></div>
+          <div class="example-grid">
+            <div><div class="ex-label ex-label-b">✗ POOR SET</div><div class="ex-body ex-b"><div class="ex-stem">Column A: 1. SOLAS &nbsp; 2. Chief Engineer &nbsp; 3. Red flare &nbsp; 4. Knot</div><div class="ex-opts">Column B: A. Unit of speed &nbsp; B. Safety of life at sea &nbsp; C. Distress signal &nbsp; D. Senior engineer officer</div><div class="ex-note">Issues: Mixed categories in Column A (convention, job title, signal type, unit of measure). Correct matches are obvious without content knowledge.</div></div></div>
+            <div><div class="ex-label ex-label-g">✓ IMPROVED SET</div><div class="ex-body ex-g"><div class="ex-stem">Column A (MARPOL Annexes): I. Annex I &nbsp; II. Annex II &nbsp; III. Annex IV &nbsp; IV. Annex V &nbsp; V. Annex VI</div><div class="ex-opts">Column B (Pollution Type): A. Garbage &nbsp; B. Air emissions &nbsp; C. Sewage &nbsp; D. Oil &nbsp; E. Noxious liquids &nbsp; F. ★ Ballast water (dummy)</div><div class="ex-note">Homogeneous, logical numerical order, one plausible dummy (F). Answers: I-D, II-E, III-C, IV-A, V-B.</div></div></div>
+          </div>
+
+          <div class="sub-header"><h3>Design Checklist</h3></div>
+          <table class="checklist">
+            <thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead>
+            <tbody>
+              <tr><td>Relationship</td><td>One consistent relationship type throughout the set</td><td>Mixing different relationship types in one set</td></tr>
+              <tr><td>Homogeneity</td><td>All Column A items same category; all Column B items same category</td><td>Mixed categories making correct matches obvious</td></tr>
+              <tr><td>Dummy Responses</td><td>1–2 plausible extras in Column B from the same category</td><td>No extras — enables process-of-elimination guessing</td></tr>
+              <tr><td>Instructions</td><td>State relationship, reuse rules, and response format explicitly</td><td>Ambiguous instructions about reuse of responses</td></tr>
+              <tr><td>Layout</td><td>Longer descriptions left (A), shorter terms/codes right (B)</td><td>Responses in random order; mixed length in same column</td></tr>
+              <tr><td>Plausibility</td><td>No surface clues (terminology, grammar) link a stem to its response</td><td>Repeated key terms in both columns giving away matches</td></tr>
+            </tbody>
+          </table>
+
+          <div class="sub-header"><h3>Do's and Don'ts</h3></div>
+          <div class="dd-grid">
+            <div><div class="dd-head dd-head-do">✓ DO</div>
+              <div class="dd-item dd-item-do">✓ Use one consistent relationship type throughout the set</div>
+              <div class="dd-item dd-item-do">✓ Keep all items in each column from the same category</div>
+              <div class="dd-item dd-item-do">✓ Add 1–2 plausible dummy responses from the same category to Column B</div>
+              <div class="dd-item dd-item-do">✓ State clearly whether responses can be used more than once</div>
+              <div class="dd-item dd-item-do">✓ Place longer descriptions in Column A, shorter terms/codes in Column B</div>
+              <div class="dd-item dd-item-do">✓ Validate and submit to Item Bank with full answer key and regulation cited</div>
+            </div>
+            <div><div class="dd-head dd-head-dn">✗ DON'T</div>
+              <div class="dd-item dd-item-dn">✗ Mix different categories within Column A or Column B</div>
+              <div class="dd-item dd-item-dn">✗ Omit dummy responses from Column B</div>
+              <div class="dd-item dd-item-dn">✗ Leave instructions ambiguous about reuse of responses</div>
+              <div class="dd-item dd-item-dn">✗ Repeat key terms from Column A in Column B responses</div>
+              <div class="dd-item dd-item-dn">✗ Use fewer than 6 pairs (too susceptible to elimination)</div>
+              <div class="dd-item dd-item-dn">✗ Use outdated regulation, code, or convention names</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PART 2 HEADER -->
+    <div class="part-header" style="margin-top: 16px;" id="s7">
+      <div class="part-header-num">II</div>
+      <div>
+        <h2>Guidelines for Selecting Assessment Item Types</h2>
+        <p>Choosing the right item type is as important as writing the item well — guided by cognitive level, content nature, logistics, and purpose</p>
+      </div>
+    </div>
+
+    <!-- FACTOR BLOCKS -->
+    <div class="section-card" style="border-top: 4px solid var(--teal-600);">
+      <div class="card-header open" onclick="toggleCard(this)" style="border-top: none;">
+        <div class="card-num" style="background: var(--teal-600);">✦</div>
+        <div class="card-title-group">
+          <div class="card-title">Key Factors in Selecting Item Types</div>
+          <div class="card-subtitle">Seven factors to guide your assessment design decisions</div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="card-body open">
+        <div class="card-inner">
+
+          <div class="factor-block">
+            <div class="factor-header"><div class="factor-num" style="background:var(--teal-950);">1</div><div class="factor-label" style="background:var(--teal-950);">Learning Objective / Competency Level (Bloom's Taxonomy)</div></div>
+            <div class="factor-body">
+              <div class="factor-li"><strong>Knowledge / Recall</strong> — True/False, Fill-in-the-Blank, Identification, Matching</div>
+              <div class="factor-li"><strong>Comprehension / Understanding</strong> — MCQ, Essay (1-paragraph)</div>
+              <div class="factor-li"><strong>Application</strong> — Scenario-based MCQ, Essay (1-paragraph)</div>
+              <div class="factor-li"><strong>Analysis / Evaluation / Synthesis</strong> — Long Structured Essay, Case Studies</div>
+            </div>
+          </div>
+
+          <div class="factor-block">
+            <div class="factor-header"><div class="factor-num" style="background:var(--teal-800);">2</div><div class="factor-label" style="background:var(--teal-800);">Nature of the Content</div></div>
+            <div class="factor-body">
+              <div class="factor-li"><strong>Regulation references, component names, signal codes</strong> — Identification, Fill-in-the-Blank, Matching</div>
+              <div class="factor-li"><strong>Conceptual understanding of procedures or standards</strong> — MCQ, Essay (1-paragraph)</div>
+              <div class="factor-li"><strong>Regulatory relationships (Annex ↔ pollutant, chapter ↔ scope)</strong> — Matching</div>
+              <div class="factor-li"><strong>Complex incident analysis or emergency decision-making</strong> — Long Structured Essay</div>
+            </div>
+          </div>
+
+          <div class="factor-block">
+            <div class="factor-header"><div class="factor-num" style="background:var(--teal-600);">3</div><div class="factor-label" style="background:var(--teal-600);">Number of Examinees / Scoring Efficiency</div></div>
+            <div class="factor-body">
+              <div class="factor-li"><strong>Large cohorts</strong> — MCQ, True/False, Matching for efficient, consistent scoring</div>
+              <div class="factor-li"><strong>Smaller classes or competency assessments</strong> — Essay types provide richer evidence of competence</div>
+            </div>
+          </div>
+
+          <div class="factor-block">
+            <div class="factor-header"><div class="factor-num" style="background:var(--c1);">4</div><div class="factor-label" style="background:var(--c1);">Time Constraints</div></div>
+            <div class="factor-body">
+              <div class="factor-li"><strong>Limited time</strong> — Objective items cover more content per minute (MCQ, T/F, Matching)</div>
+              <div class="factor-li"><strong>Sufficient time</strong> — Long Structured Essay enables authentic demonstration of maritime competence</div>
+            </div>
+          </div>
+
+          <div class="factor-block">
+            <div class="factor-header"><div class="factor-num" style="background:var(--c2);">5</div><div class="factor-label" style="background:var(--c2);">Reliability vs. Validity Trade-off</div></div>
+            <div class="factor-body">
+              <div class="factor-li"><strong>Objective items</strong> — Higher reliability (consistent scoring across markers), but may not capture complex maritime decision-making</div>
+              <div class="factor-li"><strong>Subjective items</strong> — Higher validity for measuring real officer competence, but require rubrics to achieve acceptable reliability</div>
+            </div>
+          </div>
+
+          <div class="factor-block">
+            <div class="factor-header"><div class="factor-num" style="background:var(--c3);">6</div><div class="factor-label" style="background:var(--c3);">Purpose of Assessment</div></div>
+            <div class="factor-body">
+              <div class="factor-li"><strong>Formative (ongoing checks)</strong> — Essay (1-paragraph), T/F, Fill-in-the-Blank</div>
+              <div class="factor-li"><strong>Summative (end-of-course, pre-licensure)</strong> — Mixed sets: MCQ + Long Structured Essay + Identification</div>
+              <div class="factor-li"><strong>Diagnostic</strong> — MCQ with targeted distractors, Fill-in-the-Blank, True/False</div>
+            </div>
+          </div>
+
+          <div class="factor-block">
+            <div class="factor-header"><div class="factor-num" style="background:var(--c4);">7</div><div class="factor-label" style="background:var(--c4);">Mixing Item Types (Test Blueprints)</div></div>
+            <div class="factor-body">
+              <div class="factor-li">Cover <strong>different cognitive levels</strong> across Bloom's Taxonomy — from recall to evaluation</div>
+              <div class="factor-li">Sample a <strong>broad range of maritime competencies</strong> efficiently within available time</div>
+              <div class="factor-li">Improve <strong>content validity</strong> by representing multiple STCW/SOLAS competency areas</div>
+              <div class="factor-li">Balance <strong>objective scoring efficiency</strong> with depth of demonstrated maritime competence</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- BLUEPRINT -->
+    <div class="section-card" style="border-top: 4px solid var(--teal-600);" id="s8">
+      <div class="card-header open" onclick="toggleCard(this)" style="border-top: none;">
+        <div class="card-num" style="background: var(--teal-600);">◈</div>
+        <div class="card-title-group">
+          <div class="card-title">Sample Test Blueprint</div>
+          <div class="card-subtitle">Recommended item mix for maritime programs</div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="card-body open">
+        <div class="card-inner">
+          <table class="blueprint">
+            <thead><tr><td>Item Type</td><td>% of Test</td><td>Cognitive Level(s)</td><td>Suggested Use in Maritime Courses</td></tr></thead>
+            <tbody>
+              <tr><td>Multiple Choice (MCQ)</td><td>35 – 45%</td><td>Knowledge → Application</td><td>Regulation knowledge, scenario-based ColRegs/SOLAS application</td></tr>
+              <tr><td>Essay — 1 Paragraph</td><td>15 – 20%</td><td>Comprehension → Application</td><td>Procedure explanation, regulation purpose, MARPOL description</td></tr>
+              <tr><td>Long Structured Essay</td><td>20 – 30%</td><td>Analysis → Evaluation</td><td>Incident analysis, emergency planning, stability justification</td></tr>
+              <tr><td>Fill-in / Identification / Completion</td><td>10 – 15%</td><td>Knowledge / Recall</td><td>Equipment names, regulation references, GMDSS codes</td></tr>
+              <tr><td>True/False or Matching</td><td>5 – 10%</td><td>Knowledge / Recall</td><td>Rapid screening of factual regulatory and procedural knowledge</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUICK REFERENCE -->
+    <div class="section-card" style="border-top: 4px solid var(--teal-600);" id="s9">
+      <div class="card-header open" onclick="toggleCard(this)" style="border-top: none;">
+        <div class="card-num" style="background: var(--teal-600);">⊞</div>
+        <div class="card-title-group">
+          <div class="card-title">Quick Reference</div>
+          <div class="card-subtitle">When to use each item type at a glance</div>
+        </div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="card-body open">
+        <div class="card-inner">
+          <div class="qr-grid">
+            <div class="qr-card"><div class="qr-label" style="background:var(--c1);">MCQ</div><div class="qr-body">Broad coverage · Efficient scoring · All cognitive levels · Regulation application</div></div>
+            <div class="qr-card"><div class="qr-label" style="background:var(--c2);">Long Structured Essay</div><div class="qr-body">Incident analysis · Emergency planning · Multi-part reasoning · Evaluation</div></div>
+            <div class="qr-card"><div class="qr-label" style="background:var(--c3);">Essay (1 Paragraph)</div><div class="qr-body">Procedure explanation · Regulation purpose · Focused comprehension</div></div>
+            <div class="qr-card"><div class="qr-label" style="background:var(--c4);">Fill-in / Identification</div><div class="qr-body">Equipment names · Regulation codes · Precise term recall · Completion</div></div>
+            <div class="qr-card"><div class="qr-label" style="background:var(--c5);">True / False</div><div class="qr-body">Rapid regulatory fact check · Knowledge screening · Procedural facts</div></div>
+            <div class="qr-card"><div class="qr-label" style="background:var(--c6);">Matching</div><div class="qr-body">Annex ↔ Pollutant · Chapter ↔ Scope · Light ↔ Arc · Code ↔ Meaning</div></div>
+          </div>
+
+          <div class="footer-note">
+            <strong>Best Practice Reminder:</strong> No single item type can measure all maritime learning outcomes. Design every assessment using a test blueprint aligned to STCW competency areas and Bloom's cognitive levels. Use a mix of objective and subjective item types, verify all regulation references for currency, and store all finalized items in the institutional Test Item Bank with the applicable maritime standard and review date recorded.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
 </div>
-<div class="sb">
-  <div class="ov ov-lse">A Long Structured Essay requires students to produce an extended, organized, multi-paragraph response to a complex maritime prompt. It is the primary tool for assessing whether students can integrate knowledge across a topic — analyzing the causes and consequences of a maritime incident, evaluating crew emergency response, or proposing a complete safety management plan. The "structured" element means the prompt provides clear numbered sub-questions, making responses more targeted and scoring more consistent.</div>
 
-  <div class="sh sh-lse-d" style="margin-bottom:4px;"><h3>Step-by-Step Process</h3></div>
-  <div class="steps no-break">
-    <div class="sr"><div class="sn sn-lse-1">1</div><div class="sc"><div class="st">Define Purpose and Cognitive Level</div><div class="sd">Identify which higher-order competence the question will measure: analysis (breaking a maritime scenario into contributing factors), synthesis (proposing a complete emergency plan), or evaluation (judging the adequacy of a procedure). A Long Structured Essay should always target at least Analysis level on Bloom's Taxonomy.</div><div class="tip">Ask: "Do I want students to describe a procedure, or to analyze why it succeeded/failed, or to design a better one?" The answer determines the directive verb.</div></div></div>
-    <div class="sr"><div class="sn sn-lse-2">2</div><div class="sc"><div class="st">Write a Structured Prompt with Sub-Questions</div><div class="sd">Open with a maritime scenario (e.g., a machinery breakdown, grounding incident, or MARPOL violation). Follow with 2–4 numbered sub-questions using specific directive verbs: Analyze, Evaluate, Compare, Justify, Recommend, Propose. Each sub-question should target a distinct cognitive task, building from analysis toward evaluation.</div><div class="tip">Each sub-question should be answerable in 1–3 focused paragraphs. If one requires more, split it further.</div></div></div>
-    <div class="sr"><div class="sn sn-lse-3">3</div><div class="sc"><div class="st">Clarify Parameters for Each Part</div><div class="sd">State the expected total length (e.g., 500–700 words), time allocation (e.g., 45 minutes), and mark breakdown per sub-question. Specify if diagrams, calculations, or regulation citations are required for any sub-part. Showing the mark allocation guides students on the expected depth of each part.</div><div class="tip">Allocate marks per sub-question and show the breakdown in the prompt itself — e.g., "Question 1 (10 pts)."</div></div></div>
-    <div class="sr"><div class="sn sn-lse-4">4</div><div class="sc"><div class="st">Develop a Structured Scoring Rubric</div><div class="sd">Create a rubric with separate criteria for each sub-question covering: technical accuracy, depth of analysis, quality of reasoning and evidence, logical organization, and clarity of expression. Each criterion should have at least 3 performance levels (excellent / satisfactory / inadequate) with clear descriptors.</div><div class="tip">Write a model answer before finalizing the rubric. If you struggle to describe excellent performance, the sub-question is too vague.</div></div></div>
-    <div class="sr"><div class="sn sn-lse-5">5</div><div class="sc"><div class="st">Review for Clarity, Fairness, and Technical Accuracy</div><div class="sd">Verify all scenario details against current maritime regulations and standard procedures (SOLAS, STCW, ISM Code). Ensure no sub-question is ambiguous. Have a subject matter expert attempt the prompt before issuing it.</div></div></div>
-    <div class="sr"><div class="sn sn-lse-6">6</div><div class="sc"><div class="st">Validate and Record</div><div class="sd">Include the approved version in the Assessment Instrument Register with: the full rubric, mark allocation per sub-question, learning outcome mapped, cognitive level tagged, applicable maritime standard, and estimated completion time.</div></div></div>
-  </div>
+<!-- BACK TO TOP -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
 
-  <div class="gmd"></div>
-  <div class="sh sh-lse-m" style="margin-bottom:6px;"><h3>Long Structured Essay — Poor vs. Improved Example</h3></div>
-  <div class="exp no-break">
-    <div><div class="el el-lse-b">✗ POOR PROMPT</div><div class="eb eb-lse-b"><div class="estem">Discuss the MV Sewol disaster.</div><div class="eopts">(No sub-questions, no directive verbs, no scope, no parameters)</div><div class="enote">Issues: "Discuss" is undefined. No cognitive task specified. Students may write a narrative summary rather than analysis. No length, time, or mark allocation provided.</div></div></div>
-    <div><div class="el el-lse-g">✓ IMPROVED PROMPT</div><div class="eb eb-lse-g"><div class="estem">A passenger ro-ro ferry overloads cargo beyond its stability limits and capsizes in poor weather with significant loss of life.</div><div class="eopts">1. (10 pts) Analyze three seamanship and stability factors that contributed to the capsizing.<br>2. (10 pts) Evaluate the adequacy of the crew's emergency response.<br>3. (10 pts) Recommend amendments to loading procedures to prevent recurrence, justifying each.<br>(500–700 words · 45 minutes)</div><div class="enote">Improved: Structured sub-questions, specific directive verbs, mark allocation shown, length and time stated, targets Analysis through Evaluation.</div></div></div>
-  </div>
+<!-- SIDEBAR OVERLAY for mobile -->
+<div id="overlay" onclick="closeSidebar()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:89;"></div>
 
-  <div class="sh sh-lse-d" style="margin-bottom:6px;"><h3>Long Structured Essay Checklist</h3></div>
-  <table class="ct lse no-break"><thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead><tbody>
-    <tr><td>Scenario</td><td>Realistic maritime context with sufficient technical detail</td><td>Vague scenario that allows any interpretation</td></tr>
-    <tr><td>Sub-Questions</td><td>2–4 parts, each with a distinct directive verb and cognitive task</td><td>One broad question mixing multiple tasks</td></tr>
-    <tr><td>Directive Verbs</td><td>Analyze, Evaluate, Justify, Recommend, Compare, Propose</td><td>Vague verbs: "discuss," "explain," "describe"</td></tr>
-    <tr><td>Parameters</td><td>Length, time, and mark allocation stated explicitly per sub-question</td><td>No guidance on expected depth, length, or marks</td></tr>
-    <tr><td>Rubric</td><td>Separate criteria per sub-question; written before finalizing prompt</td><td>Single holistic rubric for the entire response</td></tr>
-    <tr><td>Technical Accuracy</td><td>All scenario details verified against current maritime conventions</td><td>Outdated or inaccurate technical details in the scenario</td></tr>
-  </tbody></table>
+<script>
+// ── TOGGLE CARDS ──
+function toggleCard(header) {
+  const body = header.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  header.classList.toggle('open', !isOpen);
+  body.classList.toggle('open', !isOpen);
+}
 
-  <div class="sh sh-lse-m" style="margin-bottom:6px;"><h3>Do's and Don'ts</h3></div>
-  <div class="dd no-break">
-    <div class="do-lse"><div class="ddh">✓ DO</div>
-      <div class="ddi">✓ Use a realistic maritime scenario as the prompt context</div>
-      <div class="ddi">✓ Include 2–4 numbered sub-questions with distinct directive verbs</div>
-      <div class="ddi">✓ Show the mark allocation per sub-question in the prompt</div>
-      <div class="ddi">✓ State expected total length and time allocation</div>
-      <div class="ddi">✓ Develop a separate rubric for each sub-question</div>
-      <div class="ddi">✓ Verify all technical details against SOLAS, STCW, MARPOL, ISM Code</div>
-      <div class="ddi">✓ Have a maritime expert attempt the prompt before issuing it</div>
-      <div class="ddi">✓ Archive with rubric, mark allocation, and learning outcome mapped</div>
-    </div>
-    <div class="dn-lse"><div class="ddh">✗ DON'T</div>
-      <div class="ddi">✗ Use a single open question like "Discuss X" without structure</div>
-      <div class="ddi">✗ Omit sub-questions, leaving students to determine scope</div>
-      <div class="ddi">✗ Leave length, time, or mark allocation unspecified</div>
-      <div class="ddi">✗ Use vague verbs like "discuss," "write about," or "explain"</div>
-      <div class="ddi">✗ Finalize the prompt before writing the rubric</div>
-      <div class="ddi">✗ Include technically inaccurate or outdated scenario details</div>
-      <div class="ddi">✗ Score responses without a rubric (impressionistic marking)</div>
-      <div class="ddi">✗ Omit the rubric from the Assessment Instrument Register</div>
-    </div>
-  </div>
-</div></div>
+// ── SIDEBAR ──
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('overlay');
+  const open = sb.classList.toggle('open');
+  ov.style.display = open ? 'block' : 'none';
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').style.display = 'none';
+}
 
+// ── SCROLL: progress bar + back to top + active nav ──
+const sections = ['hero','s1','s2','s3','s4','s5','s6','s7','s8','s9'];
+const navLinks = document.querySelectorAll('.nav-item');
 
-<!-- ═══════════════ 3. ESSAY (1-PARAGRAPH) ═══════════════ -->
-<div class="page-break">
-<div class="t-banner bn-ess">
-  <h2>3. Essay — Short Answer (One Paragraph)</h2>
-  <div class="bsub">Assess focused understanding, explanation, or application in a single coherent paragraph</div>
-  <div class="ttags"><span class="ttag">Focused Response</span><span class="ttag">Single Paragraph</span><span class="ttag">Directive Verbs</span><span class="ttag">Marine Examples</span><span class="ttag">Do's &amp; Don'ts</span></div>
-</div>
-<div class="sb">
-  <div class="ov ov-ess">An Essay question at this level requires a single, focused paragraph — typically 5–10 sentences — in response to a specific prompt. It sits between a fill-in-the-blank item and a full long structured essay: more cognitively demanding than recall-based items, but more constrained and focused than multi-part argumentation. In maritime education, these questions are ideal for testing whether a student can explain the purpose of a regulation, describe a standard procedure, or briefly apply a principle to a given on-board situation — in their own words.</div>
+window.addEventListener('scroll', () => {
+  // Progress bar
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('progress').style.width = (scrolled / total * 100) + '%';
 
-  <div class="sh sh-ess-d" style="margin-bottom:4px;"><h3>Step-by-Step Process</h3></div>
-  <div class="steps no-break">
-    <div class="sr"><div class="sn sn-ess-1">1</div><div class="sc"><div class="st">Define the Cognitive Demand</div><div class="sd">Identify whether the item targets comprehension (explain, describe) or application (apply a regulation to a situation, relate a procedure to a scenario). Essay questions at this level should go beyond pure recall — the student should construct a response in their own words, not reproduce memorized text.</div><div class="tip">Ask: "Would a student who truly understands this topic be able to write this paragraph without memorizing it word-for-word?" If yes, it's a good essay question.</div></div></div>
-    <div class="sr"><div class="sn sn-ess-2">2</div><div class="sc"><div class="st">Write the Prompt with a Precise Directive Verb</div><div class="sd">Use a single, specific directive verb: Explain, Describe, State and explain, Briefly discuss, Outline. The prompt should specify exactly what to address. Provide minimal but sufficient context — enough for students to understand the scenario, not so much that the answer is embedded in the question itself.</div><div class="tip">Avoid "Write a paragraph about X." Instead: "Explain the purpose of the ISM Code and identify one specific obligation it places on the Master."</div></div></div>
-    <div class="sr"><div class="sn sn-ess-3">3</div><div class="sc"><div class="st">Specify the Expected Format</div><div class="sd">State clearly: one paragraph, 5–8 sentences, or approximately 80–120 words. Without a format constraint, students either write a single sentence (too brief) or begin writing an essay (too long). The one-paragraph constraint signals the expected depth — focused and precise, not exhaustive.</div></div></div>
-    <div class="sr"><div class="sn sn-ess-4">4</div><div class="sc"><div class="st">Develop an Answer Key with Key Points</div><div class="sd">Write a model paragraph before finalizing. From this, extract 3–5 key content points that a complete response should include. Use these as your scoring guide, assigning 1–2 marks per key point. State clearly whether partial credit is awarded for partially correct responses.</div><div class="tip">If your model answer requires more than one paragraph to include all key points, either reduce the scope or reclassify as a Long Structured Essay.</div></div></div>
-    <div class="sr"><div class="sn sn-ess-5">5</div><div class="sc"><div class="st">Review for Clarity and Scope</div><div class="sd">Ensure the prompt cannot be answered in one sentence (too narrow) and would not naturally require multiple paragraphs (too broad). A well-calibrated essay prompt has a clearly bounded scope answerable in one focused paragraph. Peer review before finalizing.</div></div></div>
-    <div class="sr"><div class="sn sn-ess-6">6</div><div class="sc"><div class="st">Record and Archive</div><div class="sd">Store in the Item Bank with: the model answer, key content points and marks per point, learning outcome, cognitive level tagged, and applicable maritime standard. Include time allocation and any permitted references.</div></div></div>
-  </div>
+  // Back to top
+  document.getElementById('back-top').classList.toggle('show', scrolled > 300);
 
-  <div class="gmd"></div>
-  <div class="sh sh-ess-m" style="margin-bottom:6px;"><h3>Essay (1-Paragraph) — Poor vs. Improved Example</h3></div>
-  <div class="exp no-break">
-    <div><div class="el el-ess-b">✗ POOR PROMPT</div><div class="eb eb-ess-b"><div class="estem">Write about MARPOL.</div><div class="eopts">(No directive verb, no scope, no format guidance)</div><div class="enote">Issues: Scope is the entire MARPOL convention. Students cannot know whether to describe, analyze, or evaluate, or which Annex to focus on. Responses will be wildly inconsistent.</div></div></div>
-    <div><div class="el el-ess-g">✓ IMPROVED PROMPT</div><div class="eb eb-ess-g"><div class="estem">Explain the purpose of MARPOL Annex I and briefly describe two specific discharge restrictions it places on oil tankers operating in Special Areas.</div><div class="eopts">(One paragraph · 5–8 sentences · 10 minutes)</div><div class="enote">Improved: Specific directive verbs (Explain, describe), bounded scope (Annex I, Special Areas, two restrictions), format and time stated. Manageable in one focused paragraph.</div></div></div>
-  </div>
-
-  <div class="sh sh-ess-d" style="margin-bottom:6px;"><h3>Essay (1-Paragraph) Checklist</h3></div>
-  <table class="ct ess no-break"><thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead><tbody>
-    <tr><td>Directive Verb</td><td>Explain, Describe, Outline, State and explain</td><td>Vague: "write about," "discuss," "talk about"</td></tr>
-    <tr><td>Scope</td><td>Clearly bounded — answerable in one focused paragraph</td><td>Too broad (needs multiple paragraphs) or too narrow (one sentence)</td></tr>
-    <tr><td>Format</td><td>State "one paragraph" and approximate length or sentence count</td><td>No format guidance given to students</td></tr>
-    <tr><td>Answer Key</td><td>3–5 key content points; model paragraph written before finalizing</td><td>Vague key applied differently by different markers</td></tr>
-    <tr><td>Depth</td><td>Targets comprehension or application — not pure recall</td><td>Question answerable by reproducing a memorized definition</td></tr>
-    <tr><td>Alignment</td><td>Maps to a specific maritime learning outcome or standard</td><td>Items testing content not meaningfully taught</td></tr>
-  </tbody></table>
-
-  <div class="sh sh-ess-m" style="margin-bottom:6px;"><h3>Do's and Don'ts</h3></div>
-  <div class="dd no-break">
-    <div class="do-ess"><div class="ddh">✓ DO</div>
-      <div class="ddi">✓ Use specific directive verbs (Explain, Describe, Outline)</div>
-      <div class="ddi">✓ Bound the scope so a one-paragraph answer is sufficient</div>
-      <div class="ddi">✓ State "one paragraph" and expected sentence count or word limit</div>
-      <div class="ddi">✓ Write the model paragraph before finalizing the question</div>
-      <div class="ddi">✓ Extract 3–5 key content points as scoring criteria</div>
-      <div class="ddi">✓ Target comprehension or application, not rote memorization</div>
-      <div class="ddi">✓ Archive with model answer, key points, and marks per point</div>
-    </div>
-    <div class="dn-ess"><div class="ddh">✗ DON'T</div>
-      <div class="ddi">✗ Use "Write about X" or "Discuss X" without specifying the task</div>
-      <div class="ddi">✗ Set scope so broad it naturally requires multiple paragraphs</div>
-      <div class="ddi">✗ Set scope so narrow it can be answered in one or two sentences</div>
-      <div class="ddi">✗ Leave format (length, paragraph count) unspecified</div>
-      <div class="ddi">✗ Finalize without writing the model answer first</div>
-      <div class="ddi">✗ Accept answers that only reproduce memorized definitions</div>
-      <div class="ddi">✗ Score impressionistically without a key-point scoring guide</div>
-    </div>
-  </div>
-</div></div>
-
-
-<!-- ═══════════════ 4. FILL-IN / IDENTIFICATION / COMPLETION ═══════════════ -->
-<div class="page-break">
-<div class="t-banner bn-fib">
-  <h2>4. Fill-in-the-Blank / Identification / Completion</h2>
-  <div class="bsub">Assess precise recall of specific terms, names, regulation references, and component identifications</div>
-  <div class="ttags"><span class="ttag">Exact Recall</span><span class="ttag">Terminology</span><span class="ttag">Identification</span><span class="ttag">Marine Examples</span><span class="ttag">Do's &amp; Don'ts</span></div>
-</div>
-<div class="sb">
-  <div class="ov ov-fib">This item type family covers three closely related formats sharing the same design principles. <strong>Fill-in-the-Blank</strong> presents a statement with a gap to complete. <strong>Identification</strong> prompts for a specific term, name, component, or regulation (e.g., "Identify the SOLAS chapter that governs…"). <strong>Completion</strong> presents an incomplete definition, formula, or procedural statement to finish. In all three, the student must recall and produce the exact answer. In maritime education, this format is ideal for testing equipment names, regulation numbers, code provisions, signal meanings, and component functions.</div>
-
-  <div class="sh sh-fib-d" style="margin-bottom:4px;"><h3>Step-by-Step Process</h3></div>
-  <div class="steps no-break">
-    <div class="sr"><div class="sn sn-fib-1">1</div><div class="sc"><div class="st">Identify Target Knowledge</div><div class="sd">Select facts, terms, equipment names, regulation titles, or values that are central to the learning outcome and worth recalling precisely. In maritime education: names of navigation lights, SOLAS chapter references, MARPOL Annex requirements, distress signal types, STCW certificate validity periods, and engine component names.</div><div class="tip">Ask: "Is precise recall of this exact term or value a meaningful indicator of maritime competence?" If not, choose a different item type.</div></div></div>
-    <div class="sr"><div class="sn sn-fib-2">2</div><div class="sc"><div class="st">Choose the Appropriate Sub-Format</div><div class="sd"><strong>Fill-in-the-Blank:</strong> Complete sentence with one blank at or near the end. Best for terms within a context.<br><strong>Identification:</strong> Direct prompt using "Identify…" or "Name…". Best for specific names, regulation references, or component identifications.<br><strong>Completion:</strong> Incomplete definition, formula, or procedural statement. Best for precise technical definitions or sequences.</div><div class="tip">For regulation numbers and proper nouns, the "Identify…" format is often clearer than a blank in a sentence.</div></div></div>
-    <div class="sr"><div class="sn sn-fib-3">3</div><div class="sc"><div class="st">Avoid Grammatical Giveaways</div><div class="sd">Articles (a vs. an), verb agreement, and plural forms can unintentionally signal the correct answer. Review each item to ensure grammar does not narrow the possible answers. Replace "a/an" immediately before a blank with "a/an (as appropriate)" or restructure the sentence.</div></div></div>
-    <div class="sr"><div class="sn sn-fib-4">4</div><div class="sc"><div class="st">Define the Expected Answer Precisely</div><div class="sd">Before finalizing, write every acceptable correct answer — including official abbreviations, alternate names (e.g., "GMDSS" and "Global Maritime Distress and Safety System"), and equivalent forms. If the list becomes too long or contested, the item is too ambiguous and must be revised.</div><div class="tip">For regulation references, decide in advance whether you accept short form (e.g., "SOLAS II-1") or require full titles, and state this in the instructions.</div></div></div>
-    <div class="sr"><div class="sn sn-fib-5">5</div><div class="sc"><div class="st">Review Readability and Add Cues if Needed</div><div class="sd">Ensure the remaining context clearly indicates what type of answer is expected. If the answer type (a name? a number? a regulation?) is not obvious from context, add a brief cue in parentheses: "(equipment name)," "(SOLAS regulation number)," "(in nautical miles)."</div></div></div>
-    <div class="sr"><div class="sn sn-fib-6">6</div><div class="sc"><div class="st">Record in Item Bank</div><div class="sd">Store in the Item Bank with: the full answer key (all acceptable forms and abbreviations), learning outcome, and competence type tagged as "Knowledge-based." Note the applicable maritime standard or regulation being tested.</div></div></div>
-  </div>
-
-  <div class="gmd"></div>
-  <div class="sh sh-fib-m" style="margin-bottom:6px;"><h3>Examples — Poor vs. Improved</h3></div>
-  <div class="exp no-break">
-    <div><div class="el el-fib-b">✗ POOR ITEMS</div><div class="eb eb-fib-b"><div class="estem">Fill-in: "The __________ is used when a ship is in distress."</div><div class="eopts">Identification: "What is the equipment for emergencies?"<br>Completion: "MARPOL is a convention that..."</div><div class="enote">Issues: Blank at start; too vague to have one answer; open-ended with many possible completions.</div></div></div>
-    <div><div class="el el-fib-g">✓ IMPROVED ITEMS</div><div class="eb eb-fib-g"><div class="estem">Fill-in: "When a vessel is in distress, the OOW should activate the __________ (equipment name) to alert rescue coordination centers automatically."</div><div class="eopts">Identification: "Identify the SOLAS regulation requiring muster drills within 24 hours of departure from port. (Regulation number)"<br>Completion: "MARPOL Annex VI sets limits on __________ (two words) emissions from ship exhausts."</div><div class="enote">Improved: Blank near end with context and cue, identification with format specified, completion with precise scope. Answers: EPIRB; Reg. III/19; air pollution.</div></div></div>
-  </div>
-
-  <div class="sh sh-fib-d" style="margin-bottom:6px;"><h3>Design Checklist</h3></div>
-  <table class="ct fib no-break"><thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead><tbody>
-    <tr><td>Position</td><td>Blank at or near end; identification uses "Identify/Name" verb</td><td>Blank at the beginning of the sentence</td></tr>
-    <tr><td>Answer Cue</td><td>Add parenthetical cue when answer type is not obvious</td><td>No indication of whether answer is a name, number, or regulation</td></tr>
-    <tr><td>Grammar</td><td>Neutral articles; no grammatical clues to singular/plural</td><td>a/an or verb form revealing the answer type</td></tr>
-    <tr><td>Answer Key</td><td>All acceptable forms listed before finalizing (abbreviations, full titles)</td><td>Accepting too many variant answers (item too vague)</td></tr>
-    <tr><td>Context</td><td>Remaining text clearly points to the specific missing information</td><td>Statement that works for multiple different correct answers</td></tr>
-    <tr><td>Specificity</td><td>Tests central, precisely-defined maritime knowledge</td><td>Testing trivial details or information not taught in class</td></tr>
-  </tbody></table>
-
-  <div class="sh sh-fib-m" style="margin-bottom:6px;"><h3>Do's and Don'ts</h3></div>
-  <div class="dd no-break">
-    <div class="do-fib"><div class="ddh">✓ DO</div>
-      <div class="ddi">✓ Place blanks at or near the end of sentences</div>
-      <div class="ddi">✓ Use "Identify…" or "Name…" for proper nouns and regulation references</div>
-      <div class="ddi">✓ Add a parenthetical cue when the answer type is not obvious</div>
-      <div class="ddi">✓ List all acceptable answer forms (abbreviations, full titles, alternate names)</div>
-      <div class="ddi">✓ Test central maritime knowledge worth knowing precisely</div>
-      <div class="ddi">✓ Review grammar to remove unintentional answer clues</div>
-      <div class="ddi">✓ Store with full answer key and applicable regulation noted</div>
-    </div>
-    <div class="dn-fib"><div class="ddh">✗ DON'T</div>
-      <div class="ddi">✗ Place blanks at the beginning of sentences</div>
-      <div class="ddi">✗ Include two or more blanks in a single sentence</div>
-      <div class="ddi">✗ Use a/an immediately before a blank</div>
-      <div class="ddi">✗ Write items where three or more substantially different answers are all acceptable</div>
-      <div class="ddi">✗ Test obscure details barely mentioned in instruction</div>
-      <div class="ddi">✗ Allow grammar or structure to narrow the answer type</div>
-      <div class="ddi">✗ Finalize without listing all acceptable answer variants</div>
-    </div>
-  </div>
-</div></div>
-
-
-<!-- ═══════════════ 5. TRUE OR FALSE ═══════════════ -->
-<div class="page-break">
-<div class="t-banner bn-tf">
-  <h2>5. True or False</h2>
-  <div class="bsub">Assess essential factual knowledge of maritime regulations, standards, and procedures</div>
-  <div class="ttags"><span class="ttag">Single-Idea Focus</span><span class="ttag">Absolute Accuracy</span><span class="ttag">Regulatory Currency</span><span class="ttag">Marine Examples</span><span class="ttag">Do's &amp; Don'ts</span></div>
-</div>
-<div class="sb">
-  <div class="ov ov-tf">True/False items are the most efficient format for assessing large volumes of factual maritime content quickly — ideal for checking knowledge of specific regulation requirements, signal meanings, equipment specifications, and procedural facts. Their primary weakness is a 50% guessing probability, so they must be used in clusters of 10 or more. They may be paired with a "Justify your answer" instruction to raise cognitive demand. In maritime education, where regulations have precise technical thresholds, the requirement for a statement to be 100% true or 100% false is especially critical.</div>
-
-  <div class="sh sh-tf-d" style="margin-bottom:4px;"><h3>Step-by-Step Process</h3></div>
-  <div class="steps no-break">
-    <div class="sr"><div class="sn sn-tf-1">1</div><div class="sc"><div class="st">Identify the Learning Point</div><div class="sd">Focus on a single, important fact, regulation requirement, or technical specification. Reserve True/False items for clear-cut, well-defined maritime knowledge — specific numerical thresholds in SOLAS, precise ColRegs light configurations, defined STCW certificate validity periods. Avoid nuanced topics where context or vessel type changes the answer.</div><div class="tip">Ask: "Is this statement unambiguously true or false under current regulations, regardless of context?" If the answer depends on vessel type or area, choose MCQ instead.</div></div></div>
-    <div class="sr"><div class="sn sn-tf-2">2</div><div class="sc"><div class="st">Construct the Statement</div><div class="sd">Write a single, concise, factual sentence in plain language. Each statement must contain exactly one idea — never combine two separate regulatory requirements, as a student may know one and not the other, creating genuine ambiguity in the correct answer.</div><div class="tip">Read the statement to a colleague. If they say "it depends" or ask a clarifying question, revise the statement.</div></div></div>
-    <div class="sr"><div class="sn sn-tf-3">3</div><div class="sc"><div class="st">Ensure the Statement Is 100% True or 100% False</div><div class="sd">In maritime education, partial truths are particularly dangerous — a regulation may apply to some vessel types but not others, or above/below certain tonnage thresholds. A statement that is "true for most vessels" is not acceptable. If exceptions exist, either specify the scope precisely in the statement or choose a different item type.</div><div class="tip">Have a maritime expert review. If they add "yes, but only for vessels over 500 GT…" — the statement is not universally true and must be revised.</div></div></div>
-    <div class="sr"><div class="sn sn-tf-4">4</div><div class="sc"><div class="st">Avoid Negatives, Double Negatives, and Absolute Qualifiers</div><div class="sd">Words like always, never, all, none, and only allow students to guess False regardless of content knowledge. Write direct, affirmative factual statements. If a negative is essential, bold or underline it clearly.</div></div></div>
-    <div class="sr"><div class="sn sn-tf-5">5</div><div class="sc"><div class="st">Verify Regulatory Accuracy and Currency</div><div class="sd">Verify all statements against current versions of the applicable maritime instruments (SOLAS, STCW, MARPOL, ColRegs, ISM Code, MLC). Regulations change — an item correct under a previous amendment may now be false. Record the specific regulation reference and amendment year in the item metadata.</div></div></div>
-    <div class="sr"><div class="sn sn-tf-6">6</div><div class="sc"><div class="st">Validate, Balance, and Record</div><div class="sd">Peer review for factual accuracy and absence of language cues. Use true and false items in roughly equal proportions. Record in the Item Bank with answer key, regulation reference, competence type (Knowledge), and the applicable maritime instrument and amendment year.</div><div class="tip">After drafting a full set, count True and False answers. If the split exceeds 60/40 in either direction, revise for better balance.</div></div></div>
-  </div>
-
-  <div class="gmd"></div>
-  <div class="sh sh-tf-m" style="margin-bottom:6px;"><h3>True/False — Poor vs. Improved Example</h3></div>
-  <div class="exp no-break">
-    <div><div class="el el-tf-b">✗ POOR STATEMENT</div><div class="eb eb-tf-b"><div class="estem">All ships must always carry a copy of the ISM Code on board and never operate without one.</div><div class="eopts">True &nbsp;/&nbsp; False</div><div class="enote">Issues: Combines two claims, uses absolute qualifiers ("all," "always," "never"), and the ISM Code applies only to vessels above a certain size — not "all ships." False due to overgeneralization, not content knowledge.</div></div></div>
-    <div><div class="el el-tf-g">✓ IMPROVED STATEMENT</div><div class="eb eb-tf-g"><div class="estem">Under the ISM Code, vessels of 500 GT and above engaged on international voyages are required to hold a valid Safety Management Certificate (SMC).</div><div class="eopts">True &nbsp;/&nbsp; False &nbsp; (Answer: True)</div><div class="enote">Improved: Single idea, precise scope specified (500 GT, international voyages), factually accurate as True, tests specific regulatory knowledge, no absolute qualifiers.</div></div></div>
-  </div>
-
-  <div class="sh sh-tf-d" style="margin-bottom:6px;"><h3>True/False Design Checklist</h3></div>
-  <table class="ct tf no-break"><thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead><tbody>
-    <tr><td>Single Idea</td><td>One regulation, fact, or specification per statement</td><td>Combining two separate regulatory requirements</td></tr>
-    <tr><td>Accuracy</td><td>100% true or false; no exceptions within stated scope</td><td>Statements true for some vessel types but not others without scope</td></tr>
-    <tr><td>Language</td><td>Plain, direct, affirmative; no negatives</td><td>Double negatives or "not" constructions</td></tr>
-    <tr><td>Qualifiers</td><td>Avoid always/never/all/none/only</td><td>Absolute terms that signal False regardless of content</td></tr>
-    <tr><td>Currency</td><td>Verified against current convention/amendment year</td><td>Using outdated or superseded regulation references</td></tr>
-    <tr><td>Balance</td><td>Roughly equal true and false items across the set</td><td>Heavy imbalance enabling pattern-guessing</td></tr>
-  </tbody></table>
-
-  <div class="sh sh-tf-m" style="margin-bottom:6px;"><h3>Do's and Don'ts</h3></div>
-  <div class="dd no-break">
-    <div class="do-tf"><div class="ddh">✓ DO</div>
-      <div class="ddi">✓ Focus each statement on one single regulatory fact or specification</div>
-      <div class="ddi">✓ Specify scope (vessel type, tonnage, voyage type) when necessary</div>
-      <div class="ddi">✓ Verify accuracy against the current version of the applicable convention</div>
-      <div class="ddi">✓ Use plain, direct, affirmative language</div>
-      <div class="ddi">✓ Balance true and false items roughly equally across the set</div>
-      <div class="ddi">✓ Record the specific regulation reference in item metadata</div>
-      <div class="ddi">✓ Use in clusters of 10+ for adequate reliability</div>
-    </div>
-    <div class="dn-tf"><div class="ddh">✗ DON'T</div>
-      <div class="ddi">✗ Combine two separate regulatory requirements in one statement</div>
-      <div class="ddi">✗ Write statements true for some vessels but not others without specifying scope</div>
-      <div class="ddi">✗ Use absolute terms: always, never, all, none, only</div>
-      <div class="ddi">✗ Use outdated regulation references</div>
-      <div class="ddi">✗ Allow heavy imbalance of true vs. false items</div>
-      <div class="ddi">✗ Use double negatives or "not" constructions</div>
-      <div class="ddi">✗ Rely on True/False alone for high-stakes summative assessments</div>
-    </div>
-  </div>
-</div></div>
-
-
-<!-- ═══════════════ 6. MATCHING ═══════════════ -->
-<div class="page-break">
-<div class="t-banner bn-mt">
-  <h2>6. Matching</h2>
-  <div class="bsub">Assess ability to link maritime terms, regulations, components, and definitions</div>
-  <div class="ttags"><span class="ttag">Relationship Testing</span><span class="ttag">Homogeneous Lists</span><span class="ttag">Layout Design</span><span class="ttag">Marine Examples</span><span class="ttag">Do's &amp; Don'ts</span></div>
-</div>
-<div class="sb">
-  <div class="ov ov-mt">Matching items efficiently test whether students can identify correct relationships between two sets of related maritime content — such as SOLAS chapters and their scope, types of fire and appropriate extinguishing agents, navigation lights and their arc of visibility, or MARPOL Annexes and the type of pollution they regulate. They reduce guessing compared to True/False and cover multiple related concepts efficiently. The key challenges are keeping both columns homogeneous (same category throughout), ensuring correct matches are unambiguous, and adding dummy responses to prevent elimination guessing.</div>
-
-  <div class="sh sh-mt-d" style="margin-bottom:4px;"><h3>Step-by-Step Process</h3></div>
-  <div class="steps no-break">
-    <div class="sr"><div class="sn sn-mt-1">1</div><div class="sc"><div class="st">Define the Relationship Type</div><div class="sd">Clearly identify what type of relationship students will match. In maritime education: regulation ↔ scope/subject, equipment ↔ function, signal ↔ meaning, navigation light ↔ arc/color, MARPOL Annex ↔ pollutant type, fire class ↔ extinguishing agent. The relationship type must be consistent across all pairs in the set — do not mix different relationship types.</div><div class="tip">State the relationship explicitly in the instructions: "Match each MARPOL Annex in Column A with the type of pollution it addresses in Column B."</div></div></div>
-    <div class="sr"><div class="sn sn-mt-2">2</div><div class="sc"><div class="st">Prepare Homogeneous, Parallel Lists</div><div class="sd">Develop 6–10 pairs. All items in Column A (stems) must belong to the same category, and all items in Column B (responses) must belong to the same category. Mixing categories (e.g., some regulation references, some equipment names) in one column makes correct matches obvious without content knowledge.</div><div class="tip">Read all Column A items together — they should feel like members of the same set. Do the same for Column B. If they don't, revise for homogeneity.</div></div></div>
-    <div class="sr"><div class="sn sn-mt-3">3</div><div class="sc"><div class="st">Add Dummy Responses</div><div class="sd">Include 1–2 extra responses in Column B that have no correct match in Column A. This prevents process-of-elimination guessing for the last answer. Dummy responses must be as plausible as the correct responses and must belong to the same category as Column B.</div></div></div>
-    <div class="sr"><div class="sn sn-mt-4">4</div><div class="sc"><div class="st">Write Clear, Unambiguous Instructions</div><div class="sd">State explicitly: (a) the relationship being matched, (b) whether each response can be used more than once or only once, and (c) how to record the answer. In maritime assessments where some regulations may apply to multiple contexts, the reuse rule is especially important to specify clearly.</div></div></div>
-    <div class="sr"><div class="sn sn-mt-5">5</div><div class="sc"><div class="st">Organize the Layout Thoughtfully</div><div class="sd">Place longer text (definitions, descriptions, regulation scope) in Column A (left) and shorter text (terms, codes, Annex numbers) in Column B (right). Arrange Column B responses in logical order — alphabetical, numerical, or by Annex/chapter number — to reduce scanning time.</div></div></div>
-    <div class="sr"><div class="sn sn-mt-6">6</div><div class="sc"><div class="st">Review for Plausibility and Validate</div><div class="sd">Ensure no unintended surface clues (matching terminology in stem and response, similar length, grammatical agreement) give away any match. All responses should be plausible for at least some stems. Submit the finalized set to the Item Bank.</div><div class="tip">Cover Column A and look only at Column B. If any response is clearly unrelated to the others, it's not a plausible dummy — revise it.</div></div></div>
-  </div>
-
-  <div class="gmd"></div>
-  <div class="sh sh-mt-m" style="margin-bottom:6px;"><h3>Matching — Poor vs. Improved Example</h3></div>
-  <div class="exp no-break">
-    <div><div class="el el-mt-b">✗ POOR MATCHING SET</div><div class="eb eb-mt-b"><div class="estem">Column A: 1. SOLAS &nbsp; 2. Chief Engineer &nbsp; 3. Red flare &nbsp; 4. Knot</div><div class="eopts">Column B: A. Unit of speed &nbsp; B. Safety of life at sea &nbsp; C. Distress signal &nbsp; D. Senior engineer officer</div><div class="enote">Issues: Mixed categories in Column A (convention, job title, signal type, unit of measure). Correct matches are obvious without content knowledge.</div></div></div>
-    <div><div class="el el-mt-g">✓ IMPROVED MATCHING SET</div><div class="eb eb-mt-g"><div class="estem">Column A (MARPOL Annexes): I. Annex I &nbsp; II. Annex II &nbsp; III. Annex IV &nbsp; IV. Annex V &nbsp; V. Annex VI</div><div class="eopts">Column B (Pollution Type): A. Garbage &nbsp; B. Air emissions &nbsp; C. Sewage &nbsp; D. Oil &nbsp; E. Noxious liquid substances &nbsp; F. ★ Ballast water (dummy)</div><div class="enote">Improved: Homogeneous (all MARPOL Annexes vs. all pollutant types), logical numerical order, one plausible dummy (F). Answers: I-D, II-E, III-C, IV-A, V-B.</div></div></div>
-  </div>
-
-  <div class="sh sh-mt-d" style="margin-bottom:6px;"><h3>Matching Design Checklist</h3></div>
-  <table class="ct mt no-break"><thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead><tbody>
-    <tr><td>Relationship</td><td>One consistent relationship type throughout the set</td><td>Mixing different relationship types in one set</td></tr>
-    <tr><td>Homogeneity</td><td>All Column A items same category; all Column B items same category</td><td>Mixed categories making correct matches obvious</td></tr>
-    <tr><td>Dummy Responses</td><td>1–2 plausible extras in Column B from the same category</td><td>No extras — enables process-of-elimination guessing</td></tr>
-    <tr><td>Instructions</td><td>State relationship, reuse rules, and response format explicitly</td><td>Ambiguous instructions about reuse of responses</td></tr>
-    <tr><td>Layout</td><td>Longer descriptions left (A), shorter terms/codes right (B); B in logical order</td><td>Responses in random order; mixed length in same column</td></tr>
-    <tr><td>Plausibility</td><td>No surface clues (terminology, grammar) link a stem to its response</td><td>Repeated key terms in both columns giving away matches</td></tr>
-  </tbody></table>
-
-  <div class="sh sh-mt-m" style="margin-bottom:6px;"><h3>Do's and Don'ts</h3></div>
-  <div class="dd no-break">
-    <div class="do-mt"><div class="ddh">✓ DO</div>
-      <div class="ddi">✓ Use one consistent relationship type throughout the set</div>
-      <div class="ddi">✓ Keep all items in each column from the same category</div>
-      <div class="ddi">✓ Add 1–2 plausible dummy responses from the same category to Column B</div>
-      <div class="ddi">✓ State clearly whether responses can be used more than once</div>
-      <div class="ddi">✓ Place longer descriptions in Column A, shorter terms/codes in Column B</div>
-      <div class="ddi">✓ Arrange Column B in alphabetical, numerical, or regulation-order</div>
-      <div class="ddi">✓ Validate and submit to Item Bank with full answer key and regulation cited</div>
-    </div>
-    <div class="dn-mt"><div class="ddh">✗ DON'T</div>
-      <div class="ddi">✗ Mix different categories within Column A or Column B</div>
-      <div class="ddi">✗ Omit dummy responses from Column B</div>
-      <div class="ddi">✗ Leave instructions ambiguous about reuse of responses</div>
-      <div class="ddi">✗ Repeat key terms from Column A in Column B responses (surface clue)</div>
-      <div class="ddi">✗ Use fewer than 6 pairs (too susceptible to elimination)</div>
-      <div class="ddi">✗ Use outdated regulation, code, or convention names</div>
-      <div class="ddi">✗ Omit the answer key from the archived item record</div>
-    </div>
-  </div>
-</div></div>
-
-
-<!-- ═══════════════ PART 2 ═══════════════ -->
-<div class="part-div page-break">Part 2 &nbsp;·&nbsp; Guidelines for Selecting Assessment Item Types</div>
-<div class="sb alt" style="padding:12px 44px 14px;">
-  <p style="font-size:9.5pt;color:#1A3535;line-height:1.7;">Choosing the appropriate item type is as important as writing the item well. The decision should be guided by cognitive level, content nature, logistical constraints, and assessment purpose. Best practice uses a <strong>balanced mix</strong> guided by a test blueprint to ensure both validity and reliability across all maritime learning outcomes.</p>
-</div>
-
-<div class="sb" style="padding-top:16px;">
-  <div class="sh sh-p2" style="margin-bottom:4px;"><h3>Key Factors in Selecting Item Types</h3></div>
-
-  <div class="fr no-break"><div class="fn f1">1</div><div class="fb f1">Learning Objective / Competency Level (Bloom's Taxonomy)</div></div>
-  <div class="fc"><div style="margin-bottom:6px;font-size:9pt;color:#222;">The most important factor. Match the item type to the cognitive level being assessed:</div>
-    <div class="fi"><strong>Knowledge / Recall</strong> — True/False, Fill-in-the-Blank, Identification, Matching</div>
-    <div class="fi"><strong>Comprehension / Understanding</strong> — MCQ, Essay (1-paragraph)</div>
-    <div class="fi"><strong>Application</strong> — Scenario-based MCQ, Essay (1-paragraph)</div>
-    <div class="fi"><strong>Analysis / Evaluation / Synthesis</strong> — Long Structured Essay, Case Studies</div>
-  </div>
-
-  <div class="fr no-break"><div class="fn f2">2</div><div class="fb f2">Nature of the Content</div></div>
-  <div class="fc"><div style="margin-bottom:6px;font-size:9pt;color:#222;">Align the format with what the content requires students to do:</div>
-    <div class="fi"><strong>Regulation references, component names, signal codes</strong> — Identification, Fill-in-the-Blank, Matching</div>
-    <div class="fi"><strong>Conceptual understanding of procedures or standards</strong> — MCQ, Essay (1-paragraph)</div>
-    <div class="fi"><strong>Regulatory relationships (Annex ↔ pollutant, chapter ↔ scope)</strong> — Matching</div>
-    <div class="fi"><strong>Complex incident analysis or emergency decision-making</strong> — Long Structured Essay</div>
-  </div>
-
-  <div class="fr no-break"><div class="fn f3">3</div><div class="fb f3">Number of Examinees / Scoring Efficiency</div></div>
-  <div class="fc"><div style="margin-bottom:6px;font-size:9pt;color:#222;">Consider the scale of administration and available marking resources:</div>
-    <div class="fi"><strong>Large cohorts (board exams, fleet-wide assessments)</strong> — MCQ, True/False, Matching for efficient, consistent scoring</div>
-    <div class="fi"><strong>Smaller classes or competency assessments</strong> — Essay types are more feasible and provide richer evidence of competence</div>
-  </div>
-
-  <div class="fr no-break"><div class="fn f4">4</div><div class="fb f4">Time Constraints</div></div>
-  <div class="fc"><div style="margin-bottom:6px;font-size:9pt;color:#222;">Available time affects which item types to include:</div>
-    <div class="fi"><strong>Limited time</strong> — Objective items cover more content per minute (MCQ, T/F, Matching)</div>
-    <div class="fi"><strong>Sufficient time</strong> — Long Structured Essay and performance tasks enable authentic demonstration of maritime competence</div>
-  </div>
-
-  <div class="fr no-break"><div class="fn f5">5</div><div class="fb f5">Reliability vs. Validity Trade-off</div></div>
-  <div class="fc"><div style="margin-bottom:6px;font-size:9pt;color:#222;">Every assessment design must balance these two measurement properties:</div>
-    <div class="fi"><strong>Objective items</strong> — Higher reliability (consistent scoring across markers), but may not capture complex maritime decision-making</div>
-    <div class="fi"><strong>Subjective items</strong> — Higher validity for measuring real officer competence, but require rubrics to achieve acceptable reliability</div>
-  </div>
-
-  <div class="fr no-break"><div class="fn f6">6</div><div class="fb f6">Purpose of Assessment</div></div>
-  <div class="fc"><div style="margin-bottom:6px;font-size:9pt;color:#222;">The intended use of results shapes item selection:</div>
-    <div class="fi"><strong>Formative (ongoing checks)</strong> — Essay (1-paragraph), T/F, Fill-in-the-Blank</div>
-    <div class="fi"><strong>Summative (end-of-course, pre-licensure)</strong> — Mixed sets: MCQ + Long Structured Essay + Identification</div>
-    <div class="fi"><strong>Diagnostic</strong> — MCQ with targeted distractors, Fill-in-the-Blank, True/False</div>
-  </div>
-
-  <div class="fr no-break"><div class="fn f7">7</div><div class="fb f7">Mixing Item Types (Test Blueprints)</div></div>
-  <div class="fc"><div style="margin-bottom:6px;font-size:9pt;color:#222;">Best practice is to use a combination of item types in a single assessment to:</div>
-    <div class="fi">Cover <strong>different cognitive levels</strong> across Bloom's Taxonomy — from recall to evaluation</div>
-    <div class="fi">Sample a <strong>broad range of maritime competencies</strong> efficiently within available time</div>
-    <div class="fi">Improve <strong>content validity</strong> by representing multiple STCW/SOLAS competency areas</div>
-    <div class="fi">Balance <strong>objective scoring efficiency</strong> with depth of demonstrated maritime competence</div>
-  </div>
-
-  <div class="sh sh-p2c" style="margin-bottom:10px;"><h3>Sample Test Blueprint — Recommended Item Mix (Maritime Programs)</h3></div>
-  <table class="bp no-break">
-    <thead><tr><td>Item Type</td><td>% of Test</td><td>Cognitive Level(s)</td><td>Suggested Use in Maritime Courses</td></tr></thead>
-    <tbody>
-      <tr><td>Multiple Choice (MCQ)</td><td>35 – 45%</td><td>Knowledge → Application</td><td>Regulation knowledge, scenario-based ColRegs/SOLAS application</td></tr>
-      <tr><td>Essay — 1 Paragraph</td><td>15 – 20%</td><td>Comprehension → Application</td><td>Procedure explanation, regulation purpose, MARPOL description</td></tr>
-      <tr><td>Long Structured Essay</td><td>20 – 30%</td><td>Analysis → Evaluation</td><td>Incident analysis, emergency planning, stability justification</td></tr>
-      <tr><td>Fill-in / Identification / Completion</td><td>10 – 15%</td><td>Knowledge / Recall</td><td>Equipment names, regulation references, GMDSS codes</td></tr>
-      <tr><td>True/False or Matching</td><td>5 – 10%</td><td>Knowledge / Recall</td><td>Rapid screening of factual regulatory and procedural knowledge</td></tr>
-    </tbody>
-  </table>
-
-  <div class="sh sh-p2c" style="margin-bottom:10px;"><h3>Quick Reference — When to Use Each Item Type</h3></div>
-  <div class="qrg no-break">
-    <div class="qrc"><div class="qrl" style="background:var(--mcq-700);">MCQ</div><div class="qrb">Broad coverage · Efficient scoring · All cognitive levels · Regulation application</div></div>
-    <div class="qrc"><div class="qrl" style="background:var(--lse-700);">Long Structured Essay</div><div class="qrb">Incident analysis · Emergency planning · Multi-part reasoning · Evaluation</div></div>
-    <div class="qrc"><div class="qrl" style="background:var(--ess-700);">Essay (1 Paragraph)</div><div class="qrb">Procedure explanation · Regulation purpose · Focused comprehension</div></div>
-    <div class="qrc"><div class="qrl" style="background:var(--fib-700);">Fill-in / Identification</div><div class="qrb">Equipment names · Regulation codes · Precise term recall · Completion</div></div>
-    <div class="qrc"><div class="qrl" style="background:var(--tf-700);">True / False</div><div class="qrb">Rapid regulatory fact check · Knowledge screening · Procedural facts</div></div>
-    <div class="qrc"><div class="qrl" style="background:var(--mt-700);">Matching</div><div class="qrb">Annex ↔ Pollutant · Chapter ↔ Scope · Light ↔ Arc · Code ↔ Meaning</div></div>
-  </div>
-</div>
-
-<div class="foot">
-  <strong>Best Practice Reminder:</strong> No single item type can measure all maritime learning outcomes. Design every assessment using a test blueprint aligned to STCW competency areas and Bloom's cognitive levels. Use a mix of objective and subjective item types, verify all regulation references for currency, and store all finalized items in the institutional Test Item Bank or Assessment Instrument Register with the applicable maritime standard and review date recorded.
-</div>
-
+  // Active nav
+  let current = 'hero';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 80) current = id;
+  });
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href').slice(1);
+    link.classList.toggle('active', href === current);
+  });
+}, { passive: true });
+</script>
 </body>
 </html>
