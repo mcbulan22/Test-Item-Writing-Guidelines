@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete Assessment Guidelines</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:       #1B3A6B;
+    --blue:       #2E5EA8;
+    --sky:        #E8F0FB;
+    --gold:       #F4A422;
+    --teal:       #1A7F8E;
+    --purple:     #6B3FA0;
+    --red:        #B83232;
+    --green:      #1A6B40;
+    --amber:      #C05A00;
+    --ink:        #12192A;
+    --mist:       #F5F7FA;
+    --border:     #D4DFF0;
+    --soft-green: #EAF7EF;
+    --soft-red:   #FCEAEA;
+    --soft-blue:  #EBF2FD;
+    --white:      #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 10.5pt;
+    color: var(--ink);
+    background: #fff;
+    line-height: 1.6;
+  }
+
+  /* ── PRINT ─────────────────────────────────────────────── */
+  @media print {
+    body { font-size: 9.5pt; }
+    .page-break { page-break-before: always; }
+    .no-break { page-break-inside: avoid; }
+    @page { margin: 15mm 16mm 18mm; size: A4; }
+  }
+
+  /* ── COVER ─────────────────────────────────────────────── */
+  .cover {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 60%, #3A6BC8 100%);
+    color: white;
+    padding: 48px 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    transform: translate(60px,-60px);
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 30px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(244,164,34,0.12);
+  }
+  .cover-accent {
+    display: inline-block;
+    background: var(--gold);
+    height: 4px;
+    width: 60px;
+    border-radius: 2px;
+    margin-bottom: 18px;
+  }
+  .cover h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 28pt;
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+  }
+  .cover p {
+    font-family: 'Source Serif 4', serif;
+    font-size: 10.5pt;
+    color: rgba(255,255,255,0.78);
+    max-width: 480px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .cover-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cover-tag {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: rgba(255,255,255,0.88);
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5pt;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+  .cover-bottom-stripe {
+    height: 5px;
+    background: linear-gradient(90deg, var(--gold), #F9C55A, var(--gold));
+  }
+
+  /* ── TOC ───────────────────────────────────────────────── */
+  .toc {
+    padding: 32px 40px;
+    background: var(--mist);
+    border-bottom: 2px solid var(--border);
+  }
+  .toc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14pt;
+    color: var(--navy);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .toc-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .toc-part {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 9pt;
+    color: var(--white);
+    background: var(--navy);
+    padding: 7px 14px;
+    margin-bottom: 2px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+  .toc-item {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 5px 14px 5px 24px;
+    font-size: 9.5pt;
+    color: var(--ink);
+    border-bottom: 1px dashed var(--border);
+  }
+  .toc-item:nth-child(even) { background: var(--white); }
+  .toc-dot { flex: 1; border-bottom: 1px dotted #ccc; margin: 0 6px 3px; }
+
+  /* ── PART DIVIDER ──────────────────────────────────────── */
+  .part-divider {
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    color: white;
+    padding: 20px 40px;
+    font-family: 'Playfair Display', serif;
+    font-size: 14pt;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    border-bottom: 4px solid var(--gold);
+    margin-top: 0;
+  }
+  .part-divider.teal { background: linear-gradient(135deg, var(--teal), #22A3B4); }
+
+  /* ── TYPE BANNER ───────────────────────────────────────── */
+  .type-section { margin-bottom: 0; }
+  .type-banner {
+    padding: 24px 40px 18px;
+    color: white;
+    position: relative;
+  }
+  .type-banner::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 120px;
+    background: rgba(255,255,255,0.05);
+    clip-path: polygon(40% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  .type-banner.navy  { background: linear-gradient(135deg, #1B3A6B, #2E5EA8); }
+  .type-banner.teal  { background: linear-gradient(135deg, #1A7F8E, #23A3B5); }
+  .type-banner.purple{ background: linear-gradient(135deg, #6B3FA0, #8B5CC8); }
+  .type-banner.amber { background: linear-gradient(135deg, #C05A00, #E07010); }
+  .type-banner.red   { background: linear-gradient(135deg, #8B1A1A, #B83232); }
+  .type-banner.green { background: linear-gradient(135deg, #1A5C38, #1A6B40); }
+
+  .type-banner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16pt;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .type-banner p {
+    font-size: 9.5pt;
+    opacity: 0.82;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .type-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .type-tag {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.9);
+    font-family: 'DM Mono', monospace;
+    font-size: 7pt;
+    padding: 3px 8px;
+    border-radius: 12px;
+  }
+
+  /* ── SECTION BODY ──────────────────────────────────────── */
+  .section-body {
+    padding: 24px 40px;
+    background: var(--white);
+  }
+  .section-body.alt { background: var(--mist); }
+
+  .overview-text {
+    font-size: 10pt;
+    line-height: 1.7;
+    color: #2A3550;
+    background: var(--soft-blue);
+    border-left: 4px solid var(--blue);
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 22px;
+  }
+
+  /* ── SUB HEADER ────────────────────────────────────────── */
+  .sub-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--navy);
+    color: white;
+    padding: 9px 16px;
+    margin-bottom: 0;
+    border-left: 5px solid var(--gold);
+    border-radius: 3px;
+  }
+  .sub-header.teal   { background: var(--teal); }
+  .sub-header.purple { background: var(--purple); }
+  .sub-header.amber  { background: var(--amber); }
+  .sub-header.red    { background: var(--red); }
+  .sub-header.green  { background: var(--green); }
+  .sub-header h3 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+
+  /* ── STEP RULES ────────────────────────────────────────── */
+  .steps-grid { margin-bottom: 20px; }
+  .step-row { display: flex; margin-bottom: 2px; }
+  .step-num {
+    min-width: 32px;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 12pt;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+  .step-num.c1 { background: #1B3A6B; }
+  .step-num.c2 { background: #1A7F8E; }
+  .step-num.c3 { background: #6B3FA0; }
+  .step-num.c4 { background: #C05A00; }
+  .step-num.c5 { background: #2E5EA8; }
+  .step-num.c6 { background: #B83232; }
+
+  .step-content {
+    flex: 1;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .step-row:nth-child(odd)  .step-content { background: var(--sky); }
+  .step-row:nth-child(even) .step-content { background: var(--mist); }
+
+  .step-title {
+    font-weight: 600;
+    font-size: 9.5pt;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .step-desc {
+    font-size: 9pt;
+    color: #333;
+    line-height: 1.55;
+  }
+  .step-tip {
+    font-size: 8.5pt;
+    color: #555;
+    font-style: italic;
+    margin-top: 5px;
+    padding-left: 10px;
+    border-left: 2px solid var(--gold);
+  }
+  .step-tip::before { content: '✎ Tip: '; font-weight: 600; font-style: normal; color: var(--amber); }
+
+  /* ── EXAMPLES ──────────────────────────────────────────── */
+  .example-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .ex-label {
+    padding: 7px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 8pt;
+    font-weight: 500;
+    color: white;
+    letter-spacing: 0.3px;
+  }
+  .ex-label.bad  { background: var(--red); }
+  .ex-label.good { background: var(--green); }
+  .ex-body {
+    padding: 12px 14px;
+    font-size: 9pt;
+    line-height: 1.6;
+  }
+  .ex-body.bad  { background: var(--soft-red);   border-right: 1px solid #f0cece; }
+  .ex-body.good { background: var(--soft-green); }
+  .ex-stem { font-weight: 600; margin-bottom: 6px; color: var(--ink); }
+  .ex-opts { font-family: 'DM Mono', monospace; font-size: 8pt; color: #444; margin-bottom: 8px; line-height: 1.7; }
+  .ex-note { font-style: italic; font-size: 8pt; color: #666; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 6px; }
+
+  /* ── CHECKLIST TABLE ───────────────────────────────────── */
+  .check-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 9pt;
+  }
+  .check-table thead tr { color: white; }
+  .check-table thead td {
+    padding: 8px 12px;
+    font-weight: 600;
+    font-family: 'Source Serif 4', serif;
+    font-size: 9pt;
+  }
+  .check-table thead td:first-child { width: 18%; }
+  .check-table thead td:nth-child(2) { width: 42%; }
+  .check-table thead td:last-child { width: 40%; }
+  .check-table.navy thead tr  { background: var(--navy); }
+  .check-table.teal thead tr  { background: var(--teal); }
+  .check-table.purple thead tr{ background: var(--purple); }
+  .check-table.amber thead tr { background: var(--amber); }
+  .check-table.red thead tr   { background: var(--red); }
+  .check-table.green thead tr { background: var(--green); }
+
+  .check-table tbody tr:nth-child(odd)  { background: var(--sky); }
+  .check-table tbody tr:nth-child(even) { background: var(--mist); }
+  .check-table tbody td {
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .check-table tbody td:first-child { font-weight: 600; color: var(--navy); }
+
+  /* ── DO / DON'T ────────────────────────────────────────── */
+  .dos-donts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-bottom: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .dd-header {
+    padding: 8px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9pt;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+  }
+  .dd-header.do   { background: var(--green); }
+  .dd-header.dont { background: var(--red); }
+  .dd-col { border-right: 1px solid var(--border); }
+  .dd-item {
+    padding: 6px 12px;
+    font-size: 8.8pt;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--border);
+  }
+  .dd-col.do   .dd-item:nth-child(odd)  { background: #F2FBF6; }
+  .dd-col.do   .dd-item:nth-child(even) { background: var(--soft-green); }
+  .dd-col.dont .dd-item:nth-child(odd)  { background: #FDF5F5; }
+  .dd-col.dont .dd-item:nth-child(even) { background: var(--soft-red); }
+  .dd-item .icon { margin-right: 5px; font-size: 9pt; }
+
+  /* ── PART 2 FACTORS ────────────────────────────────────── */
+  .factor-row { display: flex; margin-bottom: 3px; }
+  .factor-num {
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 13pt;
+    font-weight: 700;
+    color: white;
+  }
+  .factor-title-bar {
+    flex: 1;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 9.5pt;
+    color: white;
+  }
+  .factor-body {
+    padding: 10px 14px 10px 52px;
+    font-size: 9pt;
+    line-height: 1.6;
+    border-bottom: 1px solid var(--border);
+  }
+  .factor-body:nth-child(odd)  { background: var(--sky); }
+  .factor-body:nth-child(even) { background: var(--mist); }
+  .factor-intro { margin-bottom: 6px; color: #333; }
+  .factor-bullet { padding: 2px 0; }
+  .factor-bullet::before { content: '• '; color: var(--blue); font-weight: 700; }
+
+  /* ── BLUEPRINT TABLE ───────────────────────────────────── */
+  .blueprint-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+    margin-bottom: 24px;
+  }
+  .blueprint-table thead td {
+    background: var(--teal);
+    color: white;
+    padding: 9px 12px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .blueprint-table thead td:first-child { text-align: left; width: 27%; }
+  .blueprint-table tbody tr:nth-child(odd)  { background: var(--sky); }
+  .blueprint-table tbody tr:nth-child(even) { background: var(--mist); }
+  .blueprint-table tbody td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    vertical-align: middle;
+  }
+  .blueprint-table tbody td:first-child { text-align: left; font-weight: 600; color: var(--navy); }
+  .blueprint-table tbody td:last-child   { text-align: left; }
+
+  /* ── QUICK REF CARDS ───────────────────────────────────── */
+  .qr-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .qr-card { border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
+  .qr-label {
+    padding: 8px 10px;
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 8.5pt;
+    font-weight: 500;
+    text-align: center;
+  }
+  .qr-body {
+    padding: 8px 10px;
+    font-size: 8.5pt;
+    color: var(--ink);
+    background: var(--soft-blue);
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER BAND ───────────────────────────────────────── */
+  .footer-band {
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    color: white;
+    padding: 18px 40px;
+    font-size: 9pt;
+    line-height: 1.65;
+    margin-top: 0;
+  }
+  .footer-band strong { color: var(--gold); }
+
+  /* ── SPACERS ───────────────────────────────────────────── */
+  .gap-sm { height: 14px; }
+  .gap-md { height: 22px; }
+  .gap-lg { height: 32px; }
+  .divider { height: 1px; background: var(--border); margin: 20px 0; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     COVER
+════════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-accent"></div>
+  <h1>Center for Competency Assessment<br>Test Item Writing Guidelines</h1>
+  <p>A comprehensive reference for writing effective questions, selecting the right item types, and building balanced, valid assessments.</p>
+  <div class="cover-tags">
+    <span class="cover-tag">Part 1: Writing Guidelines</span>
+    <span class="cover-tag">Part 2: Item Selection</span>
+    <span class="cover-tag">6 Question Types</span>
+    <span class="cover-tag">Examples &amp; Checklists</span>
+    <span class="cover-tag">Do's &amp; Don'ts</span>
+  </div>
+</div>
+<div class="cover-bottom-stripe"></div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+  <div class="toc-title">Table of Contents</div>
+  <div class="toc-part">Part 1 — Guidelines in Writing Different Types of Questions</div>
+  <div class="toc-item"><span>1. Multiple Choice Questions (MCQ)</span><span class="toc-dot"></span></div>
+  <div class="toc-item"><span>2. Essay Questions</span><span class="toc-dot"></span></div>
+  <div class="toc-item"><span>3. Fill-in-the-Blank / Completion Questions</span><span class="toc-dot"></span></div>
+  <div class="toc-item"><span>4. Identification / Short Answer Questions</span><span class="toc-dot"></span></div>
+  <div class="toc-item"><span>5. True or False Questions</span><span class="toc-dot"></span></div>
+  <div class="toc-item"><span>6. Matching Questions</span><span class="toc-dot"></span></div>
+  <div class="toc-part" style="margin-top:8px;">Part 2 — Guidelines for Selecting Assessment Item Types</div>
+  <div class="toc-item"><span>· Key Factors in Selecting Item Types</span><span class="toc-dot"></span></div>
+  <div class="toc-item"><span>· Sample Test Blueprint</span><span class="toc-dot"></span></div>
+  <div class="toc-item"><span>· Quick Reference Card</span><span class="toc-dot"></span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PART 1 DIVIDER
+════════════════════════════════════════════════════════════ -->
+<div class="part-divider page-break">Part 1 &nbsp;·&nbsp; Guidelines in Writing Different Types of Questions</div>
+<div class="section-body alt" style="padding:14px 40px;">
+  <p style="font-size:9.5pt;color:#3a4560;line-height:1.7;">The following guidelines provide a comprehensive, step-by-step framework for crafting each type of assessment item. Each section includes a structured process, design principles, worked examples, a design checklist, and a Do's and Don'ts summary.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     1. MCQ
+════════════════════════════════════════════════════════════ -->
+<div class="type-section page-break">
+  <div class="type-banner navy">
+    <h2>1. Multiple Choice Questions (MCQ)</h2>
+    <p>Assess recall, comprehension, application, analysis, and evaluation</p>
+    <div class="type-tags">
+      <span class="type-tag">General Strategy</span>
+      <span class="type-tag">Stem Design</span>
+      <span class="type-tag">Distractor Design</span>
+      <span class="type-tag">Examples</span>
+      <span class="type-tag">Do's &amp; Don'ts</span>
+    </div>
+  </div>
+
+  <div class="section-body">
+    <div class="overview-text">
+      Multiple choice questions are among the most versatile assessment tools available. When well-constructed, they assess a broad range of cognitive skills — from factual recall through comprehension and application, up to higher-order analysis and evaluation. They can also serve as powerful pre-assessment tools and their distractors anchor rich post-test discussions. However, MCQs are difficult to construct well — poorly written items reward guessing and measure test-taking skill rather than genuine competence.
+    </div>
+
+    <div class="sub-header" style="margin-bottom:4px;"><h3>Step-by-Step Process</h3></div>
+    <div class="steps-grid no-break">
+      <div class="step-row">
+        <div class="step-num c1">1</div>
+        <div class="step-content">
+          <div class="step-title">Define Objective</div>
+          <div class="step-desc">Identify the specific knowledge or functional competence the question aims to assess. Anchor every item to a stated learning outcome before writing a single word.</div>
+          <div class="step-tip">Map each item to one outcome. If you cannot name the outcome it measures, revise or discard the item.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num c2">2</div>
+        <div class="step-content">
+          <div class="step-title">Draft the Stem</div>
+          <div class="step-desc">Write a clear, complete, direct question presenting one defined problem. A student who knows the material should be able to answer it without looking at the options. Avoid negatives unless essential; when used, capitalize the negative word (e.g., NOT).</div>
+          <div class="step-tip">Cover the options and read only the stem. If the question is unclear without the choices, rewrite it.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num c3">3</div>
+        <div class="step-content">
+          <div class="step-title">Construct Options</div>
+          <div class="step-desc">Provide 4 options: one correct answer and 3 plausible distractors. Build distractors from real student misconceptions or common errors. Ensure grammatical consistency across all options and arrange them in logical order.</div>
+          <div class="step-tip">After drafting, scan for repeated opening words across options — move them into the stem.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num c4">4</div>
+        <div class="step-content">
+          <div class="step-title">Review Content Validity</div>
+          <div class="step-desc">Confirm the correct answer is the single, clearly defensible best response. Distractors should reflect partial truths or common mistakes. Avoid "all of the above," "none of the above," and absolute terms (always, never).</div>
+          <div class="step-tip">Ask a colleague to identify the correct answer cold. If they hesitate between two options, revise.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num c5">5</div>
+        <div class="step-content">
+          <div class="step-title">Peer Review</div>
+          <div class="step-desc">Have another assessor review for ambiguity, fairness, bias, and alignment with the learning outcome. Verify that no unintentional cues (length, grammar, absolute words) signal the answer.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num c6">6</div>
+        <div class="step-content">
+          <div class="step-title">Record and Validate</div>
+          <div class="step-desc">Record the item in the Test Item Bank with: the learning outcome, answer key, cognitive level (Bloom's), and distractor rationale. Tag items for future reuse and post-test analysis.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gap-md"></div>
+    <div class="sub-header teal" style="margin-bottom:4px;"><h3>Key Design Principles</h3></div>
+    <div class="steps-grid no-break">
+      <div class="step-row">
+        <div class="step-num c1">A</div>
+        <div class="step-content">
+          <div class="step-title">Align with Learning Outcomes</div>
+          <div class="step-desc">Every question must trace directly to a stated learning outcome. A technically correct item from a test bank is not automatically a good fit — always evaluate borrowed items before use.</div>
+          <div class="step-tip">Write a few items each week throughout the term rather than all at the end.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num c2">B</div>
+        <div class="step-content">
+          <div class="step-title">Use Familiar Language</div>
+          <div class="step-desc">Write in language all students understand. Do not introduce new terminology within a question or use culturally specific expressions that may disadvantage some learners.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num c3">C</div>
+        <div class="step-content">
+          <div class="step-title">Instruct Students to Select the Best Answer</div>
+          <div class="step-desc">Make it clear before the test that students choose the single best response. Distractors may contain a partial element of truth — that is intentional and by design.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num c4">D</div>
+        <div class="step-content">
+          <div class="step-title">Avoid Trick Questions</div>
+          <div class="step-desc">MCQs should reward genuine knowledge, not catch students on subtle wording traps. A student who has mastered the material should identify the correct answer without second-guessing ambiguous phrasing.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num c5">E</div>
+        <div class="step-content">
+          <div class="step-title">Randomly Distribute Correct Responses</div>
+          <div class="step-desc">Ensure correct answers are distributed roughly evenly across positions (a, b, c, d) across the full test. Predictable patterns enable guessing and undermine validity.</div>
+          <div class="step-tip">After drafting all items, tally answer key positions and redistribute if one position dominates.</div>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num c6">F</div>
+        <div class="step-content">
+          <div class="step-title">Use the Test as a Learning Opportunity</div>
+          <div class="step-desc">A post-test discussion of why each distractor was wrong — and why the correct answer is right — reinforces learning and reveals student misconceptions.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gap-md"></div>
+    <div class="sub-header teal" style="margin-bottom:6px;"><h3>Stem Design — Poor vs. Improved Example</h3></div>
+    <div class="example-pair no-break">
+      <div>
+        <div class="ex-label bad">✗ POOR STEM</div>
+        <div class="ex-body bad">
+          <div class="ex-stem">Which of these assessment findings indicates that the client does NOT need to be suctioned?</div>
+          <div class="ex-opts">a) Diminished breath sounds<br>b) Absence of adventitious breath sounds<br>c) Inability to cough up sputum<br>d) Wheezing following bronchodilator therapy</div>
+          <div class="ex-note">Issues: Negative wording ("does NOT"), options needed to understand the question, unclear intent, filler phrasing.</div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-label good">✓ IMPROVED STEM</div>
+        <div class="ex-body good">
+          <div class="ex-stem">A nurse assesses a client with pneumonia. Which finding most clearly indicates the client requires suctioning?</div>
+          <div class="ex-opts">a) Absence of adventitious breath sounds<br>b) Respiratory rate of 18 breaths per minute<br>c) Inability to cough up secretions<br>d) Wheezing prior to bronchodilator therapy</div>
+          <div class="ex-note">Improved: Positive framing, full context in stem, direct question, one clear answer (c).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-header purple" style="margin-bottom:6px;"><h3>Distractor Design — Poor vs. Improved Example</h3></div>
+    <div class="example-pair no-break">
+      <div>
+        <div class="ex-label bad">✗ POOR DISTRACTORS</div>
+        <div class="ex-body bad">
+          <div class="ex-stem">How long does a biennial plant generally live?</div>
+          <div class="ex-opts">a) It dies after the second year<br>b) It lives for many years<br>c) It lives for more than one year<br>d) It needs to be replanted every two years</div>
+          <div class="ex-note">Issues: Options overlap (c includes b and d), non-mutually exclusive, inconsistent format, multiple defensible answers.</div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-label good">✓ IMPROVED DISTRACTORS</div>
+        <div class="ex-body good">
+          <div class="ex-stem">How long does a biennial plant generally live?</div>
+          <div class="ex-opts">a) One year<br>b) Two years<br>c) Several years<br>d) More than ten years</div>
+          <div class="ex-note">Improved: Mutually exclusive, consistent phrasing, logical numerical order, one clear answer (b).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-header navy" style="margin-bottom:6px;"><h3>MCQ Design Checklist</h3></div>
+    <table class="check-table navy no-break">
+      <thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead>
+      <tbody>
+        <tr><td>Stem</td><td>State one complete, direct problem</td><td>Vague, wordy, or negatively framed stems</td></tr>
+        <tr><td>Correct Answer</td><td>One clearly defensible best answer</td><td>Two arguably correct options</td></tr>
+        <tr><td>Distractors</td><td>Plausible; reflect real misconceptions</td><td>Far-fetched or obviously wrong options</td></tr>
+        <tr><td>Language</td><td>Familiar, grammatically consistent</td><td>"Always/never/all/none" absolute terms</td></tr>
+        <tr><td>Format</td><td>Options in logical or numerical order</td><td>"All of the above" / "None of the above"</td></tr>
+        <tr><td>Alignment</td><td>Matches a stated learning outcome</td><td>Using test bank items without reviewing fit</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sub-header amber" style="margin-bottom:6px;"><h3>MCQ Do's and Don'ts</h3></div>
+    <div class="dos-donts no-break">
+      <div class="dd-col do">
+        <div class="dd-header do">✓ DO</div>
+        <div class="dd-item"><span class="icon">✓</span>Align every item to a specific learning outcome</div>
+        <div class="dd-item"><span class="icon">✓</span>State the full problem in the stem</div>
+        <div class="dd-item"><span class="icon">✓</span>Use direct questions, not incomplete sentences</div>
+        <div class="dd-item"><span class="icon">✓</span>Capitalize or underline negatives (NOT) when unavoidable</div>
+        <div class="dd-item"><span class="icon">✓</span>Build distractors from real student misconceptions</div>
+        <div class="dd-item"><span class="icon">✓</span>Keep all options grammatically consistent with the stem</div>
+        <div class="dd-item"><span class="icon">✓</span>Arrange options in logical or numerical order</div>
+        <div class="dd-item"><span class="icon">✓</span>Aim for 4 options: 1 correct + 3 plausible distractors</div>
+        <div class="dd-item"><span class="icon">✓</span>Have a peer review items before finalizing</div>
+        <div class="dd-item"><span class="icon">✓</span>Store items in the Item Bank with outcome and answer key</div>
+      </div>
+      <div class="dd-col dont">
+        <div class="dd-header dont">✗ DON'T</div>
+        <div class="dd-item"><span class="icon">✗</span>Use negative stems unless the outcome demands it</div>
+        <div class="dd-item"><span class="icon">✗</span>Include "All of the above" or "None of the above"</div>
+        <div class="dd-item"><span class="icon">✗</span>Open stems with "Which of the following…" filler</div>
+        <div class="dd-item"><span class="icon">✗</span>Allow two options that are arguably both correct</div>
+        <div class="dd-item"><span class="icon">✗</span>Use overlapping or non-mutually-exclusive options</div>
+        <div class="dd-item"><span class="icon">✗</span>Write far-fetched distractors that are obviously wrong</div>
+        <div class="dd-item"><span class="icon">✗</span>Include absolute terms: always, never, all, none, only</div>
+        <div class="dd-item"><span class="icon">✗</span>Make the correct answer visibly longer than distractors</div>
+        <div class="dd-item"><span class="icon">✗</span>Introduce new or unfamiliar terminology in the item</div>
+        <div class="dd-item"><span class="icon">✗</span>Use test bank items without checking outcome alignment</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     2. ESSAY
+════════════════════════════════════════════════════════════ -->
+<div class="type-section page-break">
+  <div class="type-banner teal">
+    <h2>2. Essay Questions</h2>
+    <p>Assess analysis, synthesis, evaluation, and extended argumentation</p>
+    <div class="type-tags">
+      <span class="type-tag">Higher-Order Thinking</span>
+      <span class="type-tag">Rubric Design</span>
+      <span class="type-tag">Prompt Writing</span>
+      <span class="type-tag">Examples</span>
+      <span class="type-tag">Do's &amp; Don'ts</span>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="overview-text">
+      Essay questions are the primary tool for assessing higher-order thinking. When well-designed, they require students to organize ideas, construct arguments, apply knowledge to problems, and communicate reasoning clearly. The challenge lies in writing prompts specific enough to focus responses, while open enough to elicit genuine thinking — and in developing rubrics that make scoring consistent and defensible.
+    </div>
+
+    <div class="sub-header teal" style="margin-bottom:4px;"><h3>Step-by-Step Process</h3></div>
+    <div class="steps-grid no-break">
+      <div class="step-row"><div class="step-num c1">1</div><div class="step-content"><div class="step-title">Define Purpose and Cognitive Level</div><div class="step-desc">Identify which higher-order competence the question will measure: analysis, synthesis, or evaluation. Use Bloom's Taxonomy to confirm the intended level before writing.</div><div class="step-tip">Ask: "What do I want students to do — describe it, apply it, critique it, or create with it?" Let the answer drive the verb you choose.</div></div></div>
+      <div class="step-row"><div class="step-num c2">2</div><div class="step-content"><div class="step-title">Write the Prompt with Directive Verbs</div><div class="step-desc">Open the prompt with a specific directive verb: Analyze, Compare, Evaluate, Justify, Synthesize, Critique, Propose. Provide enough context for students to understand the problem without leading them toward a particular answer.</div><div class="step-tip">Avoid vague prompts like "Discuss X." Instead: "Evaluate the effectiveness of X in achieving Y, and justify your position with evidence."</div></div></div>
+      <div class="step-row"><div class="step-num c3">3</div><div class="step-content"><div class="step-title">Clarify Parameters</div><div class="step-desc">Explicitly state the expected scope, depth, length, and time. Ambiguity in parameters produces wildly variable responses and makes fair scoring nearly impossible. Example: "Write a 300–400 word response. You have 25 minutes."</div><div class="step-tip">If a word count is specified, state what counts toward it. Clarity here prevents disputes during marking.</div></div></div>
+      <div class="step-row"><div class="step-num c4">4</div><div class="step-content"><div class="step-title">Develop the Scoring Rubric</div><div class="step-desc">Create a rubric before finalizing the prompt. A good rubric covers: content accuracy and depth, quality of reasoning and argument, use of evidence, organization and coherence, and clarity of expression. Each criterion should have at least 3 performance levels with descriptors.</div><div class="step-tip">If you find the rubric hard to write, the prompt is probably too vague. Revise the prompt until the rubric writes itself.</div></div></div>
+      <div class="step-row"><div class="step-num c5">5</div><div class="step-content"><div class="step-title">Review for Clarity and Bias</div><div class="step-desc">Read the prompt from a student's perspective: is the task unambiguous? Could any student — regardless of background — engage with it on equal footing? Have a colleague attempt to draft a quick response to test depth.</div></div></div>
+      <div class="step-row"><div class="step-num c6">6</div><div class="step-content"><div class="step-title">Validate and Record</div><div class="step-desc">Include the approved version in the Assessment Instrument Register with the rubric attached, the learning outcome mapped, the cognitive level tagged, and the estimated response time noted.</div></div></div>
+    </div>
+
+    <div class="gap-md"></div>
+    <div class="sub-header teal" style="margin-bottom:6px;"><h3>Essay Prompt — Poor vs. Improved Example</h3></div>
+    <div class="example-pair no-break">
+      <div>
+        <div class="ex-label bad">✗ POOR PROMPT</div>
+        <div class="ex-body bad">
+          <div class="ex-stem">Discuss climate change.</div>
+          <div class="ex-opts">(No constraints, no directive, no scope)</div>
+          <div class="ex-note">Issues: No directive verb, no scope, no length or time parameters, no clear cognitive demand. Students cannot know what depth or angle to take.</div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-label good">✓ IMPROVED PROMPT</div>
+        <div class="ex-body good">
+          <div class="ex-stem">Evaluate two proposed policy responses to climate change. Argue which approach is more likely to achieve long-term emissions reduction, using evidence from course materials.</div>
+          <div class="ex-opts">(300–400 words · 25 minutes)</div>
+          <div class="ex-note">Improved: Directive verb (Evaluate/Argue), clear scope (two policies), evidence requirement, length and time specified.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-header teal" style="margin-bottom:6px;"><h3>Essay Design Checklist</h3></div>
+    <table class="check-table teal no-break">
+      <thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead>
+      <tbody>
+        <tr><td>Directive Verb</td><td>Use Analyze, Evaluate, Justify, Synthesize</td><td>Vague verbs: "discuss," "write about," "explain"</td></tr>
+        <tr><td>Scope</td><td>Specify exactly what content to address</td><td>Overly broad prompts that allow any response</td></tr>
+        <tr><td>Parameters</td><td>State length, depth, and time explicitly</td><td>Leaving length or time ambiguous</td></tr>
+        <tr><td>Rubric</td><td>Develop before finalizing the prompt</td><td>Scoring after reading responses (rater drift)</td></tr>
+        <tr><td>Fairness</td><td>Ensure no student is disadvantaged by the topic</td><td>Culturally specific scenarios without context</td></tr>
+        <tr><td>Alignment</td><td>Maps to a specific higher-order outcome</td><td>Prompts that only require recall or description</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sub-header amber" style="margin-bottom:6px;"><h3>Essay Do's and Don'ts</h3></div>
+    <div class="dos-donts no-break">
+      <div class="dd-col do">
+        <div class="dd-header do">✓ DO</div>
+        <div class="dd-item"><span class="icon">✓</span>Use specific directive verbs (Analyze, Evaluate, Justify)</div>
+        <div class="dd-item"><span class="icon">✓</span>Provide enough context for a focused, targeted response</div>
+        <div class="dd-item"><span class="icon">✓</span>State expected length, depth, and time clearly</div>
+        <div class="dd-item"><span class="icon">✓</span>Develop the rubric before finalizing the prompt</div>
+        <div class="dd-item"><span class="icon">✓</span>Include criteria for reasoning, evidence, and organization</div>
+        <div class="dd-item"><span class="icon">✓</span>Have a colleague attempt the prompt before issuing it</div>
+        <div class="dd-item"><span class="icon">✓</span>Attach the rubric to the recorded item in the register</div>
+      </div>
+      <div class="dd-col dont">
+        <div class="dd-header dont">✗ DON'T</div>
+        <div class="dd-item"><span class="icon">✗</span>Use "Discuss…" without specifying what to discuss</div>
+        <div class="dd-item"><span class="icon">✗</span>Leave scope, length, or time parameters unstated</div>
+        <div class="dd-item"><span class="icon">✗</span>Score responses without a rubric (impressionistic marking)</div>
+        <div class="dd-item"><span class="icon">✗</span>Set prompts that only require recall or summarization</div>
+        <div class="dd-item"><span class="icon">✗</span>Use topics that systematically disadvantage some students</div>
+        <div class="dd-item"><span class="icon">✗</span>Finalize a prompt you cannot write a rubric for</div>
+        <div class="dd-item"><span class="icon">✗</span>Omit the rubric from the Assessment Instrument Register</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     3. FILL-IN-THE-BLANK
+════════════════════════════════════════════════════════════ -->
+<div class="type-section page-break">
+  <div class="type-banner purple">
+    <h2>3. Fill-in-the-Blank / Completion Questions</h2>
+    <p>Assess factual recall, precise terminology, and specific knowledge</p>
+    <div class="type-tags">
+      <span class="type-tag">Recall Assessment</span>
+      <span class="type-tag">Blank Placement</span>
+      <span class="type-tag">Answer Key Design</span>
+      <span class="type-tag">Examples</span>
+      <span class="type-tag">Do's &amp; Don'ts</span>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="overview-text">
+      Fill-in-the-blank items are efficient tools for assessing precise recall of facts, terminology, formulas, and specific concepts. Because students must produce the answer rather than recognize it, these items are more demanding than true/false or matching and less susceptible to guessing. The key challenge is writing statements that have one — and only one — clearly correct answer, without unintentionally giving away the answer through grammar or context.
+    </div>
+
+    <div class="sub-header purple" style="margin-bottom:4px;"><h3>Step-by-Step Process</h3></div>
+    <div class="steps-grid no-break">
+      <div class="step-row"><div class="step-num c1">1</div><div class="step-content"><div class="step-title">Identify Target Knowledge</div><div class="step-desc">Select only facts, terms, formulas, or concepts that are central to the learning outcome and worth students recalling precisely. Avoid trivial details mentioned only in passing.</div><div class="step-tip">Ask: "Is precise recall of this specific term a meaningful indicator of competence?" If not, choose a different item type.</div></div></div>
+      <div class="step-row"><div class="step-num c2">2</div><div class="step-content"><div class="step-title">Construct the Statement</div><div class="step-desc">Write a complete, meaningful sentence with one or two blanks placed at or near the end — not at the beginning. Blanks at the start require students to hold the whole sentence in memory. Limit to one blank per sentence; two blanks dramatically increase ambiguity.</div><div class="step-tip">Read the statement aloud without the answer. If it sounds natural with an obvious gap, it is well-written.</div></div></div>
+      <div class="step-row"><div class="step-num c3">3</div><div class="step-content"><div class="step-title">Avoid Grammatical Giveaways</div><div class="step-desc">Articles (a vs. an), verb agreement, and plural forms can unintentionally signal the correct answer. Review each statement to ensure grammar does not narrow the possible answers.</div><div class="step-tip">Replace a/an before a blank with "a/an (as appropriate)" or restructure the sentence to remove the clue.</div></div></div>
+      <div class="step-row"><div class="step-num c4">4</div><div class="step-content"><div class="step-title">Define the Expected Answer Precisely</div><div class="step-desc">Before finalizing, write out every acceptable correct answer — including synonyms, abbreviations, alternate spellings, and equivalent forms. If the list becomes too long, the item is too ambiguous and should be revised.</div><div class="step-tip">If you find yourself accepting three or more substantially different answers, the blank probably doesn't narrow the answer enough.</div></div></div>
+      <div class="step-row"><div class="step-num c5">5</div><div class="step-content"><div class="step-title">Review Readability and Context</div><div class="step-desc">Ensure the remaining context clearly points to the missing information. If a student who knows the content might still be unsure what type of answer is expected, add a cue in parentheses, e.g., "(in years)" or "(specific term)".</div></div></div>
+      <div class="step-row"><div class="step-num c6">6</div><div class="step-content"><div class="step-title">Record in Item Bank</div><div class="step-desc">Store in the Item Bank with: the complete answer key (including all acceptable variations), the learning outcome, and competence type tagged as "Knowledge-based." Note any acceptable abbreviations or alternative phrasings.</div></div></div>
+    </div>
+
+    <div class="gap-md"></div>
+    <div class="sub-header purple" style="margin-bottom:6px;"><h3>Fill-in-the-Blank — Poor vs. Improved Example</h3></div>
+    <div class="example-pair no-break">
+      <div>
+        <div class="ex-label bad">✗ POOR ITEM</div>
+        <div class="ex-body bad">
+          <div class="ex-stem">__________ discovered penicillin.</div>
+          <div class="ex-opts">(Blank at beginning; lacks context; grammar ambiguous)</div>
+          <div class="ex-note">Issues: Blank at start, lacks context, grammatically ambiguous, could accept many names or phrases.</div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-label good">✓ IMPROVED ITEM</div>
+        <div class="ex-body good">
+          <div class="ex-stem">Penicillin was discovered in 1928 by __________ (scientist's surname).</div>
+          <div class="ex-opts">(Blank at end; context provided; parenthetical cue added)</div>
+          <div class="ex-note">Improved: Blank at end, meaningful context, parenthetical cue narrows expected answer format. Answer: Fleming.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-header purple" style="margin-bottom:6px;"><h3>Fill-in-the-Blank Design Checklist</h3></div>
+    <table class="check-table purple no-break">
+      <thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead>
+      <tbody>
+        <tr><td>Blank Position</td><td>Place blank at or near the end of the sentence</td><td>Blank at the beginning of the sentence</td></tr>
+        <tr><td>Number of Blanks</td><td>One blank per sentence preferred</td><td>Two or more blanks in a single item</td></tr>
+        <tr><td>Grammar</td><td>Neutral articles; no grammatical clues</td><td>a/an or verb form revealing the answer type</td></tr>
+        <tr><td>Answer Key</td><td>List all acceptable forms before finalizing</td><td>Accepting too many variations (item too vague)</td></tr>
+        <tr><td>Context</td><td>Remaining text clearly points to the gap</td><td>Statements that work for multiple answers</td></tr>
+        <tr><td>Alignment</td><td>Targets central, meaningful knowledge</td><td>Testing trivial details from a single mention</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sub-header amber" style="margin-bottom:6px;"><h3>Fill-in-the-Blank Do's and Don'ts</h3></div>
+    <div class="dos-donts no-break">
+      <div class="dd-col do">
+        <div class="dd-header do">✓ DO</div>
+        <div class="dd-item"><span class="icon">✓</span>Place blanks at or near the end of sentences</div>
+        <div class="dd-item"><span class="icon">✓</span>Use one blank per sentence where possible</div>
+        <div class="dd-item"><span class="icon">✓</span>Write all acceptable answer variations before finalizing</div>
+        <div class="dd-item"><span class="icon">✓</span>Add a parenthetical cue when the answer type is unclear</div>
+        <div class="dd-item"><span class="icon">✓</span>Test only central, meaningful knowledge</div>
+        <div class="dd-item"><span class="icon">✓</span>Review grammar to remove unintentional answer clues</div>
+        <div class="dd-item"><span class="icon">✓</span>Store item with full answer key and all acceptable variants</div>
+      </div>
+      <div class="dd-col dont">
+        <div class="dd-header dont">✗ DON'T</div>
+        <div class="dd-item"><span class="icon">✗</span>Place blanks at the beginning of sentences</div>
+        <div class="dd-item"><span class="icon">✗</span>Include two or more blanks in a single sentence</div>
+        <div class="dd-item"><span class="icon">✗</span>Use a/an immediately before a blank</div>
+        <div class="dd-item"><span class="icon">✗</span>Accept so many variants that the item becomes unclear</div>
+        <div class="dd-item"><span class="icon">✗</span>Test trivial or incidental details</div>
+        <div class="dd-item"><span class="icon">✗</span>Allow grammar to signal whether the answer is singular/plural</div>
+        <div class="dd-item"><span class="icon">✗</span>Finalize without checking for grammatical giveaways</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     4. SHORT ANSWER
+════════════════════════════════════════════════════════════ -->
+<div class="type-section page-break">
+  <div class="type-banner amber">
+    <h2>4. Identification / Short Answer Questions</h2>
+    <p>Assess understanding, reasoning, and focused recall in the student's own words</p>
+    <div class="type-tags">
+      <span class="type-tag">Focused Recall</span>
+      <span class="type-tag">Answer Key Design</span>
+      <span class="type-tag">Format Clarity</span>
+      <span class="type-tag">Examples</span>
+      <span class="type-tag">Do's &amp; Don'ts</span>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="overview-text">
+      Short answer and identification questions occupy a productive middle ground — more cognitively demanding than MCQ (no provided choices) while more focused and scorable than full essays. They require students to produce a response in their own words: a phrase, a definition, a brief explanation. The key to success is precision: in wording, in format expectations, and in the answer key.
+    </div>
+
+    <div class="sub-header amber" style="margin-bottom:4px;"><h3>Step-by-Step Process</h3></div>
+    <div class="steps-grid no-break">
+      <div class="step-row"><div class="step-num c1">1</div><div class="step-content"><div class="step-title">Define the Competence Level</div><div class="step-desc">Identify whether the item targets recall (name, list, define), comprehension (explain, describe, summarize), or application/analysis (apply, distinguish, explain why). The level determines the verb and scoring criteria.</div><div class="step-tip">Match your verb to Bloom's: Define/List/Name (Knowledge) → Explain/Describe (Comprehension) → Apply/Distinguish (Higher order).</div></div></div>
+      <div class="step-row"><div class="step-num c2">2</div><div class="step-content"><div class="step-title">Draft the Question Prompt</div><div class="step-desc">Use precise, direct directive verbs: Define, List, Name, Identify, Explain, Describe, State, Calculate. Avoid vague verbs like "discuss" or "talk about." The prompt should make the expected task unambiguous.</div><div class="step-tip">Write your own model answer first. If you find yourself uncertain what to include, the prompt needs to be more specific.</div></div></div>
+      <div class="step-row"><div class="step-num c3">3</div><div class="step-content"><div class="step-title">Specify the Expected Response Format</div><div class="step-desc">Explicitly state how much to write: "in one sentence," "in 2–3 sentences," "list three items," "in no more than 50 words." Without format guidance, responses range wildly, making consistent scoring nearly impossible.</div><div class="step-tip">Include format guidance in the question itself, not just in general instructions at the top of the test.</div></div></div>
+      <div class="step-row"><div class="step-num c4">4</div><div class="step-content"><div class="step-title">Develop a Detailed Answer Key</div><div class="step-desc">Write out a full model response before finalizing the item. Identify: the minimum acceptable response, acceptable alternate phrasings, and what partial credit looks like (if applicable). The key should be detailed enough for any marker to apply consistently.</div><div class="step-tip">If two markers applying the same key would award substantially different marks, the key needs more detail.</div></div></div>
+      <div class="step-row"><div class="step-num c5">5</div><div class="step-content"><div class="step-title">Review for Accuracy, Fairness, and Cognitive Demand</div><div class="step-desc">Confirm the item is factually accurate, unambiguous, and fair to all students. Check that it genuinely requires the cognitive level intended — not just recall in disguise. Have a peer review before finalizing.</div></div></div>
+      <div class="step-row"><div class="step-num c6">6</div><div class="step-content"><div class="step-title">Record and Archive</div><div class="step-desc">Include the final version in the Item Bank with: the model answer, acceptable variations, partial credit criteria (if used), learning outcome, and cognitive level. This supports consistent re-use and moderation.</div></div></div>
+    </div>
+
+    <div class="gap-md"></div>
+    <div class="sub-header amber" style="margin-bottom:6px;"><h3>Short Answer — Poor vs. Improved Example</h3></div>
+    <div class="example-pair no-break">
+      <div>
+        <div class="ex-label bad">✗ POOR ITEM</div>
+        <div class="ex-body bad">
+          <div class="ex-stem">Talk about photosynthesis.</div>
+          <div class="ex-opts">(No format, no scope, no directive verb)</div>
+          <div class="ex-note">Issues: "Talk about" is too vague — students cannot know if they should define, explain, or evaluate. No format or length guidance given.</div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-label good">✓ IMPROVED ITEM</div>
+        <div class="ex-body good">
+          <div class="ex-stem">Explain the two main stages of photosynthesis and identify where in the plant cell each stage occurs. (2–4 sentences)</div>
+          <div class="ex-opts">(Clear directive verb, specific scope, format stated)</div>
+          <div class="ex-note">Improved: Directive verb (Explain/Identify), specific scope (two stages + location), format stated (2–4 sentences).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-header amber" style="margin-bottom:6px;"><h3>Short Answer Design Checklist</h3></div>
+    <table class="check-table amber no-break">
+      <thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead>
+      <tbody>
+        <tr><td>Directive Verb</td><td>Precise: Define, List, Explain, Identify</td><td>Vague: "talk about," "write about," "discuss"</td></tr>
+        <tr><td>Scope</td><td>Specify exactly what content to address</td><td>Open-ended scope that allows any response</td></tr>
+        <tr><td>Format</td><td>State required length or format explicitly</td><td>Leaving response length or format unstated</td></tr>
+        <tr><td>Answer Key</td><td>Write model answer before finalizing the item</td><td>Vague key that markers apply inconsistently</td></tr>
+        <tr><td>Cognitive Level</td><td>Confirm the item demands the intended level</td><td>Recall questions disguised as higher-order items</td></tr>
+        <tr><td>Alignment</td><td>Maps to a specific learning outcome</td><td>Items that test content never covered in class</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sub-header amber" style="margin-bottom:6px;"><h3>Short Answer Do's and Don'ts</h3></div>
+    <div class="dos-donts no-break">
+      <div class="dd-col do">
+        <div class="dd-header do">✓ DO</div>
+        <div class="dd-item"><span class="icon">✓</span>Use precise directive verbs (Define, List, Explain, Identify)</div>
+        <div class="dd-item"><span class="icon">✓</span>Specify the expected format and length in the question</div>
+        <div class="dd-item"><span class="icon">✓</span>Write a model answer before finalizing the item</div>
+        <div class="dd-item"><span class="icon">✓</span>Develop an answer key detailed enough for any marker</div>
+        <div class="dd-item"><span class="icon">✓</span>Include partial credit criteria if partial marks will be awarded</div>
+        <div class="dd-item"><span class="icon">✓</span>Confirm the item targets the intended cognitive level</div>
+        <div class="dd-item"><span class="icon">✓</span>Archive with model answer and competence level tagged</div>
+      </div>
+      <div class="dd-col dont">
+        <div class="dd-header dont">✗ DON'T</div>
+        <div class="dd-item"><span class="icon">✗</span>Use vague verbs like "discuss" or "write about"</div>
+        <div class="dd-item"><span class="icon">✗</span>Leave response length or format unspecified</div>
+        <div class="dd-item"><span class="icon">✗</span>Finalize before writing the model answer</div>
+        <div class="dd-item"><span class="icon">✗</span>Allow markers to interpret the key subjectively</div>
+        <div class="dd-item"><span class="icon">✗</span>Write prompts that only require memorized recall when higher order is intended</div>
+        <div class="dd-item"><span class="icon">✗</span>Test content that was not meaningfully taught or practiced</div>
+        <div class="dd-item"><span class="icon">✗</span>Store without a detailed answer key and outcome mapping</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     5. TRUE OR FALSE
+════════════════════════════════════════════════════════════ -->
+<div class="type-section page-break">
+  <div class="type-banner red">
+    <h2>5. True or False Questions</h2>
+    <p>Assess essential factual knowledge and conceptual understanding quickly</p>
+    <div class="type-tags">
+      <span class="type-tag">Single-Idea Focus</span>
+      <span class="type-tag">Absolute Accuracy</span>
+      <span class="type-tag">Language Review</span>
+      <span class="type-tag">Examples</span>
+      <span class="type-tag">Do's &amp; Don'ts</span>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="overview-text">
+      True/false items are the most efficient format for assessing large amounts of factual content quickly. Their primary weakness is a 50% guessing probability, so they should be used in clusters of 10 or more and always paired with a rationale requirement when higher cognitive demand is desired. The defining challenge is writing statements that are unambiguously and entirely true or entirely false.
+    </div>
+
+    <div class="sub-header red" style="margin-bottom:4px;"><h3>Step-by-Step Process</h3></div>
+    <div class="steps-grid no-break">
+      <div class="step-row"><div class="step-num c1">1</div><div class="step-content"><div class="step-title">Identify the Learning Point</div><div class="step-desc">Focus on a single, important concept, fact, or principle students should know precisely. True/false items are not suited to nuanced topics where context changes the answer. Reserve them for clear-cut, well-established content.</div><div class="step-tip">Ask: "Is this statement unambiguously true or false regardless of context?" If it depends on assumptions, choose a different item type.</div></div></div>
+      <div class="step-row"><div class="step-num c2">2</div><div class="step-content"><div class="step-title">Construct the Statement</div><div class="step-desc">Write a single concise, factual sentence in clear, plain language. Each statement should contain exactly one idea — never combine two separate facts, as a student may agree with one and not the other, creating genuine ambiguity.</div><div class="step-tip">Read the statement to someone unfamiliar with the content. If they ask a clarifying question, revise the statement.</div></div></div>
+      <div class="step-row"><div class="step-num c3">3</div><div class="step-content"><div class="step-title">Ensure the Statement Is 100% True or 100% False</div><div class="step-desc">Partial truths are the most common flaw in true/false items. A statement that is "mostly true" or "true under certain conditions" is not acceptable. If you find yourself writing qualifications or exceptions, the content is too nuanced for this format.</div><div class="step-tip">Have a subject matter expert review the statement. If they hesitate or add "well, it depends," revise the item.</div></div></div>
+      <div class="step-row"><div class="step-num c4">4</div><div class="step-content"><div class="step-title">Avoid Negatives and Double Negatives</div><div class="step-desc">Negative constructions slow reading, increase confusion, and often produce unintended ambiguity. Avoid "not," "except," and especially double negatives. If a negative is genuinely necessary, bold or underline the negative word.</div></div></div>
+      <div class="step-row"><div class="step-num c5">5</div><div class="step-content"><div class="step-title">Avoid Absolute Qualifiers and Multi-Idea Statements</div><div class="step-desc">Words like always, never, all, only, and none make statements almost always false — students learn to exploit this. Steer toward direct factual claims without universal qualifiers.</div></div></div>
+      <div class="step-row"><div class="step-num c6">6</div><div class="step-content"><div class="step-title">Validate, Approve, and Record</div><div class="step-desc">Peer review for factual accuracy, clarity, and absence of language bias. Use true and false items in roughly equal proportions to prevent pattern-guessing. Record in the Item Bank with the answer key and competence dimension (typically Knowledge).</div><div class="step-tip">Aim for a roughly equal split of true and false items across the full set to reduce guessing strategies.</div></div></div>
+    </div>
+
+    <div class="gap-md"></div>
+    <div class="sub-header red" style="margin-bottom:6px;"><h3>True/False — Poor vs. Improved Example</h3></div>
+    <div class="example-pair no-break">
+      <div>
+        <div class="ex-label bad">✗ POOR STATEMENT</div>
+        <div class="ex-body bad">
+          <div class="ex-stem">Plants always absorb water through their roots and never obtain it from any other source.</div>
+          <div class="ex-opts">True &nbsp;/&nbsp; False</div>
+          <div class="ex-note">Issues: Two absolute claims ("always," "never"), combines two ideas, entirely false due to overstatement. Students can guess False without knowing the content.</div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-label good">✓ IMPROVED STATEMENT</div>
+        <div class="ex-body good">
+          <div class="ex-stem">The majority of a land plant's water uptake occurs through the root system.</div>
+          <div class="ex-opts">True &nbsp;/&nbsp; False &nbsp; (Answer: True)</div>
+          <div class="ex-note">Improved: Single idea, qualified language ("majority"), factually accurate as True, cannot be guessed from absolute qualifiers.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-header red" style="margin-bottom:6px;"><h3>True/False Design Checklist</h3></div>
+    <table class="check-table red no-break">
+      <thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead>
+      <tbody>
+        <tr><td>Single Idea</td><td>One fact or concept per statement</td><td>Combining two separate ideas in one item</td></tr>
+        <tr><td>Accuracy</td><td>Statement is 100% true or 100% false</td><td>Partial truths or context-dependent statements</td></tr>
+        <tr><td>Language</td><td>Plain, direct, no negatives</td><td>Double negatives or "not" constructions</td></tr>
+        <tr><td>Qualifiers</td><td>Avoid always/never/all/none/only</td><td>Absolute terms that signal False to test-wise students</td></tr>
+        <tr><td>Balance</td><td>Roughly equal true and false items in the set</td><td>Heavy imbalance enabling pattern-guessing</td></tr>
+        <tr><td>Cognitive Level</td><td>Targets knowledge of key content</td><td>Trivial details or trick wording</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sub-header amber" style="margin-bottom:6px;"><h3>True/False Do's and Don'ts</h3></div>
+    <div class="dos-donts no-break">
+      <div class="dd-col do">
+        <div class="dd-header do">✓ DO</div>
+        <div class="dd-item"><span class="icon">✓</span>Focus each statement on one single, clear idea</div>
+        <div class="dd-item"><span class="icon">✓</span>Ensure the statement is unambiguously 100% true or false</div>
+        <div class="dd-item"><span class="icon">✓</span>Use plain, direct language without negatives</div>
+        <div class="dd-item"><span class="icon">✓</span>Balance true and false items roughly equally across the set</div>
+        <div class="dd-item"><span class="icon">✓</span>Target essential, meaningful knowledge (not trivial details)</div>
+        <div class="dd-item"><span class="icon">✓</span>Have a subject matter expert verify factual accuracy</div>
+        <div class="dd-item"><span class="icon">✓</span>Use in clusters of 10+ for adequate reliability</div>
+      </div>
+      <div class="dd-col dont">
+        <div class="dd-header dont">✗ DON'T</div>
+        <div class="dd-item"><span class="icon">✗</span>Combine two ideas or facts in a single statement</div>
+        <div class="dd-item"><span class="icon">✗</span>Write statements that are only partially true</div>
+        <div class="dd-item"><span class="icon">✗</span>Use double negatives or "not" constructions</div>
+        <div class="dd-item"><span class="icon">✗</span>Use absolute terms: always, never, all, none, only</div>
+        <div class="dd-item"><span class="icon">✗</span>Test obscure details barely mentioned in instruction</div>
+        <div class="dd-item"><span class="icon">✗</span>Allow a heavy imbalance of true vs. false items</div>
+        <div class="dd-item"><span class="icon">✗</span>Rely on true/false alone for high-stakes summative assessment</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     6. MATCHING
+════════════════════════════════════════════════════════════ -->
+<div class="type-section page-break">
+  <div class="type-banner green">
+    <h2>6. Matching Questions</h2>
+    <p>Assess ability to recognize relationships between concepts, terms, and definitions</p>
+    <div class="type-tags">
+      <span class="type-tag">Relationship Testing</span>
+      <span class="type-tag">List Construction</span>
+      <span class="type-tag">Layout Design</span>
+      <span class="type-tag">Examples</span>
+      <span class="type-tag">Do's &amp; Don'ts</span>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="overview-text">
+      Matching items efficiently test whether students can identify correct relationships between two sets of related content — such as terms and definitions, causes and effects, or concepts and examples. They are space-efficient, reduce guessing better than true/false, and are easy to administer. The key design challenges are ensuring all items in each column are homogeneous, that correct matches are unambiguous, and that dummy responses prevent elimination by process of elimination.
+    </div>
+
+    <div class="sub-header green" style="margin-bottom:4px;"><h3>Step-by-Step Process</h3></div>
+    <div class="steps-grid no-break">
+      <div class="step-row"><div class="step-num c1">1</div><div class="step-content"><div class="step-title">Define the Relationship Type</div><div class="step-desc">Clearly identify what type of relationship students will match: term ↔ definition, cause ↔ effect, event ↔ date, concept ↔ example. The relationship type must be consistent across all pairs — do not mix different relationship types in one exercise.</div><div class="step-tip">State the relationship explicitly in the instructions: "Match each term in Column A with its correct definition in Column B."</div></div></div>
+      <div class="step-row"><div class="step-num c2">2</div><div class="step-content"><div class="step-title">Prepare Homogeneous, Parallel Lists</div><div class="step-desc">Develop 6–10 pairs. All items in Column A (stems) should belong to the same category, and all items in Column B (responses) should belong to the same category. Mixing categories makes the correct matches too obvious.</div><div class="step-tip">Read all Column A items together — they should feel like members of the same set. Do the same for Column B. If they don't, revise for homogeneity.</div></div></div>
+      <div class="step-row"><div class="step-num c3">3</div><div class="step-content"><div class="step-title">Add Dummy Responses</div><div class="step-desc">Include 1–2 extra responses in Column B that have no correct match in Column A. This prevents students from using process of elimination for the final answer without actually knowing it. Dummy responses should be as plausible as the correct responses.</div></div></div>
+      <div class="step-row"><div class="step-num c4">4</div><div class="step-content"><div class="step-title">Write Clear, Unambiguous Instructions</div><div class="step-desc">State explicitly: (a) what relationship to match, (b) whether each response can be used more than once or only once, and (c) how to record the answer. Ambiguous instructions are a common source of avoidable student error.</div></div></div>
+      <div class="step-row"><div class="step-num c5">5</div><div class="step-content"><div class="step-title">Organize the Layout Thoughtfully</div><div class="step-desc">Place longer text (definitions, descriptions) in Column A (left) and shorter text (terms, names, dates) in Column B (right). Arrange Column B responses in logical order — alphabetical, numerical, or chronological — to speed up scanning.</div></div></div>
+      <div class="step-row"><div class="step-num c6">6</div><div class="step-content"><div class="step-title">Review for Plausibility and Validate</div><div class="step-desc">Ensure that no unintended clues link a stem to its response (grammar, repeated keywords, length matching). All responses should be plausible for at least some stems. Submit the finalized set to the Item Bank for inclusion in the approved question pool.</div><div class="step-tip">Swap the columns and re-read. If any match becomes obvious from surface features rather than knowledge, revise.</div></div></div>
+    </div>
+
+    <div class="gap-md"></div>
+    <div class="sub-header green" style="margin-bottom:6px;"><h3>Matching — Poor vs. Improved Example</h3></div>
+    <div class="example-pair no-break">
+      <div>
+        <div class="ex-label bad">✗ POOR MATCHING SET</div>
+        <div class="ex-body bad">
+          <div class="ex-stem">Column A: 1. Mitosis &nbsp; 2. Napoleon &nbsp; 3. H₂O &nbsp; 4. Renaissance</div>
+          <div class="ex-opts">Column B: A. Water &nbsp; B. French general &nbsp; C. Cell division &nbsp; D. Art movement</div>
+          <div class="ex-note">Issues: Mixed categories (biology, history, chemistry, art history) make correct matches obvious without content knowledge.</div>
+        </div>
+      </div>
+      <div>
+        <div class="ex-label good">✓ IMPROVED MATCHING SET</div>
+        <div class="ex-body good">
+          <div class="ex-stem">Column A (Cell Processes): 1. Mitosis &nbsp; 2. Meiosis &nbsp; 3. Apoptosis &nbsp; 4. Cytokinesis</div>
+          <div class="ex-opts">Column B (Definitions): A. Division of cytoplasm &nbsp; B. Programmed cell death &nbsp; C. Produces genetically identical cells &nbsp; D. Produces gametes &nbsp; E. ★ Protein synthesis (dummy)</div>
+          <div class="ex-note">Improved: Homogeneous category, parallel definitions, one dummy response (E) prevents elimination guessing.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-header green" style="margin-bottom:6px;"><h3>Matching Design Checklist</h3></div>
+    <table class="check-table green no-break">
+      <thead><tr><td>Element</td><td>Key Principle</td><td>Common Pitfall to Avoid</td></tr></thead>
+      <tbody>
+        <tr><td>Relationship</td><td>One consistent relationship type throughout</td><td>Mixing different relationship types in one set</td></tr>
+        <tr><td>Homogeneity</td><td>All Column A and B items from same category</td><td>Mixed categories that make matches obvious</td></tr>
+        <tr><td>Dummy Responses</td><td>1–2 plausible extra responses in Column B</td><td>No extras — enables process-of-elimination guessing</td></tr>
+        <tr><td>Instructions</td><td>State relationship, reuse rules, and answer format</td><td>Ambiguous instructions causing avoidable errors</td></tr>
+        <tr><td>Layout</td><td>Longer text left (A), shorter right (B); B in order</td><td>Responses in random or illogical order</td></tr>
+        <tr><td>Plausibility</td><td>All responses plausible for multiple stems</td><td>Surface clues (grammar, length) giving away matches</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sub-header amber" style="margin-bottom:6px;"><h3>Matching Do's and Don'ts</h3></div>
+    <div class="dos-donts no-break">
+      <div class="dd-col do">
+        <div class="dd-header do">✓ DO</div>
+        <div class="dd-item"><span class="icon">✓</span>Use one consistent relationship type throughout the set</div>
+        <div class="dd-item"><span class="icon">✓</span>Keep all items in each column from the same category</div>
+        <div class="dd-item"><span class="icon">✓</span>Add 1–2 plausible dummy responses to Column B</div>
+        <div class="dd-item"><span class="icon">✓</span>State clearly whether responses can be used more than once</div>
+        <div class="dd-item"><span class="icon">✓</span>Place longer text in Column A and shorter text in Column B</div>
+        <div class="dd-item"><span class="icon">✓</span>Arrange Column B in alphabetical, numerical, or logical order</div>
+        <div class="dd-item"><span class="icon">✓</span>Validate and submit to the Item Bank with answer key</div>
+      </div>
+      <div class="dd-col dont">
+        <div class="dd-header dont">✗ DON'T</div>
+        <div class="dd-item"><span class="icon">✗</span>Mix different relationship types in one set</div>
+        <div class="dd-item"><span class="icon">✗</span>Use mixed categories that make correct matches obvious</div>
+        <div class="dd-item"><span class="icon">✗</span>Omit dummy responses from Column B</div>
+        <div class="dd-item"><span class="icon">✗</span>Leave instructions ambiguous about reuse of responses</div>
+        <div class="dd-item"><span class="icon">✗</span>Allow grammatical or length clues to signal correct matches</div>
+        <div class="dd-item"><span class="icon">✗</span>Use fewer than 6 pairs (too susceptible to elimination)</div>
+        <div class="dd-item"><span class="icon">✗</span>Omit the answer key from the archived item record</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     PART 2 — ITEM SELECTION
+════════════════════════════════════════════════════════════ -->
+<div class="part-divider teal page-break">Part 2 &nbsp;·&nbsp; Guidelines for Selecting Assessment Item Types</div>
+<div class="section-body alt" style="padding:14px 40px 0;">
+  <p style="font-size:9.5pt;color:#2A4050;line-height:1.7;padding-bottom:14px;">Choosing the appropriate assessment item type is as important as writing the item well. The decision should be guided by the cognitive level being assessed, the nature of the content, logistical constraints, and the overall purpose of the assessment. Best practice is to use a <strong>balanced mix of item types</strong> — guided by a test blueprint — to ensure both validity and reliability.</p>
+</div>
+
+<div class="section-body" style="padding-top:14px;">
+  <div class="sub-header navy" style="margin-bottom:4px;"><h3>Key Factors in Selecting Item Types</h3></div>
+
+  <!-- Factor 1 -->
+  <div class="factor-row no-break">
+    <div class="factor-num" style="background:var(--navy);">1</div>
+    <div class="factor-title-bar" style="background:var(--navy);">Learning Objective / Competency Level (Bloom's Taxonomy)</div>
+  </div>
+  <div class="factor-body" style="background:var(--sky);">
+    <div class="factor-intro">The most important factor. Match the item type to the cognitive level being assessed:</div>
+    <div class="factor-bullet"><strong>Knowledge / Recall</strong> — True/False, Fill-in-the-Blank, Matching</div>
+    <div class="factor-bullet"><strong>Comprehension / Understanding</strong> — MCQ, Short Answer</div>
+    <div class="factor-bullet"><strong>Application</strong> — Scenario-based MCQ, Short Answer</div>
+    <div class="factor-bullet"><strong>Analysis / Evaluation / Synthesis</strong> — Essay, Extended Response, Case Studies</div>
+  </div>
+
+  <!-- Factor 2 -->
+  <div class="factor-row no-break">
+    <div class="factor-num" style="background:var(--teal);">2</div>
+    <div class="factor-title-bar" style="background:var(--teal);">Nature of the Content</div>
+  </div>
+  <div class="factor-body" style="background:var(--mist);">
+    <div class="factor-intro">Align the item format with what the content requires learners to do:</div>
+    <div class="factor-bullet"><strong>Factual, discrete content</strong> (dates, definitions, terms) — Matching, Fill-in-the-Blank, True/False</div>
+    <div class="factor-bullet"><strong>Conceptual understanding</strong> — MCQ</div>
+    <div class="factor-bullet"><strong>Relationships between ideas</strong> — Matching</div>
+    <div class="factor-bullet"><strong>Complex reasoning or argumentation</strong> — Essay</div>
+  </div>
+
+  <!-- Factor 3 -->
+  <div class="factor-row no-break">
+    <div class="factor-num" style="background:var(--purple);">3</div>
+    <div class="factor-title-bar" style="background:var(--purple);">Number of Examinees / Scoring Efficiency</div>
+  </div>
+  <div class="factor-body" style="background:var(--sky);">
+    <div class="factor-intro">Consider the scale of administration and available marking resources:</div>
+    <div class="factor-bullet"><strong>Large groups</strong> — Objective items (MCQ, T/F, Matching) for fast, consistent scoring</div>
+    <div class="factor-bullet"><strong>Small groups or individual</strong> — Subjective items (Essay, Short Answer) are more feasible</div>
+  </div>
+
+  <!-- Factor 4 -->
+  <div class="factor-row no-break">
+    <div class="factor-num" style="background:var(--red);">4</div>
+    <div class="factor-title-bar" style="background:var(--red);">Time Constraints</div>
+  </div>
+  <div class="factor-body" style="background:var(--mist);">
+    <div class="factor-intro">Available time affects how many and which types of items to include:</div>
+    <div class="factor-bullet"><strong>Limited time</strong> — Objective items allow broader content coverage per minute</div>
+    <div class="factor-bullet"><strong>Sufficient time</strong> — Essay and performance tasks enable deeper, more authentic assessment</div>
+  </div>
+
+  <!-- Factor 5 -->
+  <div class="factor-row no-break">
+    <div class="factor-num" style="background:var(--green);">5</div>
+    <div class="factor-title-bar" style="background:var(--green);">Reliability vs. Validity Trade-off</div>
+  </div>
+  <div class="factor-body" style="background:var(--sky);">
+    <div class="factor-intro">Every assessment design involves balancing these two measurement properties:</div>
+    <div class="factor-bullet"><strong>Objective items</strong> — Higher reliability (consistent scoring), but may sacrifice construct validity for complex skills</div>
+    <div class="factor-bullet"><strong>Subjective items</strong> — Higher validity for real-world competencies, but require rubrics to ensure reliability</div>
+  </div>
+
+  <!-- Factor 6 -->
+  <div class="factor-row no-break">
+    <div class="factor-num" style="background:var(--amber);">6</div>
+    <div class="factor-title-bar" style="background:var(--amber);">Purpose of Assessment</div>
+  </div>
+  <div class="factor-body" style="background:var(--mist);">
+    <div class="factor-intro">The intended use of results should shape item selection:</div>
+    <div class="factor-bullet"><strong>Formative (ongoing checks)</strong> — Short Answer, T/F, Fill-in-the-Blank</div>
+    <div class="factor-bullet"><strong>Summative (end-of-unit/course)</strong> — Mixed item sets (MCQ + Essay) or performance tasks</div>
+    <div class="factor-bullet"><strong>Diagnostic</strong> — MCQ with targeted distractors, Short Answer</div>
+  </div>
+
+  <!-- Factor 7 -->
+  <div class="factor-row no-break">
+    <div class="factor-num" style="background:var(--blue);">7</div>
+    <div class="factor-title-bar" style="background:var(--blue);">Mixing Item Types (Test Blueprints)</div>
+  </div>
+  <div class="factor-body" style="background:var(--sky);">
+    <div class="factor-intro">Best practice is to use a combination of item types in a single assessment to:</div>
+    <div class="factor-bullet">Cover <strong>different cognitive levels</strong> across Bloom's Taxonomy</div>
+    <div class="factor-bullet">Accommodate <strong>different learner strengths</strong> and expression styles</div>
+    <div class="factor-bullet">Improve <strong>content validity</strong> by representing the full curriculum scope</div>
+    <div class="factor-bullet">Balance <strong>scoring efficiency</strong> with depth of measurement</div>
+  </div>
+
+  <div class="gap-lg"></div>
+  <div class="sub-header teal" style="margin-bottom:8px;"><h3>Sample Test Blueprint — Recommended Item Mix</h3></div>
+  <table class="blueprint-table no-break">
+    <thead>
+      <tr>
+        <td>Item Type</td>
+        <td>% of Test</td>
+        <td>Cognitive Level(s)</td>
+        <td>Suggested Use</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Multiple Choice (MCQ)</td><td>40 – 50%</td><td>Knowledge → Application</td><td>Broad content coverage</td></tr>
+      <tr><td>Short Answer / Identification</td><td>20 – 25%</td><td>Comprehension → Analysis</td><td>Targeted recall and reasoning</td></tr>
+      <tr><td>Essay / Extended Response</td><td>20 – 30%</td><td>Analysis → Evaluation</td><td>Deep reasoning and argumentation</td></tr>
+      <tr><td>True/False or Matching</td><td>10 – 15%</td><td>Knowledge / Recall</td><td>Efficient screening of facts</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sub-header purple" style="margin-bottom:10px;"><h3>Quick Reference — When to Use Each Item Type</h3></div>
+  <div class="qr-grid no-break">
+    <div class="qr-card">
+      <div class="qr-label" style="background:var(--blue);">MCQ</div>
+      <div class="qr-body">Broad coverage · Efficient scoring · All cognitive levels</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label" style="background:var(--navy);">Essay</div>
+      <div class="qr-body">Higher-order thinking · Argumentation · Synthesis</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label" style="background:var(--teal);">Fill-in-Blank</div>
+      <div class="qr-body">Factual recall · Precise terminology · Knowledge</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label" style="background:var(--amber);">Short Answer</div>
+      <div class="qr-body">Focused recall · Reasoning in own words · Flexibility</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label" style="background:var(--red);">True / False</div>
+      <div class="qr-body">Quick screening · Essential facts · Knowledge check</div>
+    </div>
+    <div class="qr-card">
+      <div class="qr-label" style="background:var(--green);">Matching</div>
+      <div class="qr-body">Relationships · Terminology pairs · Recall efficiency</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-band">
+  <strong>Best Practice Reminder:</strong> No single item type can measure all learning outcomes. Design every assessment using a test blueprint, align items to outcomes, use a mix of types to ensure validity and reliability, and store all finalized items in the institutional Test Item Bank or Assessment Instrument Register with a review date attached.
+</div>
+
+</body>
+</html>
